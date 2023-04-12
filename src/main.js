@@ -13,7 +13,13 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
 /* add icons to the library */
+library.add(faChevronLeft)
+library.add(faChevronRight)
 library.add(faUserSecret,faRightToBracket,faUserPlus)
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
