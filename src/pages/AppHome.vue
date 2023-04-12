@@ -1,29 +1,29 @@
 <script>
+import AppCard from '../components/Main/AppCard.vue';
+
 export default {
-  name: 'AppHome',
+  name: "AppHome",
   data() {
-    return {
-
-    }
-  }
-
+    return {};
+  },
+  components: { AppCard }
 }
 </script>
 
 <template>
-  <section>
+  <section class="mb-5">
     <div class="container">
       <div class="row">
 
 
-        <div class="col-12 position-relative col-md-8 offset-md-4 mb-3">
-          <div class=" my-research p-5 position-absolute top-50 start-0 translate-middle shadow-lg">
+        <div class="col-12 position-relative col-xl-8 offset-xl-3 mb-3">
+          <div class=" my-research p-4 p-md-5 shadow-lg">
 
-            <h1>
+            <h3>
               Trova alloggi su BoolBNB
-            </h1>
+            </h3>
 
-            <p>
+            <p class="text-gray">
               Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
             </p>
 
@@ -36,11 +36,11 @@ export default {
             <div class="mb-3 d-flex justify-content-between">
               <div class="data">
                 <label for="exampleFormControlInput1" class="check-in">Check-in</label>
-                <input type="data" class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
               </div>
               <div class="data">
                 <label for="exampleFormControlInput1" class="check-out">Check-out</label>
-                <input type="data" class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
               </div>
             </div>
 
@@ -60,13 +60,70 @@ export default {
               Cerca
             </button>
           </div>
-          <div class="image-container ">
+          <div class="image-container d-none d-xl-block ">
             <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="">
           </div>
 
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="mb-4">
+            Viaggia in tutta tranquillità prenotando su BoolBNB
+          </h3>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-4 mb-3">
+            <h1>
+              <font-awesome-icon class="my-text-primary" :icon="['fas', 'shield']" />
+            </h1>
+            <h2>
+              Protezione con AirCover
+            </h2>
+            <p>
+              La copertura più completa per i tuoi viaggi. Sempre inclusa e gratuita.
+            </p>
+          </div>
+          <div class="col-12 col-lg-4 mb-3">
+            <h1>
+              <font-awesome-icon class="my-text-primary" :icon="['fas', 'calendar']" />
+            </h1>
+            <h2>
+              Opzione di cancellazione con termini flessibili
+            </h2>
+            <p>
+              Grazie alle opzioni di cancellazione, è più semplice riprenotare se i programmi cambiano
+            </p>
+          </div>
+          <div class="col-12 col-lg-4 mb-3">
+            <h1>
+              <font-awesome-icon class="my-text-primary" :icon="['fas', 'headset']" />
+            </h1>
+            <h2>
+              Assistenza clienti 24h su 24
+            </h2>
+            <p>
+              Contatta il nostro team di assistenza ovunque ti trovi e a qualsiasi ora
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <h2>
+          Appena prenotati in questa località
+        </h2>
       </div>
     </div>
   </section>
@@ -83,13 +140,18 @@ export default {
   color: $color_light;
 }
 
-p {
+.my-text-primary {
+  color: $color_primary;
+}
+
+.text-gray {
   color: lightgray;
 }
 
 .my-research {
   border-radius: 30px;
   background-color: $color_light;
+
 }
 
 .image-container {
@@ -101,4 +163,23 @@ p {
   }
 
 }
+
+@media screen and (min-width: 320px) {}
+
+@media screen and (min-width: 576px) {}
+
+@media screen and (min-width: 768px) {}
+
+@media screen and (min-width: 992px) {}
+
+@media screen and (min-width: 1200px) {
+  .my-research {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (min-width: 1400px) {}
 </style>
