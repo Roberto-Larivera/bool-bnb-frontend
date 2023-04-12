@@ -11,7 +11,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
 /* add icons to the library */
 library.add(faUserSecret)
+library.add(faChevronLeft)
+library.add(faChevronRight)
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
