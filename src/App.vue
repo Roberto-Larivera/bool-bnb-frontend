@@ -20,13 +20,13 @@ export default{
 <template>
   <div>
     <header>
-      <AppHeader/>
+        <AppHeader/>
     </header>
     <main>
-      <router-view></router-view>
+        <router-view></router-view>
     </main>
     <footer>
-      <AppFooter/>
+        <AppFooter/>
     </footer>
   </div>
 </template>
