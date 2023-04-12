@@ -33,4 +33,15 @@ export default{
 
 <style lang="scss">
 @import './style/main.scss';
+header{
+  height: 70px;
+
+  border-bottom: 2px solid $color_light_gray;
+}
+main{
+  min-height: calc(100vh - 120px);
+}
+footer{
+  height: 50px;
+}
 </style>

@@ -1,9 +1,6 @@
-- `npm install vue-router@4`
-- creare file `router.js`
-
-
 To do list:
-- Rob > check backend + layout NotFound, Header, Footer
+- Rob > check backend , Header, Footer
 - Manu > Apartment Show
 - Samu > Home
 - Franci > Index
+- Andre > + layout NotFound
