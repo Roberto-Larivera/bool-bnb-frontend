@@ -11,12 +11,12 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <ul class="d-flex">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col h-100">
+        <ul class=" h-100 d-flex align-items-center">
           <li>
-            <p class>
+            <p class="mb-0">
               &copy; 2023 BoolBnB
             </p>
           </li>
@@ -41,7 +41,6 @@ export default {
 ul {
   li {
     font-size: 0.9rem;
-    list-style-type: none;
     margin-right: 15px;
     span{
       color: $color_primary;
