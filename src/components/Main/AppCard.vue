@@ -48,28 +48,8 @@ export default {
 <style lang="scss" scoped>
 
     .card {
-        max-width: 18rem;
         padding: 0;
         border: none;
-
-        .images-wrapper {
-
-            position: relative;
-            left: 0;
-            top: 0;
-
-            .prev {
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                
-            }
-
-            .next {
-                position: absolute;
-                right: 5px;
-                top: 50%;  
-            }
 
             .card-img {
             max-width: 100%;
@@ -77,7 +57,7 @@ export default {
             object-fit: cover;
             border-radius: 5px;
         }
-        }
+    }
 
 
 
@@ -116,7 +96,5 @@ export default {
                 color: $color_light;
             }
         }
-
-    }
 </style>
   
