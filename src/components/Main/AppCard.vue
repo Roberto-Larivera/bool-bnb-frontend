@@ -6,31 +6,9 @@ export default {
     ],
     data() {
         return{
-            current: 0,
-            images: [
-                'https://picsum.photos/200/200',
-                'https://images.pexels.com/photos/127753/pexels-photo-127753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                'https://images.pexels.com/photos/290595/pexels-photo-290595.jpeg?auto=compress&cs=tinysrgb&w=800'
-            ]
         }
     },
     methods: {
-        nextImg: function () {
-            if (this.current == this.images.length - 1) {
-                this.current = 0;
-            } 
-            else {
-                this.current++;
-            }
-        },
-        prevImg: function () {
-            if (this.current == 0) {
-                this.current = this.images.length - 1;
-            } 
-            else {
-                this.current--;
-            }
-        }
     }
 }
 
@@ -70,28 +48,8 @@ export default {
 <style lang="scss" scoped>
 
     .card {
-        max-width: 18rem;
         padding: 0;
         border: none;
-
-        .images-wrapper {
-
-            position: relative;
-            left: 0;
-            top: 0;
-
-            .prev {
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                
-            }
-
-            .next {
-                position: absolute;
-                right: 5px;
-                top: 50%;  
-            }
 
             .card-img {
             max-width: 100%;
@@ -99,7 +57,7 @@ export default {
             object-fit: cover;
             border-radius: 5px;
         }
-        }
+    }
 
 
 
@@ -138,7 +96,5 @@ export default {
                 color: $color_light;
             }
         }
-
-    }
 </style>
   
