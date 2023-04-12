@@ -18,7 +18,7 @@ export default {
 <template>
     <div class="col" v-for="index in 8">
         <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-        <div>
+        <div class="card">
             <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
             <div class="card-body">
                 <h5 class="card-title">
@@ -49,6 +49,7 @@ export default {
 .card {
     padding: 0;
     border: none;
+    border-radius: 5px;
 
     .card-img {
         max-width: 100%;
