@@ -3,3 +3,7 @@
 
 // Import variables
 @import './partials/variables.scss';
+body{
+    scroll-behavior: smooth;
+    background-color: $color_light;
+}

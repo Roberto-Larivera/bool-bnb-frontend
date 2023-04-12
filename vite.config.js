@@ -10,6 +10,7 @@ export default defineConfig({
          additionalData: `
          @import "./src/style/partials/variables.scss";
          @import "./src/style/partials/mixin.scss";
+         @import "./src/style/partials/reset.scss";
          
          
          ` 
