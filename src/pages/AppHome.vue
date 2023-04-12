@@ -1,12 +1,12 @@
 <script>
+import AppCard from '../components/Main/AppCard.vue';
+
 export default {
-  name: 'AppHome',
+  name: "AppHome",
   data() {
-    return {
-
-    }
-  }
-
+    return {};
+  },
+  components: { AppCard }
 }
 </script>
 
@@ -36,11 +36,11 @@ export default {
             <div class="mb-3 d-flex justify-content-between">
               <div class="data">
                 <label for="exampleFormControlInput1" class="check-in">Check-in</label>
-                <input type="data" class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
               </div>
               <div class="data">
                 <label for="exampleFormControlInput1" class="check-out">Check-out</label>
-                <input type="data" class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
               </div>
             </div>
 
@@ -80,7 +80,7 @@ export default {
           </h3>
         </div>
         <div class="row">
-          <div class="col-12 col-lg-4">
+          <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'shield']" />
             </h1>
@@ -91,7 +91,7 @@ export default {
               La copertura più completa per i tuoi viaggi. Sempre inclusa e gratuita.
             </p>
           </div>
-          <div class="col-12 col-lg-4">
+          <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'calendar']" />
             </h1>
@@ -102,7 +102,7 @@ export default {
               Grazie alle opzioni di cancellazione, è più semplice riprenotare se i programmi cambiano
             </p>
           </div>
-          <div class="col-12 col-lg-4">
+          <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'headset']" />
             </h1>
@@ -117,6 +117,15 @@ export default {
       </div>
     </div>
 
+  </section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <h2>
+          Appena prenotati in questa località
+        </h2>
+      </div>
+    </div>
   </section>
 </template>
 

@@ -5,7 +5,7 @@ export default {
         'apartment'
     ],
     data() {
-        return{
+        return {
             current: 0,
             images: [
                 'https://picsum.photos/200/200',
@@ -18,7 +18,7 @@ export default {
         nextImg: function () {
             if (this.current == this.images.length - 1) {
                 this.current = 0;
-            } 
+            }
             else {
                 this.current++;
             }
@@ -26,7 +26,7 @@ export default {
         prevImg: function () {
             if (this.current == 0) {
                 this.current = this.images.length - 1;
-            } 
+            }
             else {
                 this.current--;
             }
@@ -38,9 +38,9 @@ export default {
 
 
 <template>
-    <div class="col" v-for="index in 20">
+    <div class="col" v-for="index in 8">
         <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-        <div class="card">
+        <div>
             <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
             <div class="card-body">
                 <h5 class="card-title">
@@ -68,77 +68,76 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.card {
+    max-width: 18rem;
+    padding: 0;
+    border: none;
 
-    .card {
-        max-width: 18rem;
-        padding: 0;
-        border: none;
+    .images-wrapper {
 
-        .images-wrapper {
+        position: relative;
+        left: 0;
+        top: 0;
 
-            position: relative;
-            left: 0;
-            top: 0;
+        .prev {
+            position: absolute;
+            left: 5px;
+            top: 50%;
 
-            .prev {
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                
-            }
+        }
 
-            .next {
-                position: absolute;
-                right: 5px;
-                top: 50%;  
-            }
+        .next {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+        }
 
-            .card-img {
+        .card-img {
             max-width: 100%;
             height: auto;
             object-fit: cover;
             border-radius: 5px;
         }
-        }
-
-
-
-        .card-body {
-            padding: 1rem 0;
-
-            .card-title {
-                color: $color_dark;
-            }
-
-            .card-text {
-                color: $color_gray;
-                font-size: 0.8rem;
-                padding: 0.5rem 0;
-
-                div {
-                    padding: 0.2rem 0;
-                }
-            }
-        }
-
-        // Non sono convinta della larghezza del bottone
-        .my-btn {
-            font-size: 0.8rem;
-            // width: 100%;
-            padding: 0.5rem;
-            display: inline-block;
-            background-color: $color_light_gray;
-            color: $color_dark;
-            text-decoration: none;
-            border-radius: 3px;
-            border: 1px solid $color_gray;
-
-            &:hover {
-                background-color: $color_gray;
-                color: $color_light;
-            }
-        }
-
     }
+
+
+
+    .card-body {
+        padding: 1rem 0;
+
+        .card-title {
+            color: $color_dark;
+        }
+
+        .card-text {
+            color: $color_gray;
+            font-size: 0.8rem;
+            padding: 0.5rem 0;
+
+            div {
+                padding: 0.2rem 0;
+            }
+        }
+    }
+
+    // Non sono convinta della larghezza del bottone
+    .my-btn {
+        font-size: 0.8rem;
+        // width: 100%;
+        padding: 0.5rem;
+        display: inline-block;
+        background-color: $color_light_gray;
+        color: $color_dark;
+        text-decoration: none;
+        border-radius: 3px;
+        border: 1px solid $color_gray;
+
+        &:hover {
+            background-color: $color_gray;
+            color: $color_light;
+        }
+    }
+
+}
 </style>
   
