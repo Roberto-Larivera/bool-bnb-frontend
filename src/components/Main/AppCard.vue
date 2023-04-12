@@ -14,135 +14,34 @@ export default {
 
 
 <template>
-    <div class="card">
-        <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-        <div class="card-body">
-            <h5 class="card-title">
-                Appartamento luminoso
-            </h5>
-            <div class="card-text">
-                <div>
-                    Via Roma, 2 - Roma, Italia
+    <div class="col" v-for="index in 20">
+        <div class="card">
+            <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Appartamento luminoso
+                </h5>
+                <div class="card-text">
+                    <div>
+                        Via Roma, 2 - Roma, Italia
+                    </div>
+                    <div>
+                        140 &euro; notte
+                    </div>
+                    <div>
+                        200 mq
+                    </div>
                 </div>
+                <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
                 <div>
-                    140 &euro; notte
+                    <a href="#" class="my-btn">
+                        Dettagli
+                    </a>
                 </div>
-                <div>
-                    200 mq
-                </div>
-            </div>
-            <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-            <div>
-                <a href="#" class="my-btn">
-                    Dettagli
-                </a>
             </div>
         </div>
     </div>
 
-    <div class="card">
-        <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-        <div class="card-body">
-            <h5 class="card-title">
-                Appartamento luminoso
-            </h5>
-            <div class="card-text">
-                <div>
-                    Via Roma, 2 - Roma, Italia
-                </div>
-                <div>
-                    140 &euro; notte
-                </div>
-                <div>
-                    200 mq
-                </div>
-            </div>
-            <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-            <div>
-                <a href="#" class="my-btn">
-                    Dettagli
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-        <div class="card-body">
-            <h5 class="card-title">
-                Appartamento luminoso
-            </h5>
-            <div class="card-text">
-                <div>
-                    Via Roma, 2 - Roma, Italia
-                </div>
-                <div>
-                    140 &euro; notte
-                </div>
-                <div>
-                    200 mq
-                </div>
-            </div>
-            <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-            <div>
-                <a href="#" class="my-btn">
-                    Dettagli
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-        <div class="card-body">
-            <h5 class="card-title">
-                Appartamento luminoso
-            </h5>
-            <div class="card-text">
-                <div>
-                    Via Roma, 2 - Roma, Italia
-                </div>
-                <div>
-                    140 &euro; notte
-                </div>
-                <div>
-                    200 mq
-                </div>
-            </div>
-            <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-            <div>
-                <a href="#" class="my-btn">
-                    Dettagli
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-        <div class="card-body">
-            <h5 class="card-title">
-                Appartamento luminoso
-            </h5>
-            <div class="card-text">
-                <div>
-                    Via Roma, 2 - Roma, Italia
-                </div>
-                <div>
-                    140 &euro; notte
-                </div>
-                <div>
-                    200 mq
-                </div>
-            </div>
-            <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-            <div>
-                <a href="#" class="my-btn">
-                    Dettagli
-                </a>
-            </div>
-        </div>
-    </div>
 
     <!-- Prova con carosello -->
     <!-- <div class="card">
