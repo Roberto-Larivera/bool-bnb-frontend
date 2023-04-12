@@ -1,0 +1,1 @@
+<!-- Per eventuali componenti in main -->
