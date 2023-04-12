@@ -6,31 +6,9 @@ export default {
     ],
     data() {
         return{
-            current: 0,
-            images: [
-                'https://picsum.photos/200/200',
-                'https://images.pexels.com/photos/127753/pexels-photo-127753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                'https://images.pexels.com/photos/290595/pexels-photo-290595.jpeg?auto=compress&cs=tinysrgb&w=800'
-            ]
         }
     },
     methods: {
-        nextImg: function () {
-            if (this.current == this.images.length - 1) {
-                this.current = 0;
-            } 
-            else {
-                this.current++;
-            }
-        },
-        prevImg: function () {
-            if (this.current == 0) {
-                this.current = this.images.length - 1;
-            } 
-            else {
-                this.current--;
-            }
-        }
     }
 }
 
