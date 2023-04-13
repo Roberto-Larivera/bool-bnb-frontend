@@ -1,2 +1,9 @@
 // Import all of Bootstrap's CSS
 @import "node_modules/bootstrap/scss/bootstrap";
+
+// Import variables
+@import './partials/variables.scss';
+body{
+    scroll-behavior: smooth;
+    background-color: $color_light;
+}
