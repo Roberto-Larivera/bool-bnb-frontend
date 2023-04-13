@@ -20,7 +20,7 @@ export default {
         <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
         <div>
             <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-            <div class="card-body">
+            <div class="card-body text-center text-md-start">
                 <h5 class="card-title">
                     Appartamento luminoso
                 </h5>

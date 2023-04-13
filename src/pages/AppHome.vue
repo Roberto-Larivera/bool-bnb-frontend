@@ -71,7 +71,7 @@ export default {
     </div>
   </section>
 
-  <section>
+  <section class="mb-5">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -121,10 +121,22 @@ export default {
   <section>
     <div class="container">
       <div class="row">
-        <h2>
-          Appena prenotati in questa località
-        </h2>
+        <div class="col-12">
+          <h2 class="mb-5">
+            Appena prenotati in questa località
+          </h2>
+        </div>
       </div>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 mb-4">
+        <AppCard />
+      </div>
+
+      <a href="" class="btn btn-color">
+        Esplora tutto
+      </a>
+
+
+
     </div>
   </section>
 </template>
@@ -134,11 +146,11 @@ export default {
   width: 49%;
 }
 
-.btn {
-  width: 100%;
+.btn-color {
   background-color: $color_primary;
   color: $color_light;
 }
+
 
 .my-text-primary {
   color: $color_primary;
@@ -151,6 +163,12 @@ export default {
 .my-research {
   border-radius: 30px;
   background-color: $color_light;
+
+  .btn {
+    width: 100%;
+    background-color: $color_primary;
+    color: $color_light;
+  }
 
 }
 
