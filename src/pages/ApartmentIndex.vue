@@ -100,11 +100,14 @@ export default {
                                 <span class="form-floating mb-3">
                                     <input type="date" id="check-out" placeholder="A quando">
                                 </span>
-                                <span class="form-floating mb-3">
-                                    <label for="place">
-                                        Ospiti
-                                    </label>
-                                    <input type="number" id="guests" max="20">
+                                <span class="mb-3">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Ospiti</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
                                 </span>
                             </span>
                             <button type="submit" class="my-submit rounded-pill px-3">
@@ -129,38 +132,53 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">
-                                            Prezzo massimo
-                                        </label>
-                                        <input type="number" class="form-control" id="price">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="beds" class="form-label">
-                                            Nr. letti
-                                        </label>
-                                        <input type="text" class="form-control" id="beds" max="20">
-                                    </div>
-                        
-                                    <div class="mb-3">
-                                        Servizi 
-                                    </div>
-                                    <div class="form-check">
-                                        <div class="mb-1" v-for="service in services">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                {{ service }}
+                                    <form action="" class="form-container-small">
+                                        <div class="mb-3">
+                                            <label for="price" class="form-label">
+                                                Prezzo per notte
                                             </label>
+                                            <input type="number" class="form-control" min="0" max="3000" id="price">
                                         </div>
-                                    </div>
+
+                                        <div class="mb-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Numero stanze</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Numero bagni</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                        
+                                        <div class="mb-3">
+                                            Servizi 
+                                        </div>
+                                        <div class="form-check">
+                                            <div class="mb-1" v-for="service in services">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    {{ service }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
                                     Esci
                                 </button>
-                                <button type="button" class="my-submit rounded">
+                                <button type="submit" class="my-submit rounded">
                                     Aggiungi filtri
                                 </button>
                             </div>
@@ -211,17 +229,17 @@ export default {
 
         .form-container-small {
 
-        .my-submit {
-            padding: 0.5rem;
-            display: inline-block;
-            background-color: $color_primary;
-            color: $color_light;
-            text-decoration: none;
-            border: 1px solid $color_primary;
-            margin-top: 2rem;
-            padding: 0.5rem 1rem;
+            .my-submit {
+                padding: 0.5rem;
+                display: inline-block;
+                background-color: $color_primary;
+                color: $color_light;
+                text-decoration: none;
+                border: 1px solid $color_primary;
+                margin-top: 2rem;
+                padding: 0.5rem 1rem;
+            }
         }
-}
     }
 }
 
@@ -242,7 +260,21 @@ export default {
             border-bottom-style: hidden;
             background-color: $color_light;
             margin-left: 4rem;
+
+            &:focus {
+                outline: none;
+            }
         }
+
+        .form-select {
+            display: inline;
+            width: auto;
+            background-color: $color_light;
+            border: 0;
+            border-radius: 0;
+            height: auto;
+        }
+}
 
         .no-outline:focus {
             outline: none;
@@ -265,7 +297,7 @@ export default {
 
         }
 
-}
+
 
 .modal-content {
     background-color: $color_light;
