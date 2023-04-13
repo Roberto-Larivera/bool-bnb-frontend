@@ -26,9 +26,47 @@ export default {
 </script>
 
 <template>
+   
     <div class="container">
         <div class="row">
             <div class="col">
+                <div>
+                    <!-- Mobile -->
+                    <button type="button" class="search my-btn rounded-pill my-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Ricerca appartamenti
+                    </button>
+
+                    <!-- Tablet / Desktop -->
+                    <div class="form-container rounded-pill p-3 shadow p-3 bg-body-tertiary rounded">
+                        <form action="" class="d-flex justify-content-between align-items-center">
+                            <span>
+                                <span class="mb-3">
+                                <input type="text" id="place" placeholder="Cerca destinazione">
+                                </span>
+                                <span class="mb-3">
+                                    <input type="date" id="check-in" placeholder="Da quando">
+                                </span>
+                                <span class="mb-3">
+                                    <input type="date" id="check-out" placeholder="A quando">
+                                </span>
+                                <span class="mb-3">
+                                    <input type="number" id="guests" placeholder="Nr. ospiti" max="20">
+                                </span>
+                            </span>
+                            <button type="submit" class="my-submit rounded-pill px-3">
+                                Cerca
+                            </button>
+                        </form>
+                    </div>
+                    <button type="button" class="filter my-btn m-3 rounded-pill">
+                        <font-awesome-icon icon="fa-solid fa-sort" /> Filtri avanzati
+                    </button>
+
+                </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col p-0">
                 <h1 class="mt-3">
                     Tutti gli appartamenti BoolBnB
                 </h1>
@@ -36,46 +74,32 @@ export default {
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="form-container d-flex justify-content-center my-3 py-3 shadow p-3 mb-5 bg-body-tertiary rounded">
+
+                <!-- <div class="form-container d-flex justify-content-center my-3 py-3 shadow p-3 mb-5 bg-body-tertiary rounded">
                     <form action="" class="col-10"> 
                         <div class="mb-3">
-                            <!-- <label for="place" class="form-label">
-                                Dove
-                            </label> -->
                             <input type="text" class="form-control" id="place" placeholder="Dove">
                         </div>
 
                         <div class="mb-3">
-                            <!-- <label for="check-in" class="form-label">
-                                Check-in
-                            </label> -->
                             <input type="date" class="form-control" id="check-in" placeholder="Check-in">
                         </div>
 
                         <div class="mb-3">
-                            <!-- <label for="check-out" class="form-label">
-                                Check-out
-                            </label> -->
                             <input type="date" class="form-control" id="check-out" placeholder="Check-out">
                         </div>
 
                         <div class="mb-3">
-                            <!-- <label for="guests" class="form-label">
-                                Numero ospiti
-                            </label> -->
                             <input type="number" class="form-control" id="guests" placeholder="Numero ospiti" max="20">
                         </div>
-                        <!-- Filtri avanzati -->
+
+
                         <div :class="moreFilters == false ? 'd-block' : 'd-none'">
                             <button type="button" class="my-btn mb-3" @click="moreFilters = true">
                                 <font-awesome-icon icon="fa-solid fa-sort" /> Filtri avanzati
                             </button>
                         </div>
 
-                        <!-- Estensione filtri -->
                         <div :class="moreFilters == false ? 'd-none' : 'd-block'">
                             <div class="mb-3">
                                 <label for="price" class="form-label">
@@ -108,7 +132,7 @@ export default {
                             Cerca
                         </button>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -122,43 +146,109 @@ export default {
 
 <style lang="scss" scoped>
 
-.form-container {
-    border: 1px solid $color_light_gray;
-    border-radius: 10px;
-
-    .my-btn {
+.my-btn {
         padding: 0.5rem;
         display: inline-block;
         background-color: $color_light_gray;
         color: $color_dark;
         text-decoration: none;
-        border-radius: 3px;
         border: 1px solid $color_gray;
     }
 
+// .form-container {
+//     border: 1px solid $color_gray;
+//     border-radius: 40px 999em 999em 40px;
 
-    .more-filters {
+//     .my-btn {
+//         padding: 0.5rem;
+//         display: inline-block;
+//         background-color: $color_light_gray;
+//         color: $color_dark;
+//         text-decoration: none;
+//         border-radius: 3px;
+//         border: 1px solid $color_gray;
+//     }
 
-        display: none;
-        .form-check-input {
-        &:checked {
-            background-color: $color_primary;
-            border-color: $color_primary;
-        }
-    }
-    }
+
+//     .more-filters {
+
+//         display: none;
+//         .form-check-input {
+//         &:checked {
+//             background-color: $color_primary;
+//             border-color: $color_primary;
+//         }
+//     }
+//     }
     
     
-    .my-submit {
-        padding: 0.5rem;
+//     .my-submit {
+//         padding: 0.5rem;
+//         display: inline-block;
+//         background-color: $color_primary;
+//         color: $color_light;
+//         text-decoration: none;
+//         border-radius: 3px;
+//         border: 1px solid $color_primary;
+
+//     }
+// }
+
+
+// Responsive
+@media screen and (min-width: 0px) {
+    .search {
         display: inline-block;
-        background-color: $color_primary;
-        color: $color_light;
-        text-decoration: none;
-        border-radius: 3px;
-        border: 1px solid $color_primary;
+    }
+    .form-container {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .search {
+        display: none;
+    }
+    .form-container {
+        display: inline-block;
+        width: 85%;
+        border: 1px solid $color_gray;
+
+        label {
+            display: block;
+        }
+
+        input {
+            border-top-style: hidden;
+            border-right-style: hidden;
+            border-left-style: hidden;
+            border-bottom-style: hidden;
+            background-color: $color_light;
+        }
+
+        .no-outline:focus {
+            outline: none;
+        }
+
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+
+
+        .my-submit {
+            padding: 0.5rem;
+            display: inline-block;
+            background-color: $color_primary;
+            color: $color_light;
+            text-decoration: none;
+            border: 1px solid $color_primary;
+
+        }
 
     }
+
 }
 
 </style>
