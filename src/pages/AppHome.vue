@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <section class="mb-5">
+  <section class="my-5">
     <div class="container">
       <div class="row">
 
@@ -71,7 +71,7 @@ export default {
     </div>
   </section>
 
-  <section class="mb-5">
+  <section class="mb-5 text-center text-lg-start">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -79,7 +79,7 @@ export default {
             Viaggia in tutta tranquillità prenotando su BoolBNB
           </h3>
         </div>
-        <div class="row">
+        <div class="row g-4">
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'shield']" />
@@ -127,13 +127,18 @@ export default {
           </h2>
         </div>
       </div>
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 mb-4">
-        <AppCard />
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-4 g-4">
+        <AppCard class="d-lg-none" v-for="index in 3" />
+        <AppCard class="d-none d-lg-block" v-for="index in 4" />
       </div>
 
-      <a href="" class="btn btn-color">
-        Esplora tutto
-      </a>
+      <div class="row">
+        <div class="col text-center text-lg-start">
+          <a href="" class="btn btn-color ">
+            Esplora tutto
+          </a>
+        </div>
+      </div>
 
 
 
