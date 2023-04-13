@@ -21,7 +21,7 @@ export default {
 
         <h1>Mirror House North</h1>
 
-        <div>
+        <div class="mb-3">
           <span>
             <a href="#">Bolzano, Trentino-Alto Adige/Südtirol, Italia</a>
           </span>
@@ -29,21 +29,36 @@ export default {
 
         <!-- Carosello di immagini -->
 
-        <div>
-          <br>
-          <br>
-          <br>
-          !! Immagini da aggiungere !! 
-          <br>
-          <br>
-          <br>
-          <br>
+        <div class="img-container">
+          <div class="row">
+
+            <div class="col-6">
+              <img src="https://placehold.co/650x400" alt="Img">
+            </div>
+
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6 py-2">
+                  <img src="https://placehold.co/320x190" alt="Img">
+                </div>
+                <div class="col-6 py-2">
+                  <img src="https://placehold.co/320x190" alt="Img">
+                </div>
+                <div class="col-6">
+                  <img src="https://placehold.co/320x190" alt="Img">
+                </div>
+                <div class="col-6">
+                  <img src="https://placehold.co/320x190" alt="Img">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
 
       </div>
 
-      <div class="row">
+      <div class="row pt-5">
 
         <div class="col-8">
 
