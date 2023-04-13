@@ -3,6 +3,9 @@ import App from './App.vue';
 
 import { router } from './router';
 
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap';
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 /* import font awesome icon component */
