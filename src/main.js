@@ -10,8 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -27,7 +26,7 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(faChevronLeft)
 library.add(faChevronRight)
-library.add(faUserSecret, faRightToBracket, faUserPlus)
+library.add(faUserSecret, faUser)
 library.add(faSort)
 library.add(faShield)
 library.add(faHeadset)
