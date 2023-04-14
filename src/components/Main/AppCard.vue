@@ -17,8 +17,8 @@ export default {
 
 <template>
     <div class="col">
-        <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-        <div class="card">
+        <router-link :to="{ name: 'apartments-show' }" class="text-decoration-none">
+            <div class="card">
             <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
             <div class="card-body text-center text-lg-start">
                 <h5 class="card-title">
@@ -35,13 +35,11 @@ export default {
                         200 mq
                     </div>
                 </div>
-                <div>
-                    <a href="#" class="my-btn">
-                        Dettagli
-                    </a>
-                </div>
             </div>
         </div>
+        </router-link>
+        <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
+
     </div>
 </template>
 

@@ -71,7 +71,7 @@ export default {
     </div>
   </section>
 
-  <section class="mb-5 text-center text-lg-start">
+  <section class="mb-5 text-center">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -134,9 +134,9 @@ export default {
 
       <div class="row">
         <div class="col text-center text-lg-start">
-          <a href="" class="btn btn-color ">
+          <router-link :to="{ name: 'apartments-index' }" class="btn btn-color">
             Esplora tutto
-          </a>
+          </router-link>
         </div>
       </div>
 

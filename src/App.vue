@@ -41,7 +41,7 @@ export default{
     <main>
         <router-view></router-view>
     </main>
-    <footer>
+    <footer class="d-none d-sm-block">
         <AppFooter/>
     </footer>
   </div>

@@ -7,8 +7,8 @@ export default {
     }
   },
   methods: {
-    getImagePath(imgPath){
-      return new URL( imgPath, import.meta.url).href;
+    getImagePath(imgPath) {
+      return new URL(imgPath, import.meta.url).href;
     }
   },
 
@@ -32,17 +32,43 @@ export default {
 
 
         <!-- link per login  -->
-        <div class="link-header">
-          <a href="#nogo" @mouseover="linkHover = 1" @mouseleave="linkHover = null" :class="{
-            'hover': linkHover != null && linkHover == 1,
-            'notHover': linkHover != null && linkHover != 1
-          }">
-            <span>
-              <font-awesome-icon :icon="['fas', 'user']" />
-            </span>
-            Login
-          </a>
-  
+        <div class="link-header d-none d-sm-block">
+          <nav>
+            <ul class="d-flex justify-content-end gx-3">
+              <li class="p-2">
+                <router-link :to="{ name: 'home' }" @mouseover="linkHover = 1" @mouseleave="linkHover = null" :class="{
+                  'hover': linkHover != null && linkHover == 1,
+                  'notHover': linkHover != null && linkHover != 1
+                }" class="p-2">
+                  Home
+                </router-link>
+              </li>
+              <li class="p-2">
+                <router-link :to="{ name: 'apartments-index' }" @mouseover="linkHover = 2" @mouseleave="linkHover = null"
+                  :class="{
+                    'hover': linkHover != null && linkHover == 2,
+                    'notHover': linkHover != null && linkHover != 2
+                  }" class="p-2">
+                  Index
+                </router-link>
+              </li>
+              <li class="p-2">
+                <a href="#nogo" @mouseover="linkHover = 3" @mouseleave="linkHover = null" :class="{
+                  'hover': linkHover != null && linkHover == 3,
+                  'notHover': linkHover != null && linkHover != 3
+                }" class="p-2">
+                  <span>
+                    <font-awesome-icon :icon="['fas', 'user']" />
+                  </span>
+                  <span class="d-none d-sm-inline-block">
+                    Login
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+
         </div>
       </div>
     </div>
