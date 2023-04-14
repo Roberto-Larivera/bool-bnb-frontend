@@ -36,22 +36,22 @@ export default {
           <div class="row">
 
             <div class="col-6">
-              <img src="https://placehold.co/650x400" alt="Img">
+              <img src="https://placehold.co/650x426" alt="Img" >
             </div>
 
             <div class="col-6">
-              <div class="row">
-                <div class="col-6 py-2">
-                  <img src="https://placehold.co/320x190" alt="Img">
-                </div>
-                <div class="col-6 py-2">
-                  <img src="https://placehold.co/320x190" alt="Img">
+              <div class="row g-2 align-items-center">
+                <div class="col-6">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/320x190" alt="Img">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/320x190" alt="Img">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3">
+                </div>
+                <div class="col-6">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3">
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@ export default {
 
                 <div>
                   <span>4 ospiti · </span>
-                  <span>1 camera da letto · </span>
+                  <span>2 camere da letto · </span>
                   <span>1 letto · </span>
                   <span>1 bagno </span>
                 </div>
@@ -120,7 +120,6 @@ export default {
           <hr>
 
           <!-- Protezione aircover -->
-
           <div class="col">
             <p>Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.</p>
             <a href="#" class="my-link fw-semibold">Per saperne di più</a>
@@ -138,6 +137,29 @@ export default {
 
           <!-- Sezione con le immagini classificate per oggetto rappresentato -->
           <div class="col">
+            <h5>Dove dormirai</h5>
+            <div class="row">
+              <div class="col-6">
+                <div class="single-image-container my-3">
+                  <img src="https://placehold.co/400x300" alt="Img">
+                </div>
+                <h6>Camera da letto 1</h6>
+                <span class="grey-text">Un letto king California</span>
+              </div>
+              <div class="col-6">
+                <div class="single-image-container my-3">
+                  <img src="https://placehold.co/400x300" alt="Img">
+                </div>
+                <h6>Camera da letto 2</h6>
+                <span class="grey-text">Un letto king California</span>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Servizi inclusi -->
+          <div class="col">
             <h5>Cosa troverai</h5>
             <div>
               <br>
@@ -147,10 +169,9 @@ export default {
             </div>
           </div>
 
-          <!-- Servizi inclusi -->
-
           <!-- Calendario con disponibilità -->
-
+        
+          
         </div>
     
 
@@ -234,6 +255,10 @@ export default {
   color: $color_dark;
 }
 
+img{
+  object-fit: contain;
+}
+
 .booking-review {
   border-radius: 20px;
   background-color: $color_light;
@@ -248,6 +273,10 @@ export default {
 
 .grey-text{
   color: $color_gray;
+}
+
+.single-image-container img{
+  border-radius: 10px;
 }
 
 </style>
