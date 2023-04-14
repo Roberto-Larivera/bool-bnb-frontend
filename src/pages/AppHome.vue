@@ -16,8 +16,8 @@ export default {
       <div class="row">
 
 
-        <div class="col-12 position-relative col-xl-8 offset-xl-3 mb-3">
-          <div class=" my-research p-4 p-md-5 shadow-lg">
+        <div class="col-12 position-relative col-lg-9 offset-lg-3 col-xl-8 offset-xl-3 my-5">
+          <div class=" my-research p-4 p-md-5 shadow-lg p-lg-4">
 
             <h3>
               Trova alloggi su BoolBNB
@@ -60,7 +60,7 @@ export default {
               Cerca
             </button>
           </div>
-          <div class="image-container d-none d-xl-block ">
+          <div class="image-container d-none d-lg-block ">
             <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="">
           </div>
@@ -75,18 +75,18 @@ export default {
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h3 class="mb-4">
+          <h2 class="mb-4">
             Viaggia in tutta tranquillità prenotando su BoolBNB
-          </h3>
+          </h2>
         </div>
         <div class="row g-4">
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'shield']" />
             </h1>
-            <h2>
+            <h3>
               Protezione con AirCover
-            </h2>
+            </h3>
             <p>
               La copertura più completa per i tuoi viaggi. Sempre inclusa e gratuita.
             </p>
@@ -95,9 +95,9 @@ export default {
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'calendar']" />
             </h1>
-            <h2>
+            <h3>
               Opzione di cancellazione con termini flessibili
-            </h2>
+            </h3>
             <p>
               Grazie alle opzioni di cancellazione, è più semplice riprenotare se i programmi cambiano
             </p>
@@ -106,9 +106,9 @@ export default {
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'headset']" />
             </h1>
-            <h2>
+            <h3>
               Assistenza clienti 24h su 24
-            </h2>
+            </h3>
             <p>
               Contatta il nostro team di assistenza ovunque ti trovi e a qualsiasi ora
             </p>
@@ -193,7 +193,14 @@ export default {
 
 @media screen and (min-width: 768px) {}
 
-@media screen and (min-width: 992px) {}
+@media screen and (min-width: 992px) {
+  .my-research {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+  }
+}
 
 @media screen and (min-width: 1200px) {
   .my-research {
