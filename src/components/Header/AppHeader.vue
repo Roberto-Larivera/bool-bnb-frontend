@@ -5,7 +5,12 @@ export default {
     return {
       linkHover: null,
     }
-  }
+  },
+  methods: {
+    getImagePath(imgPath){
+      return new URL( imgPath, import.meta.url).href;
+    }
+  },
 
 }
 </script>
@@ -16,69 +21,28 @@ export default {
       <div class="col d-flex justify-content-between h-100 align-items-center">
 
         <!-- contenitore per il logo  -->
-        <div class="logo">
-          Logo
-        </div>
+        <router-link :to="{ name: 'home' }" class="logo_site first-letter:navbar-brand d-flex  align-items-center h-100">
+          <div class=" h-100">
+            <img :src="getImagePath(`../../assets/logo.svg`)" alt="">
+          </div>
+          <span>
+            BoolBnB
+          </span>
+        </router-link>
 
-        <!-- link per desktop  -->
-        <div class="link-header d-block d-lg-none" >
-          <a href="#nogo" 
-          v-on:focus="linkHover=1" 
-          v-on:blur="linkHover = null" 
-          v-f
-          :class="{
-             'hover':linkHover != null && linkHover == 1,
-             'notHover':linkHover != null && linkHover != 1 
-             }">
-            <span>
-              <font-awesome-icon :icon="['fas', 'right-to-bracket']" />
-            </span>
-            <span class="d-none d-sm-inline-block">
-              Login
-            </span>
-          </a>
-          <a href="#nogo" 
-          v-on:focus="linkHover=2" 
-          v-on:blur="linkHover = null" 
-          :class="{
-             'hover':linkHover != null && linkHover == 2,
-             'notHover':linkHover != null && linkHover != 2 
-             }">
-            <span>
-              <font-awesome-icon :icon="['fas', 'user-plus']" />
-            </span>
-            <span  class="d-none d-sm-inline-block">
-              Register
-            </span>
-          </a>
-        </div>
 
-        <!-- link per desktop  -->
-        <div class="link-header d-none d-lg-block" >
-          <a href="#nogo" 
-          @mouseover="linkHover=1" 
-          @mouseleave="linkHover = null" 
-          :class="{
-             'hover':linkHover != null && linkHover == 1,
-             'notHover':linkHover != null && linkHover != 1 
-             }">
+        <!-- link per login  -->
+        <div class="link-header">
+          <a href="#nogo" @mouseover="linkHover = 1" @mouseleave="linkHover = null" :class="{
+            'hover': linkHover != null && linkHover == 1,
+            'notHover': linkHover != null && linkHover != 1
+          }">
             <span>
-              <font-awesome-icon :icon="['fas', 'right-to-bracket']" />
+              <font-awesome-icon :icon="['fas', 'user']" />
             </span>
             Login
           </a>
-          <a href="#nogo" 
-          @mouseover="linkHover=2" 
-          @mouseleave="linkHover = null" 
-          :class="{
-             'hover':linkHover != null && linkHover == 2,
-             'notHover':linkHover != null && linkHover != 2 
-             }">
-            <span>
-              <font-awesome-icon :icon="['fas', 'user-plus']" />
-            </span>
-            Register
-          </a>
+  
         </div>
       </div>
     </div>
@@ -86,25 +50,27 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
-.logo {
-  color: $color_primary;
+a.logo_site {
+  @include logo_page;
 }
 
 .link-header {
   a {
-    span:first-child{
+    span:first-child {
       margin-right: 10px;
     }
+
     padding: 10px;
     color: $color_dark;
     text-decoration: none;
     transition: 0.5s;
-    &.hover{
+
+    &.hover {
       color: $color_primary;
-      text-decoration:underline;
+      text-decoration: underline;
     }
-    &.notHover{
+
+    &.notHover {
       opacity: 0.5;
     }
   }

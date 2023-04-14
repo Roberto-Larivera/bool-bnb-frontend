@@ -16,15 +16,15 @@ export default {
 
 
 <template>
-    <div class="col" v-for="index in 8">
+    <div class="col">
         <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-        <div class="card">
+        <div class="card  shadow">
             <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-            <div class="card-body">
+            <div class="card-body text-center text-lg-start p-3">
                 <h5 class="card-title">
                     Appartamento luminoso
                 </h5>
-                <div class="card-text">
+                <div class="card-text ">
                     <div>
                         Via Roma, 2 - Roma, Italia
                     </div>
@@ -50,6 +50,7 @@ export default {
     padding: 0;
     border: none;
     border-radius: 5px;
+    background-color: transparent;
 
     .card-img {
         max-width: 100%;
@@ -63,6 +64,7 @@ export default {
 
 .card-body {
     padding: 1rem 0;
+    background-color: transparent;
 
     .card-title {
         color: $color_dark;
