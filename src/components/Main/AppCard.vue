@@ -18,9 +18,9 @@ export default {
 <template>
     <div class="col">
         <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-        <div class="card  shadow">
+        <div class="card">
             <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-            <div class="card-body text-center text-lg-start p-3">
+            <div class="card-body text-center text-lg-start">
                 <h5 class="card-title">
                     Appartamento luminoso
                 </h5>
@@ -94,8 +94,9 @@ export default {
     border: 1px solid $color_gray;
 
     &:hover {
-        background-color: $color_gray;
+        background-color: $color_primary;
         color: $color_light;
+        border: none;
     }
 }
 </style>
