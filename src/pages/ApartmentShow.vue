@@ -23,7 +23,10 @@ export default {
 
         <div class="mb-3">
           <span>
-            <a href="#">Bolzano, Trentino-Alto Adige/Südtirol, Italia</a>
+            <font-awesome-icon :icon="['fas', 'location-dot']" />
+          </span>
+          <span>
+            <a href="#" class="my-link mx-2">Bolzano, Trentino-Alto Adige/Südtirol, Italia</a>
           </span>
         </div>
 
@@ -90,17 +93,26 @@ export default {
           <div class="col">
 
             <div>
-              <h6>Sabina Angela è un Superhost.</h6>
-              <p>I Superhost sono host esperti, con valutazioni alte, dediti a offrire ai propri ospiti un soggiorno straordinario.</p>
+              <div class="d-flex">
+                <font-awesome-icon :icon="['fas', 'heart-circle-plus']" />
+                <h6 class="mx-3">Airbnb Plus</h6>
+              </div>
+              <p>Verifichiano ogni alloggio Plus in termini di qualità. </p>
             </div>
 
             <div>
-              <h6>Ottima esperienza di check-in</h6>
+              <div class="d-flex">
+                <font-awesome-icon :icon="['fas', 'key']" />
+                <h6 class="mx-3">Ottima esperienza di check-in</h6>
+              </div>
               <p>Il 95% degli ospiti ha valutato con 5 stelle la procedura di check-in.</p>
             </div>
 
             <div>
-              <h6>Cancellazione gratuita entro le ore 12:00 del giorno 13 apr.</h6>
+              <div class="d-flex">
+                <font-awesome-icon :icon="['fas', 'calendar']" />
+                <h6 class="mx-3">Cancellazione gratuita entro le ore 12:00 del giorno 13 apr.</h6>
+              </div>
             </div>
 
           </div>
@@ -111,7 +123,7 @@ export default {
 
           <div class="col">
             <p>Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.</p>
-            <a href="#">Per saperne di più</a>
+            <a href="#" class="my-link fw-semibold">Per saperne di più</a>
           </div>
 
           <hr>
@@ -119,7 +131,7 @@ export default {
           <!-- Descrizione dell'appartamento -->
           <div class="col">
             <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South Tyrolean Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The Mirror houses offer a unique chance to spend a beautiful vacation surrounded by contemporary architecture of the highest standards and the most astonishing Landscape and beauty nature has to offer.</p>
-            <a href="#">Mostra altro ></a>
+            <a href="#" class="my-link fw-semibold">Mostra altro ></a>
           </div>
 
           <hr>
@@ -217,6 +229,10 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.my-link{
+  color: $color_dark;
+}
 
 .booking-review {
   border-radius: 20px;
