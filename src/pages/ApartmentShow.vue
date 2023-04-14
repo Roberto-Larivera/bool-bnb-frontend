@@ -94,7 +94,7 @@ export default {
 
             <div>
               <div class="d-flex">
-                <font-awesome-icon :icon="['fas', 'heart-circle-plus']" />
+                <font-awesome-icon :icon="['fas', 'heart-circle-plus',]" style="color: #FF385C;"/>
                 <h6 class="mx-3">Airbnb Plus</h6>
               </div>
               <p>Verifichiano ogni alloggio Plus in termini di qualità. </p>
@@ -102,7 +102,7 @@ export default {
 
             <div>
               <div class="d-flex">
-                <font-awesome-icon :icon="['fas', 'key']" />
+                <font-awesome-icon :icon="['fas', 'key']" style="color: #FF385C;"/>
                 <h6 class="mx-3">Ottima esperienza di check-in</h6>
               </div>
               <p>Il 95% degli ospiti ha valutato con 5 stelle la procedura di check-in.</p>
@@ -110,7 +110,7 @@ export default {
 
             <div>
               <div class="d-flex">
-                <font-awesome-icon :icon="['fas', 'calendar']" />
+                <font-awesome-icon :icon="['fas', 'calendar']" style="color: #FF385C;"/>
                 <h6 class="mx-3">Cancellazione gratuita entro le ore 12:00 del giorno 13 apr.</h6>
               </div>
             </div>
