@@ -94,24 +94,36 @@ export default {
 
             <div>
               <div class="d-flex">
-                <font-awesome-icon :icon="['fas', 'heart-circle-plus',]" style="color: #FF385C;"/>
-                <h6 class="mx-3">Airbnb Plus</h6>
+                <div>
+                  <font-awesome-icon :icon="['fas', 'heart-circle-plus',]" size="xl" style="color: #FF385C;"/>
+                </div>
+                <div class="px-3">
+                  <h6>Airbnb Plus</h6>
+                  <p>Verifichiano ogni alloggio Plus in termini di qualità. </p>
+                </div>
               </div>
-              <p>Verifichiano ogni alloggio Plus in termini di qualità. </p>
             </div>
 
             <div>
               <div class="d-flex">
-                <font-awesome-icon :icon="['fas', 'key']" style="color: #FF385C;"/>
-                <h6 class="mx-3">Ottima esperienza di check-in</h6>
+                <div>
+                  <font-awesome-icon :icon="['fas', 'key']" size="xl" style="color: #FF385C;"/>
+                </div>
+                <div class="px-3">
+                  <h6>Ottima esperienza di check-in</h6>
+                  <p>Il 95% degli ospiti ha valutato con 5 stelle la procedura di check-in.</p>
+                </div>
               </div>
-              <p>Il 95% degli ospiti ha valutato con 5 stelle la procedura di check-in.</p>
             </div>
 
             <div>
               <div class="d-flex">
-                <font-awesome-icon :icon="['fas', 'calendar']" style="color: #FF385C;"/>
-                <h6 class="mx-3">Cancellazione gratuita entro le ore 12:00 del giorno 13 apr.</h6>
+                <div>
+                  <font-awesome-icon :icon="['fas', 'calendar']" size="xl" style="color: #FF385C;"/>
+                </div>
+                <div class="px-3">
+                  <h6>Cancellazione gratuita entro le ore 12:00 del giorno 13 apr.</h6>
+                </div>
               </div>
             </div>
 
@@ -173,10 +185,37 @@ export default {
         
           
         </div>
-    
 
-        <!-- Riepilogo prenotazione e costi (sezione sul lato destro) -->
+        
         <div class="col-4">
+          <!-- Invio messaggio all'host -->
+          <!-- Button trigger modal -->
+          <button type="button" class="btn my-btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Contatta l'host
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci il tuo messaggio</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="">
+                    <input type="text" id="message" name="message" placeholder="Ciao, ti contatto in merito a...">
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn" data-bs-dismiss="modal">Chiudi</button>
+                  <button type="button" class="btn my-btn">Invia</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Riepilogo prenotazione e costi (sezione sul lato destro) -->
           <div class="booking-review shadow-lg p-4">
 
             <div class="mb-3">
@@ -209,7 +248,7 @@ export default {
               </div>
             </div>
 
-            <button class="btn mb-2">
+            <button class="btn my-btn-primary mb-2">
               Prenota
             </button>
 
@@ -265,7 +304,7 @@ img{
   min-height: 200px;
 }
 
-.btn {
+.my-btn-primary {
   width: 100%;
   background-color: $color_primary;
   color: $color_light;
