@@ -26,6 +26,8 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(faChevronLeft)
@@ -36,6 +38,9 @@ library.add(faShield)
 library.add(faHeadset)
 library.add(faCalendar)
 library.add(faLocationDot, faHeartCirclePlus, faKey)
+library.add(faHouse)
+library.add(faMagnifyingGlass)
+
 
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
