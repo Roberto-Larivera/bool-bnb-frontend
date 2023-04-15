@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <section class="my-5">
+  <section class="my-5 min-vh-md-100 d-flex align-items-center">
     <div class="container">
       <div class="row">
 
@@ -71,7 +71,7 @@ export default {
     </div>
   </section>
 
-  <section class="mb-5 text-center">
+  <section class="mb-5 text-center min-vh-100 d-flex align-items-center">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -118,7 +118,7 @@ export default {
     </div>
 
   </section>
-  <section>
+  <section class="pb-5">
     <div class="container">
       <div class="row">
         <div class="col-12">

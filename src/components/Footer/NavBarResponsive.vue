@@ -24,7 +24,7 @@ export default {
                                 'hover': this.$route.path == '/',
                                 'notHover': this.$route.path != '/',
 
-                            }" class="p-2">
+                            }" class="p-2 text-decoration-none">
                             <div class="d-flex flex-column align-content-center justify-content-center">
                                 <span>
                                     <font-awesome-icon :icon="['fas', 'house']" />
@@ -40,7 +40,7 @@ export default {
                             @mouseleave="linkHover = null" :class="{
                                 'hover': this.$route.path == '/apartments',
                                 'notHover': this.$route.path != '/apartments',
-                            }" class="p-2">
+                            }" class="p-2 text-decoration-none">
                             <div class="d-flex flex-column align-content-center justify-content-center">
                                 <span>
                                     <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
@@ -52,7 +52,7 @@ export default {
                         </router-link>
                     </li>
                     <li class="p-2">
-                        <a :href="pathServer" class="p-2 notHover">
+                        <a :href="pathServer" class="p-2 notHover  text-decoration-none">
                             <div class="d-flex flex-column align-content-center justify-content-center">
                                 <span>
                                     <font-awesome-icon :icon="['fas', 'user']" />

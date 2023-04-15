@@ -35,16 +35,15 @@ export default {
 
 
         <!-- link per login  -->
-        <div class="link-header d-none d-sm-block">
+        <div class="link-header d-none d-lg-block">
           <nav>
             <ul class="d-flex justify-content-end gx-3">
               <li class="p-2">
                 <router-link :to="{ name: 'home' }" @mouseover="linkHover = 1" @mouseleave="linkHover = null" :class="{
-                  'hover': linkHover != null && linkHover == 1,
+                  'hover': this.$route.path == '/' || linkHover != null && linkHover == 1,
                   // 'notHover': linkHover != null && linkHover != 1,
-                  'hover': this.$route.path == '/',
                   // 'notHover': this.$route.path != '/',
-                }" class="p-2">
+                }" class="p-2 text-decoration-none">
                   <font-awesome-icon :icon="['fas', 'house']" />
                   Home
                 </router-link>
@@ -52,11 +51,10 @@ export default {
               <li class="p-2">
                 <router-link :to="{ name: 'apartments-index' }" @mouseover="linkHover = 2" @mouseleave="linkHover = null"
                   :class="{
-                    'hover': linkHover != null && linkHover == 2,
+                    'hover': this.$route.path == '/apartments' || linkHover != null && linkHover == 2,
                     // 'notHover': linkHover != null && linkHover != 2,
-                    'hover': this.$route.path == '/apartments',
                     // 'notHover': this.$route.path != '/apartments',
-                  }" class="p-2">
+                  }" class="p-2  text-decoration-none">
                   <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
                   Appartamenti
                 </router-link>
@@ -65,7 +63,7 @@ export default {
                 <a :href="pathServer" @mouseover="linkHover = 3" @mouseleave="linkHover = null" :class="{
                   'hover': linkHover != null && linkHover == 3,
                   // 'notHover': linkHover != null && linkHover != 3
-                }" class="p-2">
+                }" class="p-2 text-decoration-none">
                   <span>
                     <font-awesome-icon :icon="['fas', 'user']" />
                   </span>

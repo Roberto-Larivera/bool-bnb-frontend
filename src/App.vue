@@ -43,10 +43,10 @@ export default {
     <main>
       <router-view></router-view>
     </main>
-    <nav class="d-block d-sm-none sticky-bottom ">
+    <nav class="d-block d-lg-none sticky-bottom shadow-lg">
       <NavBarResponsive />
     </nav>
-    <footer class="d-none d-sm-block">
+    <footer class="d-none d-lg-block">
       <AppFooter />
     </footer>
   </div>
@@ -86,5 +86,6 @@ footer {
 
 nav {
   background-color: $color_light;
+  border-top: 2px solid $color_light_gray;
 }
 </style>
