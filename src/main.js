@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
+
 import { router } from './router';
 
 // Import all of Bootstrap's JS
@@ -26,6 +27,12 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
+import { faWifi } from '@fortawesome/free-solid-svg-icons'
+import { faParking} from '@fortawesome/free-solid-svg-icons'
+import { faUtensils } from '@fortawesome/free-solid-svg-icons'
+import { faSnowflake } from '@fortawesome/free-solid-svg-icons'
+import { faShower} from '@fortawesome/free-solid-svg-icons'
+import { faFireExtinguisher} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(faChevronLeft)
@@ -35,7 +42,8 @@ library.add(faSort)
 library.add(faShield)
 library.add(faHeadset)
 library.add(faCalendar)
-library.add(faLocationDot, faHeartCirclePlus, faKey)
+library.add(faLocationDot, faHeartCirclePlus, faKey, faWifi, faParking, faUtensils, faSnowflake, faShower, faFireExtinguisher)
 
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
+

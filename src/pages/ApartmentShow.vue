@@ -1,12 +1,37 @@
 <script>
+
 export default {
   name: 'ApartmentShow',
   data(){
     return{
-
+      services: [
+        { 
+          name: 'Wi-fi', 
+          icon: ['fas', 'wifi'] 
+        },
+        { 
+          name: 'Parcheggio', 
+          icon: ['fas', 'parking']
+        },
+        { 
+          name: 'Cucina', 
+          icon: ['fas', 'utensils'] 
+        },
+        { 
+          name: 'Aria condizionata', 
+          icon: ['fas', 'snowflake']
+        },
+        { 
+          name: 'Asciugacapelli', 
+          icon: ['fas', 'shower'] 
+        },
+        { 
+          name: 'Allarme antincendio', 
+          icon: ['fas', 'fire-extinguisher']
+        }
+      ],
     }
-  }
-  
+  },
 }
 </script>
 
@@ -35,23 +60,23 @@ export default {
         <div class="img-container">
           <div class="row">
 
-            <div class="col-6">
-              <img src="https://placehold.co/650x426" alt="Img" >
+            <div class="col-12 col-lg-6">
+              <img src="https://placehold.co/650x436" alt="Img" class="img-fluid">
             </div>
 
-            <div class="col-6">
+            <div class="col-6 d-none d-lg-block">
               <div class="row g-2 align-items-center">
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3">
+                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3 img-fluid">
                 </div>
               </div>
             </div>
@@ -63,7 +88,7 @@ export default {
 
       <div class="row pt-5">
 
-        <div class="col-8">
+        <div class="col-12 col-lg-8">
 
           <!-- Descrizione e host -->
           <div class="row">
@@ -134,7 +159,6 @@ export default {
           <!-- Protezione aircover -->
           <div class="col">
             <p>Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.</p>
-            <a href="#" class="my-link fw-semibold">Per saperne di più</a>
           </div>
 
           <hr>
@@ -142,28 +166,24 @@ export default {
           <!-- Descrizione dell'appartamento -->
           <div class="col">
             <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South Tyrolean Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The Mirror houses offer a unique chance to spend a beautiful vacation surrounded by contemporary architecture of the highest standards and the most astonishing Landscape and beauty nature has to offer.</p>
-            <a href="#" class="my-link fw-semibold">Mostra altro ></a>
+            <a href="#" class="my-link fw-semibold" data-bs-toggle="modal" data-bs-target="#descriptionModal">Mostra altro ></a>
           </div>
 
-          <hr>
-
-          <!-- Sezione con le immagini classificate per oggetto rappresentato -->
-          <div class="col">
-            <h5>Dove dormirai</h5>
-            <div class="row">
-              <div class="col-6">
-                <div class="single-image-container my-3">
-                  <img src="https://placehold.co/400x300" alt="Img">
+          <!-- Modal -->
+          <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Descrizione dell'appartamento</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <h6>Camera da letto 1</h6>
-                <span class="grey-text">Un letto king California</span>
-              </div>
-              <div class="col-6">
-                <div class="single-image-container my-3">
-                  <img src="https://placehold.co/400x300" alt="Img">
+                <div class="modal-body">
+                  <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South Tyrolean Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The Mirror houses offer a unique chance to spend a beautiful vacation surrounded by contemporary architecture of the highest standards and the most astonishing Landscape and beauty nature has to offer.</p>
+                  <p>The houses are designed to blend in with the natural surroundings and feature floor-to-ceiling windows that provide stunning views of the mountains and the valley below. The interiors are sleek and modern, with minimalist furnishings and high-end finishes. Each house has a fully equipped kitchen, a spacious living room, and a private outdoor terrace.</p>
                 </div>
-                <h6>Camera da letto 2</h6>
-                <span class="grey-text">Un letto king California</span>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
               </div>
             </div>
           </div>
@@ -172,39 +192,44 @@ export default {
 
           <!-- Servizi inclusi -->
           <div class="col">
-            <h5>Cosa troverai</h5>
-            <div>
-              <br>
-              ...Elenco servizi aggiuntivi...
-              <br>
-              <br>
-            </div>
+            <h5 class="my-3">Cosa troverai</h5>
+            <ul>
+              <li v-for="(service, index) in services" :key="index">
+                <font-awesome-icon :icon="service.icon" size="m" style="color: #FF385C;"/>
+                {{ service.name }}
+              </li>
+            </ul>
           </div>
 
-          <!-- Calendario con disponibilità -->
-        
+          <hr>
           
+          <!-- Calendario con disponibilità -->
+          <div class="col">
+            <h5 class="my-3">Calendario disponibilità</h5>
+            <p>!!! DA AGGIUNGERE EVENTUALMENTE !!!</p>
+          </div>
+
         </div>
 
         
-        <div class="col-4">
+        <div class="col-12 col-lg-4 special-col">
           <!-- Invio messaggio all'host -->
           <!-- Button trigger modal -->
-          <button type="button" class="btn my-btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button type="button" class="btn my-btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#messageModal">
             Contatta l'host
           </button>
 
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci il tuo messaggio</h1>
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci qua il tuo messaggio</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <form action="">
-                    <input type="text" id="message" name="message" placeholder="Ciao, ti contatto in merito a...">
+                    <input class="px-2" type="text" id="message" name="message" placeholder="Ciao, ti contatto in merito a...">
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -280,6 +305,17 @@ export default {
       </div>
 
       <!-- Localizzazione dell'appartamento -->
+      <div class="row">
+        <div class="col mb-3">
+          <hr>
+          <h5 class="my-3">Dove ti troverai</h5>
+          <!-- !! MAPPA !! -->
+          <div>
+            <img src="https://placehold.co/1270x300" alt="Mappa" class="img-fluid">
+          </div>
+          <span class="fw-semibold">Bolzano, Trentino-Alto Adige/Südtirol, Italia</span>
+        </div>
+      </div>
 
     </div>
 
@@ -304,6 +340,11 @@ img{
   min-height: 200px;
 }
 
+.my-btn{
+  background-color: $color_primary;
+  color: $color_light;
+}
+
 .my-btn-primary {
   width: 100%;
   background-color: $color_primary;
@@ -312,6 +353,12 @@ img{
 
 .grey-text{
   color: $color_gray;
+}
+
+#message{
+  width: 100%;
+  border: 1px solid $color_light_gray;
+  border-radius: 10px;
 }
 
 .single-image-container img{
