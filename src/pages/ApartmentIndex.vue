@@ -95,10 +95,10 @@ export default {
                                     <input type="text" id="place">
                                 </span>
                                 <span class="form-floating mb-3">
-                                    <input type="date" id="check-in" placeholder="Da quando">
+                                    <input type="date" id="check-in" placeholder="Da quando" class="d-block">
                                 </span>
-                                <span class="form-floating mb-3">
-                                    <input type="date" id="check-out" placeholder="A quando">
+                                <span class="form-floating mb-3 d-block">
+                                    <input type="date" id="check-out" placeholder="A quando" class="d-block">
                                 </span>
                                 <span class="mb-3">
                                     <select class="form-select" aria-label="Default select example">
