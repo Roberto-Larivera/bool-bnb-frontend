@@ -30,9 +30,9 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="mt-2">
+                <div class="mt-2 d-flex flex-column justify-content-center d-md-block">
                     <!-- Ricerca - Mobile -->
-                    <button type="button" class="search my-btn rounded-pill my-3 p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="search my-btn rounded-pill my-3 p-3 d-md-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Ricerca appartamenti
                     </button>
 
@@ -85,20 +85,20 @@ export default {
                     
 
                     <!-- Ricerca - Tablet / Desktop -->
-                    <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded">
+                    <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block">
                         <form action="" class="d-flex justify-content-between align-items-center">
                             <span>
                                 <span class="form-floating mb-3">
                                     <label for="place">
                                         Dove
                                     </label>
-                                    <input type="text" id="place">
+                                    <input type="text" id="place" class="ms-3">
                                 </span>
                                 <span class="form-floating mb-3">
-                                    <input type="date" id="check-in" placeholder="Da quando" class="d-block">
+                                    <input type="date" id="check-in" placeholder="Da quando">
                                 </span>
-                                <span class="form-floating mb-3 d-block">
-                                    <input type="date" id="check-out" placeholder="A quando" class="d-block">
+                                <span class="form-floating mb-3">
+                                    <input type="date" id="check-out" placeholder="A quando">
                                 </span>
                                 <span class="mb-3">
                                     <select class="form-select" aria-label="Default select example">
@@ -117,8 +117,13 @@ export default {
                     </div>
 
                     <!-- Bottone filtri avanzati -->
-                    <button type="button" class="filter my-btn ms-2 p-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    <button type="button" class="filter my-btn ms-2 p-3 rounded-pill d-md-none d-lg-inline" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                         <font-awesome-icon icon="fa-solid fa-sort" /> Filtri avanzati
+                    </button>
+
+                    <!-- Bottone filtri avanzati per tablet / lg -->
+                    <button type="button" class="filter my-btn ms-2 p-3 rounded-pill d-none d-md-inline d-lg-none" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                        <font-awesome-icon icon="fa-solid fa-sort" />
                     </button>
 
                     <!-- Modal -->
@@ -192,8 +197,8 @@ export default {
     <!-- Titolo pagina -->
     <div class="container">
         <div class="row">
-            <div class="col p-0 my-5">
-                <h1>
+            <div class="col my-5">
+                <h1 class="text-center text-md-start">
                     Tutti gli appartamenti BoolBnB
                 </h1>
             </div>
@@ -203,7 +208,8 @@ export default {
     <!-- Cards -->
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-sm-3 g-md-3 g-lg-3">
-            <AppCard :apartment="apartment"/>
+            <AppCard class="d-lg-none" v-for="index in 5" />
+            <AppCard class="d-none d-lg-block" v-for="index in 20" />
         </div>
     </div>
 </template>
@@ -213,7 +219,7 @@ export default {
 .my-btn {
         padding: 0.5rem;
         display: inline-block;
-        background-color: $color_light_gray;
+        background-color: $color_light;
         color: $color_dark;
         text-decoration: none;
         border: 1px solid $color_gray;
@@ -244,7 +250,7 @@ export default {
 }
 
 .form-container-large {
-    width: 85%;
+    // width: 70%;
     border: 1px solid $color_gray;
 
     .form-floating > label {
@@ -259,7 +265,6 @@ export default {
             border-left-style: hidden;
             border-bottom-style: hidden;
             background-color: $color_light;
-            margin-left: 4rem;
 
             &:focus {
                 outline: none;
@@ -273,7 +278,17 @@ export default {
             border: 0;
             border-radius: 0;
             height: auto;
-        }
+
+            // TOGLIERE IN FOCUS BORDO BLU
+        //     border-top-style: hidden;
+        //     border-right-style: hidden;
+        //     border-left-style: hidden;
+        //     border-bottom-style: hidden;
+        //     background-color: $color_light;
+
+        //     &:focus {
+        //         outline: none;
+        // }
 }
 
         .no-outline:focus {
@@ -285,6 +300,8 @@ export default {
             display: none;
             -webkit-appearance: none;
         }
+    
+    }
 
 
         .my-submit {
@@ -338,28 +355,6 @@ export default {
             border: 1px solid $color_primary;
 
         }
-}
-
-
-// Responsive
-@media screen and (min-width: 0px) {
-    .search {
-        display: inline-block;
-    }
-    .form-container-large {
-        display: none;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .search {
-        display: none;
-    }
-    .form-container-large {
-        display: inline-block;
-
-    }
-
 }
 
 </style>
