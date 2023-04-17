@@ -17,7 +17,7 @@ export default {
 
 
         <div class="col-12 position-relative col-xl-8 offset-xl-3 mb-3">
-          <div class=" my-research p-4 p-md-5 shadow-lg">
+          <div class=" my-research mt-4 p-4 p-md-5 shadow-lg">
 
             <h3>
               Trova alloggi su BoolBNB
@@ -33,12 +33,12 @@ export default {
                 placeholder="Inserisci una destinazione">
             </div>
 
-            <div class="mb-3 d-flex justify-content-between">
-              <div class="data">
+            <div class="mb-3 d-sm-flex justify-content-sm-between">
+              <div class="data mt-2 me-sm-2" style="width: 100%;">
                 <label for="exampleFormControlInput1" class="check-in">Check-in</label>
                 <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
               </div>
-              <div class="data">
+              <div class="data mt-2" style="width: 100%;">
                 <label for="exampleFormControlInput1" class="check-out">Check-out</label>
                 <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
               </div>
