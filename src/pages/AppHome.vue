@@ -1,12 +1,35 @@
 <script>
 import AppCard from '../components/Main/AppCard.vue';
 
+// Axios
+import axios from 'axios';
+
 export default {
   name: "AppHome",
   data() {
-    return {};
+    return {
+      query: null,
+      autocomplete: null,
+    };
   },
-  components: { AppCard }
+  components: { AppCard },
+  methods: {
+    getApiProjects() {
+      axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+        params: {
+          'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
+          'countrySet' : 'IT',
+          'lat' : '45.4642',
+          'lon' : '9.1900',
+          'radius' : '10000',
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          this.autocomplete = response.data.results
+        });
+    }
+  },
 }
 </script>
 
@@ -29,9 +52,14 @@ export default {
 
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Dove</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1"
+              <input type="text" class="form-control" :autocomplete="on" v-model="query" @keypress="getApiProjects()" id="exampleFormControlInput1"
                 placeholder="Inserisci una destinazione">
             </div>
+            <!-- <ul v-if="autocomplete != null">
+              <li v-for="search in autocomplete">
+                {{ search.address.freeformAddress }}
+              </li>
+            </ul> -->
 
             <div class="mb-3 d-sm-flex justify-content-sm-between">
               <div class="data mt-2 me-sm-2" style="width: 100%;">
