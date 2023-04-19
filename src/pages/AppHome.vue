@@ -46,6 +46,7 @@ export default {
       }
     },
     takeAddress(address) {
+        this.activeAuto = false;
         return this.query = address;
     }
   }
