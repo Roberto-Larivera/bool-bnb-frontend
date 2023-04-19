@@ -10,7 +10,7 @@ export default {
   name: "AppHome",
   data() {
     return {
-      query: null,
+      query: '',
       autocomplete: [],
       activeAuto: false,
     };
@@ -35,8 +35,20 @@ export default {
           console.log(response.data);
           this.autocomplete = response.data.results
         });
+    },
+    controlModal(){
+      if (this.query.length == 0 )
+      this.activeAuto = false
+      else{
+        if(this.query.length > 2)
+          this.getApiProjects()
+        this.activeAuto = true
+      }
     }
   },
+  computed:{
+
+  }
 }
 </script>
 
@@ -57,11 +69,11 @@ export default {
               Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
             </p>
 
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="exampleFormControlInput1" class="form-label">Dove</label>
-              <input type="text" class="form-control" v-model="query" @keypress="getApiProjects(), activeAuto = true" id="exampleFormControlInput1"
+              <input type="text" class="form-control" v-model="query" @keypress="controlModal()" id="exampleFormControlInput1"
                 placeholder="Inserisci una destinazione">
-                <ListAutoComplete :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
+                <ListAutoComplete class="position-absolute" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
             </div>
             
 

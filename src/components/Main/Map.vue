@@ -1,5 +1,3 @@
-
-  
 <script>
 import { onMounted } from 'vue';
 import tt from '@tomtom-international/web-sdk-maps';
