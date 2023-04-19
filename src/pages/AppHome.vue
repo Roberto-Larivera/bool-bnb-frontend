@@ -76,7 +76,7 @@ export default {
               <label for="exampleFormControlInput1" class="form-label">Dove</label>
               <input type="text" class="form-control radius" v-model="query" @input="controlModal()" id="exampleFormControlInput1"
                 placeholder="Inserisci una destinazione">
-                <ListAutoComplete class="position-absolute" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
             </div>
             
 

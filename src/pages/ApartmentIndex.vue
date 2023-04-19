@@ -1,11 +1,16 @@
 <script>
 
 import AppCard from '../components/Main/AppCard.vue';
+import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
+
+// Axios
+import axios from 'axios';
 
 export default {
   name: 'ApartmentIndex',
   components:  {
-    AppCard
+    AppCard,
+    ListAutoComplete
   },
   data(){
     return{
@@ -18,7 +23,41 @@ export default {
             'Aria condizionata',
             'Asciugacapelli',
             'Allarme antincendio'
-        ]
+        ],
+        query: '',
+        autocomplete: [],
+        activeAuto: false,
+    }
+  },
+  methods: {
+    getApiProjects() {
+      axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+        params: {
+          'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
+          'countrySet' : 'IT',
+          'lat' : '45.4642',
+          'lon' : '9.1900',
+          'radius' : '10000',
+          'limit' : '5',
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          this.autocomplete = response.data.results
+        });
+    },
+    controlModal(){
+      if (this.query.length == 0 )
+      this.activeAuto = false
+      else{
+        if(this.query.length > 2)
+          this.getApiProjects()
+        this.activeAuto = true
+      }
+    },
+    takeAddress(address) {
+        this.activeAuto = false;
+        return this.query = address;
     }
   }
   
@@ -48,11 +87,13 @@ export default {
                                 </div>
                                 <div class="modal-body">
                                     <form action="" class="form-container-small">
-                                        <div class="mb-3">
+                                        <div class="mb-3 position-relative">
                                             <label for="place" class="form-label">
                                                 Dove
                                             </label>
-                                            <input type="text" class="form-control" id="place">
+                                            <!-- <input type="text" class="form-control" id="place"> -->
+                                            <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()">
+                                            <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                         </div>
                                         <div class="mb-3">
                                             <label for="check-in" class="form-label">
@@ -234,6 +275,14 @@ export default {
         border-radius: 0.5rem;
 
         .form-container-small {
+
+            .radius {
+                &:focus {
+                    border-radius: 5px 5px 0 0;
+                    box-shadow: none;
+                    border: 2px solid $color_primary;
+                }
+            }
 
             .my-submit {
                 padding: 0.5rem;
