@@ -44,10 +44,10 @@ export default {
           this.getApiProjects()
         this.activeAuto = true
       }
+    },
+    takeAddress(address) {
+        return this.query = address;
     }
-  },
-  computed:{
-
   }
 }
 </script>
@@ -69,11 +69,13 @@ export default {
               Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
             </p>
 
+
+
             <div class="mb-3 position-relative">
               <label for="exampleFormControlInput1" class="form-label">Dove</label>
-              <input type="text" class="form-control" v-model="query" @keypress="controlModal()" id="exampleFormControlInput1"
+              <input type="text" class="form-control radius" v-model="query" @input="controlModal()" id="exampleFormControlInput1"
                 placeholder="Inserisci una destinazione">
-                <ListAutoComplete class="position-absolute" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
+                <ListAutoComplete class="position-absolute" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
             </div>
             
 
@@ -191,6 +193,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.my-research {
+    .radius {
+        &:hover {
+            border-radius: 5px 5px 0 0;
+            @include inputCheck;
+        }
+    }
+}
 .data {
   width: 49%;
 }
