@@ -69,7 +69,7 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="mt-2 d-flex flex-column justify-content-center d-md-block">
+                <div class="mt-2 d-flex flex-column justify-content-center d-md-flex flex-md-row justify-content-md-between">
                     <!-- Ricerca - Mobile -->
                     <button type="button" class="search my-btn rounded-pill my-3 p-3 d-md-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Ricerca appartamenti
@@ -126,22 +126,23 @@ export default {
                     
 
                     <!-- Ricerca - Tablet / Desktop -->
-                    <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block">
+                    <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block flex-md-grow-1">
                         <form action="" class="d-flex justify-content-between align-items-center">
-                            <span>
-                                <span class="form-floating mb-3">
-                                    <label for="place">
+                            <span class="d-flex justify-content-between align-items-center" style="width: 90%">
+                                <span class="form-floating position-relative flex-grow-1">
+                                    <!-- <label for="place">
                                         Dove
-                                    </label>
-                                    <input type="text" id="place" class="ms-3">
+                                    </label> -->
+                                    <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()">
+                                    <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                 </span>
-                                <span class="form-floating mb-3">
+                                <span class="form-floating">
                                     <input type="date" id="check-in" placeholder="Da quando">
                                 </span>
-                                <span class="form-floating mb-3">
+                                <span class="form-floating">
                                     <input type="date" id="check-out" placeholder="A quando">
                                 </span>
-                                <span class="mb-3">
+                                <span>
                                     <select class="form-select" aria-label="Default select example">
                                         <option selected>Ospiti</option>
                                         <option value="1">1</option>
@@ -299,7 +300,6 @@ export default {
 }
 
 .form-container-large {
-    // width: 70%;
     border: 1px solid $color_gray;
 
     .form-floating > label {
