@@ -11,7 +11,6 @@ export default {
   },
   methods: {
     giveAddress(search) {
-        // non è definito address
         let address = search;
         return this.$emit('takeAddress', address);
     }
@@ -23,11 +22,11 @@ export default {
   <div class="card radius" style="width: 100%;">
     <ul v-if="itemsComplete.length > 1">
         <!-- al click figlio  -->
-      <li class="p-2" v-for="search, index in itemsComplete" @click="giveAddress(search.address.freeformAddress)">
+      <li class="p-3 cursor" v-for="search, index in itemsComplete" @click="giveAddress(search.address.freeformAddress)">
         {{ search.address.freeformAddress }}
       </li>
     </ul>
-    <p v-else>
+    <p class="p-3" v-else>
       No data
     </p>
   </div>
@@ -36,7 +35,13 @@ export default {
 <style lang="scss" scoped>
 .radius {
     border-radius: 0 0 5px 5px;
-    border: 0 1px 1px 1px solid $color_primary;
-    @include inputCheck;
+    border: 2px solid $color_primary;
+    border-top: 0;
+
+
+    .cursor {
+      cursor: pointer;
+    }
 }
+
 </style>

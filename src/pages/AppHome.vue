@@ -196,9 +196,10 @@ export default {
 <style lang="scss" scoped>
 .my-research {
     .radius {
-        &:hover {
+        &:focus {
             border-radius: 5px 5px 0 0;
-            @include inputCheck;
+            box-shadow: none;
+            border: 2px solid $color_primary;
         }
     }
 }
