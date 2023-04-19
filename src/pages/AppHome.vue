@@ -1,6 +1,8 @@
 <script>
 import AppCard from '../components/Main/AppCard.vue';
 
+import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
+
 // Axios
 import axios from 'axios';
 
@@ -8,11 +10,15 @@ export default {
   name: "AppHome",
   data() {
     return {
-      query: null,
-      autocomplete: null,
+      query: '',
+      autocomplete: [],
+      activeAuto: false,
     };
   },
-  components: { AppCard },
+  components: { 
+    AppCard,
+    ListAutoComplete
+   },
   methods: {
     getApiProjects() {
       axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
@@ -22,14 +28,27 @@ export default {
           'lat' : '45.4642',
           'lon' : '9.1900',
           'radius' : '10000',
+          'limit' : '5',
         }
       })
         .then(response => {
           console.log(response.data);
           this.autocomplete = response.data.results
         });
+    },
+    controlModal(){
+      if (this.query.length == 0 )
+      this.activeAuto = false
+      else{
+        if(this.query.length > 2)
+          this.getApiProjects()
+        this.activeAuto = true
+      }
     }
   },
+  computed:{
+
+  }
 }
 </script>
 
@@ -50,16 +69,13 @@ export default {
               Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
             </p>
 
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
               <label for="exampleFormControlInput1" class="form-label">Dove</label>
-              <input type="text" class="form-control" :autocomplete="on" v-model="query" @keypress="getApiProjects()" id="exampleFormControlInput1"
+              <input type="text" class="form-control" v-model="query" @keypress="controlModal()" id="exampleFormControlInput1"
                 placeholder="Inserisci una destinazione">
+                <ListAutoComplete class="position-absolute" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
             </div>
-            <!-- <ul v-if="autocomplete != null">
-              <li v-for="search in autocomplete">
-                {{ search.address.freeformAddress }}
-              </li>
-            </ul> -->
+            
 
             <div class="mb-3 d-sm-flex justify-content-sm-between">
               <div class="data mt-2 me-sm-2" style="width: 100%;">
