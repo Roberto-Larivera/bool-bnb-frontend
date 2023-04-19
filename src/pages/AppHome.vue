@@ -59,8 +59,8 @@ export default {
       <div class="row">
 
 
-        <div class="col-12 position-relative col-xl-8 offset-xl-3 mb-3">
-          <div class=" my-research mt-4 p-4 p-md-5 shadow-lg">
+        <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3">
+          <div class=" my-research p-4 p-md-5 shadow-lg">
 
             <h3>
               Trova alloggi su BoolBNB
@@ -194,15 +194,16 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.my-research {
-    .radius {
-        &:focus {
-            border-radius: 5px 5px 0 0;
-            box-shadow: none;
-            border: 2px solid $color_primary;
-        }
-    }
-}
+
+// .my-research {
+//     .radius {
+//         &:focus {
+//             border-radius: 5px 5px 0 0;
+//             box-shadow: none;
+//             border: 2px solid $color_primary;
+//         }
+//     }
+// }
 .data {
   width: 49%;
 }
@@ -224,6 +225,14 @@ export default {
 .my-research {
   border-radius: 30px;
   background-color: $color_light;
+
+  .radius {
+        &:focus {
+            border-radius: 5px 5px 0 0;
+            box-shadow: none;
+            border: 2px solid $color_primary;
+        }
+    }
 
   .btn {
     width: 100%;
@@ -250,12 +259,25 @@ export default {
 @media screen and (min-width: 768px) {}
 
 @media screen and (min-width: 992px) {
+
+  .jumbo {
+  margin-top: 4rem;
+
   .my-research {
     position: absolute;
     top: 50%;
     left: 0%;
     transform: translate(-50%, -50%);
   }
+
+  .image-container {
+    min-height: 500px;
+
+    img {
+      min-height: 550px;
+    }
+  }
+}
 }
 
 @media screen and (min-width: 1200px) {
