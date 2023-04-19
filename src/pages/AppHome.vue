@@ -59,7 +59,7 @@ export default {
       <div class="row">
 
 
-        <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3">
+        <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
           <div class=" my-research p-4 p-md-5 shadow-lg">
 
             <h3>
