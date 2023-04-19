@@ -1,16 +1,28 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 // Components
 import NotFound from './pages/NotFound.vue';
 import AppHome from './pages/AppHome.vue';
+import ApartmentIndex from './pages/ApartmentIndex.vue';
+import ApartmentShow from './pages/ApartmentShow.vue';
 
 const router = createRouter({
     history: createWebHistory(),
-    routes:[
+    routes: [
         {
             path: '/',
             name: 'home',
             component: AppHome
+        },
+        {
+            path: '/apartments',
+            name: 'apartments-index',
+            component: ApartmentIndex
+        },
+        {
+            path: '/apartments/show',
+            name: 'apartments-show',
+            component: ApartmentShow
         },
         // esempio pagina con un parametro
         // {
@@ -18,7 +30,7 @@ const router = createRouter({
         //     name: 'projects-show',
         //     component: ProjectsShow
         // },
-        
+
         // pagina 404
         {
             path: '/:pathMath(.*)*',
@@ -28,4 +40,4 @@ const router = createRouter({
     ]
 });
 
-export {router};
+export { router };
