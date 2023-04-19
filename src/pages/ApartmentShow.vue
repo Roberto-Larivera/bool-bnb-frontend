@@ -1,5 +1,5 @@
 <script>
-import Map from './Map.vue';
+import Map from '../components/Main/Map.vue';
 export default {
   name: 'ApartmentShow',
   components: {
