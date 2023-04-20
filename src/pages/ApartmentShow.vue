@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     getApiShow() {
-      axios.get(`${this.$store.pathapi}/${this.$route.params.slug}`)
+      axios.get(`${this.store.pathServerApi}${this.$route.params.slug}`)
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
