@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     getApiShow() {
-      axios.get(`${this.$store.pathapi}/${this.$route.params.slug}`)
+      axios.get(`${this.$store.pathServerApi}/${this.$route.params.slug}`)
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
@@ -78,6 +78,7 @@ export default {
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
 
@@ -93,20 +94,13 @@ export default {
             <div class="col">
               <div>
                 <h3>Host: {{ apartment.user.user_data.name}} {{ apartment.user.user_data.surname}}</h3>
-
                 <div>
                   <span>{{apartment.max_guests}} ospiti · </span>
                   <span>{{apartment.rooms}} camere da letto · </span>
                   <span>{{apartment.beds}} letto · </span>
                   <span>{{apartment.baths}} bagno </span>
                 </div>
-
               </div>
-
-              <div>
-                <img src="" alt="">
-              </div>
-
             </div>
           </div>
 
@@ -175,10 +169,10 @@ export default {
           <div class="col">
             <h5 class="my-3">Cosa troverai</h5>
             <ul>
-              <li v-for="(service, index) in services" :key="index">
-                <font-awesome-icon :icon="service.icon" size="m" style="color: #FF385C;" />
-                {{ service.name }}
-              </li>
+
+              <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
+              <li></li>
+
             </ul>
           </div>
 
@@ -298,6 +292,7 @@ export default {
           <span class="fw-semibold">{{ apartment.address }}</span>
         </div>
       </div>
+
     </div>
   </div>
 </template>
