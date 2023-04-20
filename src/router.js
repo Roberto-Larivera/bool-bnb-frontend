@@ -25,7 +25,6 @@ const router = createRouter({
         //   component: ApartmentShow
         // },
         // esempio pagina con un parametro
-
         {
             path: '/apartments/:slug',
             name: 'apartments-show',

@@ -1,5 +1,6 @@
 <script>
 import Map from '../components/Main/Map.vue';
+import { store } from '../store.js';
 
 // Axios
 import axios from 'axios';
@@ -12,12 +13,13 @@ export default {
   data() {
     return {
       apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
-      apartment: null 
+      apartment: null,
+      store
     }
   },
   methods: {
     getApiShow() {
-      axios.get(`http://localhost:8006/api/apartments/citylife-1`)
+      axios.get(`${this.$store.pathapi}/${this.$route.params.slug}`)
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
