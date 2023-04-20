@@ -92,7 +92,7 @@ export default {
                                                 Dove
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
-                                            <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()">
+                                            <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()" autocomplete="off">
                                             <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                         </div>
                                         <div class="mb-3">
@@ -129,12 +129,12 @@ export default {
                     <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block flex-md-grow-1">
                         <form action="" class="d-flex justify-content-between align-items-center">
                             <span class="d-flex justify-content-between align-items-center" style="width: 90%">
-                                <span class="form-floating position-relative flex-grow-1">
+                                <span class="form-floating position-relative flex-grow-1" style="z-index: 4;">
                                     <!-- <label for="place">
                                         Dove
                                     </label> -->
-                                    <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()">
-                                    <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                                    <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()" autocomplete="off">
+                                    <ListAutoComplete class="position-absolute" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                 </span>
                                 <span class="form-floating">
                                     <input type="date" id="check-in" placeholder="Da quando">
