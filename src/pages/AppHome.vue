@@ -44,10 +44,11 @@ export default {
           this.getApiProjects()
         this.activeAuto = true
       }
+    },
+    takeAddress(address) {
+        this.activeAuto = false;
+        return this.query = address;
     }
-  },
-  computed:{
-
   }
 }
 </script>
@@ -58,8 +59,8 @@ export default {
       <div class="row">
 
 
-        <div class="col-12 position-relative col-xl-8 offset-xl-3 mb-3">
-          <div class=" my-research mt-4 p-4 p-md-5 shadow-lg">
+        <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
+          <div class=" my-research p-4 p-md-5 shadow-lg">
 
             <h3>
               Trova alloggi su BoolBNB
@@ -69,11 +70,13 @@ export default {
               Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
             </p>
 
+
+
             <div class="mb-3 position-relative">
               <label for="exampleFormControlInput1" class="form-label">Dove</label>
-              <input type="text" class="form-control" v-model="query" @keypress="controlModal()" id="exampleFormControlInput1"
+              <input type="text" class="form-control radius" v-model="query" @input="controlModal()" id="exampleFormControlInput1"
                 placeholder="Inserisci una destinazione">
-                <ListAutoComplete class="position-absolute" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
+                <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
             </div>
             
 
@@ -191,6 +194,16 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+// .my-research {
+//     .radius {
+//         &:focus {
+//             border-radius: 5px 5px 0 0;
+//             box-shadow: none;
+//             border: 2px solid $color_primary;
+//         }
+//     }
+// }
 .data {
   width: 49%;
 }
@@ -212,6 +225,14 @@ export default {
 .my-research {
   border-radius: 30px;
   background-color: $color_light;
+
+  .radius {
+        &:focus {
+            border-radius: 5px 5px 0 0;
+            box-shadow: none;
+            border: 2px solid $color_primary;
+        }
+    }
 
   .btn {
     width: 100%;
@@ -238,12 +259,25 @@ export default {
 @media screen and (min-width: 768px) {}
 
 @media screen and (min-width: 992px) {
+
+  .jumbo {
+  margin-top: 4rem;
+
   .my-research {
     position: absolute;
     top: 50%;
     left: 0%;
     transform: translate(-50%, -50%);
   }
+
+  .image-container {
+    min-height: 500px;
+
+    img {
+      min-height: 550px;
+    }
+  }
+}
 }
 
 @media screen and (min-width: 1200px) {
