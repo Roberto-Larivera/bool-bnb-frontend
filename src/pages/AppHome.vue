@@ -36,6 +36,14 @@ export default {
           this.autocomplete = response.data.results
         });
     },
+    getApiHome() {
+      axios.get(`${this.store.pathServerHome}home`)
+        .then(response => {
+          console.log(response);
+          this.apartment = response.data.apartment;
+        }
+      );
+    },
     controlModal(){
       if (this.query.length == 0 )
       this.activeAuto = false
@@ -49,6 +57,9 @@ export default {
         this.activeAuto = false;
         return this.query = address;
     }
+  },
+  created(){
+    this.getApiShow()
   }
 }
 </script>
