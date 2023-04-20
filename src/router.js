@@ -19,17 +19,17 @@ const router = createRouter({
             name: 'apartments-index',
             component: ApartmentIndex
         },
+        // {
+        //     path: '/apartments/show',
+        //     name: 'apartments-show',
+        //     component: ApartmentShow
+        // },
+        // esempio pagina con un parametro
         {
-            path: '/apartments/show',
+            path: '/apartments/:slug',
             name: 'apartments-show',
             component: ApartmentShow
         },
-        // esempio pagina con un parametro
-        // {
-        //     path: '/projects/:slug',
-        //     name: 'projects-show',
-        //     component: ProjectsShow
-        // },
 
         // pagina 404
         {

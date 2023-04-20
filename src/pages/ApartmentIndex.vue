@@ -1,4 +1,5 @@
 <script>
+import { store } from '../store';
 
 import AppCard from '../components/Main/AppCard.vue';
 import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
@@ -14,53 +15,91 @@ export default {
   },
   data(){
     return{
-        apartment: [],
+        store,
+        // apartment singolo mi serve?
+        apartment: {},
+        apartments: [],
+        message: 'Non ci sono appartamenti da visualizzare',
+        // controllo di caricamento placeholder
+        received: true,
         moreFilters: false,
-        services: [
-            'Wi-fi',
-            'Parcheggio',
-            'Cucina',
-            'Aria condizionata',
-            'Asciugacapelli',
-            'Allarme antincendio'
-        ],
+        // Modificare services con chiamata API
+        services: [],
         query: '',
         autocomplete: [],
         activeAuto: false,
     }
   },
   methods: {
+    // METODI PER CHIAMATE API
     getApiProjects() {
-      axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
-        params: {
-          'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
-          'countrySet' : 'IT',
-          'lat' : '45.4642',
-          'lon' : '9.1900',
-          'radius' : '10000',
-          'limit' : '5',
-        }
-      })
+      axios
+        .get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+            params: {
+            'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
+            'countrySet' : 'IT',
+            'lat' : '45.4642',
+            'lon' : '9.1900',
+            'radius' : '10000',
+            'limit' : '5',
+            }
+        })
         .then(response => {
           console.log(response.data);
-          this.autocomplete = response.data.results
+          this.autocomplete = response.data.results;
         });
     },
-    controlModal(){
-      if (this.query.length == 0 )
-      this.activeAuto = false
-      else{
-        if(this.query.length > 2)
-          this.getApiProjects()
-        this.activeAuto = true
-      }
+    getApiApartments() {
+      axios
+        .get(store.pathServerApi, {
+            params: {
+           
+            }
+        })
+        .then((response) => {
+            console.log(response.data.apartments.data);
+
+            if (response.data.success == true) {
+                 return this.apartments = response.data.apartments.data;
+            }
+            else {
+                return this.message;
+            }
+
+        });
+    },
+    getApiServices() {
+      axios
+        // aggiornare per services - cambiare endpoint
+        .get(store.pathServerApi + '/services', {
+            params: {
+           
+            }
+        })
+        .then((response) => {
+            console.log(response.data.services);
+            return this.services = response.data.services;
+        });
+    },
+    // metodi per frontend
+    controlModal() {
+        if (this.query.length == 0 )
+        this.activeAuto = false
+        else {
+            if(this.query.length > 2)
+            this.getApiProjects()
+            this.activeAuto = true
+        }
     },
     takeAddress(address) {
         this.activeAuto = false;
         return this.query = address;
     }
+  },
+  created() {
+    this.getApiApartments();
+    this.getApiServices();
   }
-  
 }
 </script>
 
@@ -170,7 +209,7 @@ export default {
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
@@ -214,7 +253,7 @@ export default {
                                             <div class="mb-1" v-for="service in services">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                    {{ service }}
+                                                    {{ service.name }}
                                                 </label>
                                             </div>
                                         </div>
@@ -250,8 +289,8 @@ export default {
     <!-- Cards -->
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-sm-3 g-md-3 g-lg-3">
-            <AppCard class="d-lg-none" v-for="index in 5" />
-            <AppCard class="d-none d-lg-block" v-for="index in 20" />
+            <!-- <AppCard class="d-lg-none" v-for="index in 5" /> -->
+            <AppCard v-for="apartment in apartments" :apartment="apartment" />
         </div>
     </div>
 </template>
