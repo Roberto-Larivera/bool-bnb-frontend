@@ -1,5 +1,10 @@
 <script>
 import Map from '../components/Main/Map.vue';
+import { store } from '../store.js';
+
+// Axios
+import axios from 'axios';
+
 export default {
   name: 'ApartmentShow',
   components: {
@@ -7,35 +12,24 @@ export default {
   },
   data() {
     return {
-      services: [
-        {
-          name: 'Wi-fi',
-          icon: ['fas', 'wifi']
-        },
-        {
-          name: 'Parcheggio',
-          icon: ['fas', 'parking']
-        },
-        {
-          name: 'Cucina',
-          icon: ['fas', 'utensils']
-        },
-        {
-          name: 'Aria condizionata',
-          icon: ['fas', 'snowflake']
-        },
-        {
-          name: 'Asciugacapelli',
-          icon: ['fas', 'shower']
-        },
-        {
-          name: 'Allarme antincendio',
-          icon: ['fas', 'fire-extinguisher']
-        }
-      ],
-      apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs'  
+      apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
+      apartment: null,
+      store
     }
   },
+  methods: {
+    getApiShow() {
+      axios.get(`${this.store.pathServerApi}${this.$route.params.slug}`)
+        .then(response => {
+          console.log(response);
+          this.apartment = response.data.apartment;
+        }
+      );
+    },
+  },
+  created(){
+    this.getApiShow()
+  }
 }
 </script>
 
@@ -48,14 +42,14 @@ export default {
     <div class="row">
       <div class="col">
 
-        <h1>Mirror House North</h1>
+        <h1>{{ apartment.title }}</h1>
 
         <div class="mb-3">
           <span>
             <font-awesome-icon :icon="['fas', 'location-dot']" />
           </span>
           <span>
-            <a href="#" class="my-link mx-2">Bolzano, Trentino-Alto Adige/Südtirol, Italia</a>
+            <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
           </span>
         </div>
 
@@ -65,25 +59,26 @@ export default {
           <div class="row">
 
             <div class="col-12 col-lg-6">
-              <img src="https://placehold.co/650x436" alt="Img" class="img-fluid">
+              <img :src="apartment.main_img" alt="Img" class="img-fluid">
             </div>
 
             <div class="col-6 d-none d-lg-block">
               <div class="row g-2 align-items-center">
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
 
@@ -98,21 +93,14 @@ export default {
           <div class="row">
             <div class="col">
               <div>
-                <h3>Minicase - Host: Sabina Angela</h3>
-
+                <h3>Host: {{ apartment.user.user_data.name}} {{ apartment.user.user_data.surname}}</h3>
                 <div>
-                  <span>4 ospiti · </span>
-                  <span>2 camere da letto · </span>
-                  <span>1 letto · </span>
-                  <span>1 bagno </span>
+                  <span>{{apartment.max_guests}} ospiti · </span>
+                  <span>{{apartment.rooms}} camere da letto · </span>
+                  <span>{{apartment.beds}} letto · </span>
+                  <span>{{apartment.baths}} bagno </span>
                 </div>
-
               </div>
-
-              <div>
-                <img src="" alt="">
-              </div>
-
             </div>
           </div>
 
@@ -162,47 +150,17 @@ export default {
 
           <!-- Protezione aircover -->
           <div class="col">
-            <p>Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
-              inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.</p>
+            <p>
+              Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
+              inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.
+            </p>
           </div>
 
           <hr>
 
           <!-- Descrizione dell'appartamento -->
           <div class="col">
-            <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South Tyrolean
-              Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The Mirror houses
-              offer a unique chance to spend a beautiful vacation surrounded by contemporary architecture of the highest
-              standards and the most astonishing Landscape and beauty nature has to offer.</p>
-            <a href="#" class="my-link fw-semibold" data-bs-toggle="modal" data-bs-target="#descriptionModal">Mostra altro
-              ></a>
-          </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Descrizione dell'appartamento</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South
-                    Tyrolean Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The
-                    Mirror houses offer a unique chance to spend a beautiful vacation surrounded by contemporary
-                    architecture of the highest standards and the most astonishing Landscape and beauty nature has to
-                    offer.</p>
-                  <p>The houses are designed to blend in with the natural surroundings and feature floor-to-ceiling
-                    windows that provide stunning views of the mountains and the valley below. The interiors are sleek and
-                    modern, with minimalist furnishings and high-end finishes. Each house has a fully equipped kitchen, a
-                    spacious living room, and a private outdoor terrace.</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                </div>
-              </div>
-            </div>
+            <p>{{ apartment.description }}</p>
           </div>
 
           <hr>
@@ -211,10 +169,10 @@ export default {
           <div class="col">
             <h5 class="my-3">Cosa troverai</h5>
             <ul>
-              <li v-for="(service, index) in services" :key="index">
-                <font-awesome-icon :icon="service.icon" size="m" style="color: #FF385C;" />
-                {{ service.name }}
-              </li>
+
+              <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
+              <li></li>
+
             </ul>
           </div>
 
@@ -262,7 +220,7 @@ export default {
           <div class="booking-review shadow-lg p-4">
 
             <div class="mb-3">
-              <span class="fw-bold fs-5">220 € </span>
+              <span class="fw-bold fs-5">{{ apartment.price }} € </span>
               <span>notte</span>
             </div>
 
@@ -300,7 +258,7 @@ export default {
             </div>
 
             <div class="mb-3 d-flex justify-content-between">
-              <span class="text-decoration-underline">220 € x 5 notti</span>
+              <span class="text-decoration-underline">{{ apartment.price }} € x 5 notti</span>
               <span>1.100 €</span>
             </div>
 
@@ -329,15 +287,13 @@ export default {
           <h5 class="my-3">Dove ti troverai</h5>
           <!-- !! MAPPA !! -->
           <div>
-            <Map :apiKey="apiKey"></Map>
+            <Map :apiKey="apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
           </div>
-          <span class="fw-semibold">Bolzano, Trentino-Alto Adige/Südtirol, Italia</span>
+          <span class="fw-semibold">{{ apartment.address }}</span>
         </div>
       </div>
 
     </div>
-
-
   </div>
 </template>
 
@@ -380,4 +336,6 @@ img {
 
 .single-image-container img {
   border-radius: 10px;
-}</style>
+}
+
+</style>

@@ -5,7 +5,9 @@ import tt from '@tomtom-international/web-sdk-maps';
 export default {
     name: 'Map',
     props: {
-        apiKey: String
+        apiKey: String,
+        lat: String,
+        long: String
     },
     setup(props) {
         let map = null;
@@ -14,11 +16,11 @@ export default {
             map = tt.map({
                 key: props.apiKey,
                 container: 'map',
-                center: [12.5674, 41.8719],
+                center: [props.long, props.lat],
                 zoom: 10
             });
 
-            const marker = new tt.Marker().setLngLat([12.5674, 41.8719]).addTo(map);
+            const marker = new tt.Marker().setLngLat([props.long, props.lat]).addTo(map);
             map.addControl(new tt.NavigationControl());
         });
 
