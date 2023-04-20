@@ -17,7 +17,7 @@ export default {
 
 <template>
     <div class="col">
-        <router-link :to="{ name: 'home' }" class="text-decoration-none">
+        <router-link :to="{ name: 'apartments-show', params: { slug: apartment.slug }  }" class="text-decoration-none">
             <div class="card">
             <img :src="apartment.main_img" class="card-img" alt="img-card">
             <div class="card-body text-center text-lg-start">
