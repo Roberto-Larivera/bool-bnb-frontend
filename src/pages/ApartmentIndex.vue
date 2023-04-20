@@ -1,4 +1,5 @@
 <script>
+import { store } from '../store';
 
 import AppCard from '../components/Main/AppCard.vue';
 import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
@@ -14,6 +15,7 @@ export default {
   },
   data(){
     return{
+        store,
         apartment: [],
         moreFilters: false,
         services: [
@@ -30,37 +32,65 @@ export default {
     }
   },
   methods: {
+    // METODI PER CHIAMATE API
     getApiProjects() {
-      axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
-        params: {
-          'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
-          'countrySet' : 'IT',
-          'lat' : '45.4642',
-          'lon' : '9.1900',
-          'radius' : '10000',
-          'limit' : '5',
-        }
-      })
+      axios
+        .get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+            params: {
+            'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
+            'countrySet' : 'IT',
+            'lat' : '45.4642',
+            'lon' : '9.1900',
+            'radius' : '10000',
+            'limit' : '5',
+            }
+        })
         .then(response => {
           console.log(response.data);
           this.autocomplete = response.data.results
         });
     },
-    controlModal(){
-      if (this.query.length == 0 )
-      this.activeAuto = false
-      else{
-        if(this.query.length > 2)
-          this.getApiProjects()
-        this.activeAuto = true
-      }
+    getApiApartments() {
+      axios
+        .get(store.pathServerApi + 'index', {
+            params: {
+           
+            }
+        })
+        .then((response) => {
+            console.log(response.results.apartments);
+            return this.store.apartments = response.results.apartments;
+        });
+    },
+    getApiServices() {
+      axios
+        // aggiornare per services - cambiare endpoint
+        .get(store.pathServerApi + 'index', {
+            params: {
+           
+            }
+        })
+        .then((response) => {
+            console.log(response.results.apartments);
+            return this.store.apartments = response.results.apartments;
+        });
+    },
+    // metodi per frontend
+    controlModal() {
+        if (this.query.length == 0 )
+        this.activeAuto = false
+        else {
+            if(this.query.length > 2)
+            this.getApiProjects()
+            this.activeAuto = true
+        }
     },
     takeAddress(address) {
         this.activeAuto = false;
         return this.query = address;
     }
   }
-  
+//   Aggiungi created
 }
 </script>
 
