@@ -1,14 +1,23 @@
 <script>
+import { delay } from 'lodash';
+
 export default {
     name: 'AppCard',
     props: {
-        apartment: Object
+        apartment: Object,
+        caricamento: Boolean
     },
     data() {
         return {
+            delay: false
         }
     },
     methods: {
+    },
+    created() { 
+ 
+        setTimeout(() => this.delay = true, 1000);
+
     }
 }
 
@@ -16,31 +25,55 @@ export default {
 
 
 <template>
-    <div class="col">
-        <router-link :to="{ name: 'apartments-show', params: { slug: apartment.slug }  }" class="text-decoration-none">
-            <div class="card">
-            <img :src="apartment.main_img" class="card-img" alt="img-card">
-            <div class="card-body text-center text-lg-start">
-                <h5 class="card-title">
-                    {{ apartment.title }}
-                </h5>
-                <div class="card-text">
-                    <div>
-                        {{ apartment.address }}
+
+    <template v-if="delay">
+        <div class="col">
+            <router-link :to="{ name: 'apartments-show', params: { slug: apartment.slug }}" class="text-decoration-none">
+                <div class="card">
+                <img :src="apartment.main_img" class="card-img" alt="img-card">
+                <div class="card-body text-center text-lg-start">
+                    <h5 class="card-title">
+                        {{ apartment.title }}
+                    </h5>
+                    <div class="card-text">
+                        <div>
+                            {{ apartment.address }}
+                        </div>
+                        <div>
+                            {{ apartment.price }} &euro; notte
+                        </div>
+                        <div>
+                            {{ apartment.mq }} mq
+                        </div>
                     </div>
-                    <div>
-                        {{ apartment.price }} &euro; notte
-                    </div>
-                    <div>
-                        {{ apartment.mq }}
+                </div>
+            </div>
+            </router-link>
+             <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
+        </div>
+    </template>
+
+    <template v-else>
+         <!-- placeholder -->
+        <!-- finchè carica placeholder, altrimenti card -->
+        <div class="col">
+            <div class="card" aria-hidden="true">
+                <span class="card-img" style="background-color: lightgray;"></span>
+                <div class="card-body text-center text-lg-start">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                    </h5>
+                    <div class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
                     </div>
                 </div>
             </div>
         </div>
-        </router-link>
-        <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-
-    </div>
+    </template>
 </template>
 
 <style lang="scss" scoped>

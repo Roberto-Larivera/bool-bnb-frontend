@@ -16,18 +16,18 @@ export default {
   data(){
     return{
         store,
-        // apartment singolo mi serve?
         apartment: {},
         apartments: [],
         message: 'Non ci sono appartamenti da visualizzare',
-        // controllo di caricamento placeholder
-        received: true,
+        messageChecked: false,
         moreFilters: false,
-        // Modificare services con chiamata API
         services: [],
         query: '',
         autocomplete: [],
         activeAuto: false,
+        currentPage: 1,
+        numPages: null,
+        urlPagination: 'http://127.0.0.1:8000/api/apartments?page='
     }
   },
   methods: {
@@ -57,20 +57,24 @@ export default {
             }
         })
         .then((response) => {
-            console.log(response.data.apartments.data);
+            console.log(response.data);
 
             if (response.data.success == true) {
-                 return this.apartments = response.data.apartments.data;
+                 this.apartments = response.data.apartments.data;
+                 this.messageChecked = false;
+
+                //  pagination
+                this.numPages = response.data.apartments.last_page;
             }
             else {
-                return this.message;
+                this.message;
+                this.messageChecked = true;
             }
 
         });
     },
     getApiServices() {
       axios
-        // aggiornare per services - cambiare endpoint
         .get(store.pathServerApi + 'services', {
             params: {
            
@@ -94,6 +98,19 @@ export default {
     takeAddress(address) {
         this.activeAuto = false;
         return this.query = address;
+    },
+    goPrev() {
+        console.log('ok');
+        if (this.currentPage > 1) {
+            return this.currentPage--;
+           
+        }
+    },
+    goNext() {
+        console.log('ok');
+        if (this.currentPage > 1) {
+            return this.currentPage++;
+        }
     }
   },
   created() {
@@ -175,13 +192,13 @@ export default {
                                     <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()" autocomplete="off">
                                     <ListAutoComplete class="position-absolute" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                 </span>
-                                <span class="form-floating">
+                                <!-- <span class="form-floating">
                                     <input type="date" id="check-in" placeholder="Da quando">
                                 </span>
                                 <span class="form-floating">
                                     <input type="date" id="check-out" placeholder="A quando">
-                                </span>
-                                <span>
+                                </span> -->
+                                <!-- <span>
                                     <select class="form-select" aria-label="Default select example">
                                         <option selected>Ospiti</option>
                                         <option value="1">1</option>
@@ -189,7 +206,7 @@ export default {
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                     </select>
-                                </span>
+                                </span> -->
                             </span>
                             <button type="submit" class="my-submit rounded-pill px-3">
                                 Cerca
@@ -275,8 +292,8 @@ export default {
         </div>
     </div>
 
-    <!-- Titolo pagina -->
-    <div class="container">
+    <!-- Cards -->
+    <div class="container" :class="messageChecked == false ? 'd-block' : 'd-none'">
         <div class="row">
             <div class="col my-5">
                 <h1 class="text-center text-md-start">
@@ -284,15 +301,47 @@ export default {
                 </h1>
             </div>
         </div>
-    </div>
-
-    <!-- Cards -->
-    <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-sm-3 g-md-3 g-lg-3">
             <!-- <AppCard class="d-lg-none" v-for="index in 5" /> -->
             <AppCard v-for="apartment in apartments" :apartment="apartment" />
         </div>
     </div>
+
+    <!-- Risposta no apartments -->
+     <div class="container" :class="messageChecked == false ? 'd-none' : 'd-block'">
+        <div class="row">
+            <div class="col">
+                <h1>
+                    {{ message }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginazione -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="d-flex justify-content-between">
+                    <div :disabled="currentPage === 1" @click="goPrev()">
+                        <!-- <a :href="urlPagination + currentPage">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
+                        </a> -->
+                        <a href="">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
+                        </a>
+                    </div>
+                    <div>
+                        {{ currentPage }} di {{ numPages }}
+                    </div>
+                    <div :disabled="currentPage === numPages" @click="goNext()">
+                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <style lang="scss" scoped>
