@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
-      apartment: null,
+      apartment: {},
+      caricamento: false,
       store
     }
   },
@@ -23,6 +24,7 @@ export default {
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
+          this.caricamento = true;
         }
       );
     },
@@ -38,7 +40,7 @@ export default {
   <div class="container">
 
     <!-- Titolo e immagini -->
-
+    <template v-if="caricamento">
     <div class="row">
       <div class="col">
 
@@ -294,6 +296,8 @@ export default {
       </div>
 
     </div>
+  </template>
+
   </div>
 </template>
 

@@ -71,7 +71,7 @@ export default {
     getApiServices() {
       axios
         // aggiornare per services - cambiare endpoint
-        .get(store.pathServerApi + '/services', {
+        .get(store.pathServerApi + 'services', {
             params: {
            
             }
