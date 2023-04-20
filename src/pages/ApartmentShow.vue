@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     getApiShow() {
-      axios.get(`http://localhost:8006/api/apartments/appartamento-milano-loreto`)
+      axios.get(`http://localhost:8006/api/apartments/citylife-1`)
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
@@ -63,16 +63,16 @@ export default {
             <div class="col-6 d-none d-lg-block">
               <div class="row g-2 align-items-center">
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
                 </div>
                 <div class="col-6">
-                  <img src="https://placehold.co/300x200" alt="Img" class="w-100 mb-3 img-fluid">
+                  <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
                 </div>
               </div>
             </div>
@@ -90,10 +90,10 @@ export default {
           <div class="row">
             <div class="col">
               <div>
-                <h3>Minicase - Host: Sabina Angela</h3>
+                <h3>Host: {{ apartment.user.user_data.name}} {{ apartment.user.user_data.surname}}</h3>
 
                 <div>
-                  <span>{{apartment.max_guest}} ospiti · </span>
+                  <span>{{apartment.max_guests}} ospiti · </span>
                   <span>{{apartment.rooms}} camere da letto · </span>
                   <span>{{apartment.beds}} letto · </span>
                   <span>{{apartment.baths}} bagno </span>
@@ -165,28 +165,6 @@ export default {
           <!-- Descrizione dell'appartamento -->
           <div class="col">
             <p>{{ apartment.description }}</p>
-            <a href="#" class="my-link fw-semibold" data-bs-toggle="modal" data-bs-target="#descriptionModal">
-              Mostra altro >
-            </a>
-          </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Descrizione dell'appartamento</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p>{{ apartment.address }}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                </div>
-              </div>
-            </div>
           </div>
 
           <hr>
@@ -246,7 +224,7 @@ export default {
           <div class="booking-review shadow-lg p-4">
 
             <div class="mb-3">
-              <span class="fw-bold fs-5">220 € </span>
+              <span class="fw-bold fs-5">{{ apartment.price }} € </span>
               <span>notte</span>
             </div>
 
@@ -284,7 +262,7 @@ export default {
             </div>
 
             <div class="mb-3 d-flex justify-content-between">
-              <span class="text-decoration-underline">220 € x 5 notti</span>
+              <span class="text-decoration-underline">{{ apartment.price }} € x 5 notti</span>
               <span>1.100 €</span>
             </div>
 
@@ -313,7 +291,7 @@ export default {
           <h5 class="my-3">Dove ti troverai</h5>
           <!-- !! MAPPA !! -->
           <div>
-            <Map :apiKey="apiKey"></Map>
+            <Map :apiKey="apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
           </div>
           <span class="fw-semibold">{{ apartment.address }}</span>
         </div>

@@ -23,7 +23,7 @@ const router = createRouter({
         //  path: '/apartments/show',
         // name: 'apartments-show',
         //   component: ApartmentShow
-        //},
+        // },
         // esempio pagina con un parametro
 
         {
