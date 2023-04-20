@@ -1,6 +1,8 @@
 <script>
 import AppCard from '../components/Main/AppCard.vue';
 
+import { store } from '../store.js';
+
 import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
 
 // Axios
@@ -13,6 +15,8 @@ export default {
       query: '',
       autocomplete: [],
       activeAuto: false,
+      store,
+      apartments: null,
     };
   },
   components: { 
@@ -40,7 +44,7 @@ export default {
       axios.get(`${this.store.pathServerHome}home`)
         .then(response => {
           console.log(response);
-          this.apartment = response.data.apartment;
+          this.apartments = response.data.apartments;
         }
       );
     },
@@ -59,7 +63,7 @@ export default {
     }
   },
   created(){
-    this.getApiShow()
+    this.getApiHome()
   }
 }
 </script>
@@ -186,8 +190,8 @@ export default {
         </div>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-4 g-4">
-        <AppCard class="d-lg-none" v-for="index in 3" />
-        <AppCard class="d-none d-lg-block" v-for="index in 4" />
+        <AppCard :apartment="apartments[index-1]" class="d-lg-none" v-for="index in 3" />
+        <AppCard :apartment="apartments[index-1]" class="d-none d-lg-block" v-for="index in 4" />
       </div>
 
       <div class="row">
