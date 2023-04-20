@@ -46,7 +46,7 @@ export default {
         })
         .then(response => {
           console.log(response.data);
-          this.autocomplete = response.data.results
+          this.autocomplete = response.data.results;
         });
     },
     getApiApartments() {
