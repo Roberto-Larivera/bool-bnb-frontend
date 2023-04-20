@@ -1,5 +1,9 @@
 <script>
 import Map from '../components/Main/Map.vue';
+
+// Axios
+import axios from 'axios';
+
 export default {
   name: 'ApartmentShow',
   components: {
@@ -7,35 +11,21 @@ export default {
   },
   data() {
     return {
-      services: [
-        {
-          name: 'Wi-fi',
-          icon: ['fas', 'wifi']
-        },
-        {
-          name: 'Parcheggio',
-          icon: ['fas', 'parking']
-        },
-        {
-          name: 'Cucina',
-          icon: ['fas', 'utensils']
-        },
-        {
-          name: 'Aria condizionata',
-          icon: ['fas', 'snowflake']
-        },
-        {
-          name: 'Asciugacapelli',
-          icon: ['fas', 'shower']
-        },
-        {
-          name: 'Allarme antincendio',
-          icon: ['fas', 'fire-extinguisher']
-        }
-      ],
       apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs'  
     }
   },
+  methods: {
+    getApiShow() {
+      axios.get(`http://localhost:8006/api/apartments/appartamento-milano-loreto`)
+        .then(response => {
+          console.log(response.apartment);
+        }
+      );
+    },
+  },
+  mounted(){
+    this.getApiShow()
+  }
 }
 </script>
 
