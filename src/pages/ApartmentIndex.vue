@@ -27,7 +27,6 @@ export default {
         activeAuto: false,
         currentPage: 1,
         numPages: null,
-        urlPagination: 'http://127.0.0.1:8000/api/apartments?page='
     }
   },
   methods: {
@@ -62,8 +61,7 @@ export default {
             if (response.data.success == true) {
                  this.apartments = response.data.apartments.data;
                  this.messageChecked = false;
-
-                //  pagination
+                  //  pagination
                 this.numPages = response.data.apartments.last_page;
             }
             else {
@@ -85,6 +83,17 @@ export default {
             return this.services = response.data.services;
         });
     },
+    getPagination() {
+        let urlPagination =  `http://127.0.0.1:8000/api/apartments?page=${this.currentPage} `;
+
+    
+            axios
+            .get(urlPagination)
+            .then(response => {
+
+                this.apartments = response.data.apartments.data;
+            });
+    },
     // metodi per frontend
     controlModal() {
         if (this.query.length == 0 )
@@ -102,14 +111,18 @@ export default {
     goPrev() {
         console.log('ok');
         if (this.currentPage > 1) {
-            return this.currentPage--;
+
+            this.currentPage--;
+            this.getPagination();
            
         }
     },
     goNext() {
         console.log('ok');
-        if (this.currentPage > 1) {
-            return this.currentPage++;
+        if (this.currentPage < this.numPages) {
+
+            this.currentPage++;
+            this.getPagination();
         }
     }
   },
@@ -322,20 +335,15 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="d-flex justify-content-between">
+                <div class="apartment-pagination d-flex justify-content-around">
                     <div :disabled="currentPage === 1" @click="goPrev()">
-                        <!-- <a :href="urlPagination + currentPage">
-                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
-                        </a> -->
-                        <a href="">
-                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
-                        </a>
+                            <strong><font-awesome-icon :icon="['fas', 'chevron-left']" /> prev</strong>
                     </div>
                     <div>
                         {{ currentPage }} di {{ numPages }}
                     </div>
                     <div :disabled="currentPage === numPages" @click="goNext()">
-                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                            <strong>next <font-awesome-icon :icon="['fas', 'chevron-right']" /></strong>
                     </div>
                 </div>
             </div>
@@ -493,5 +501,22 @@ export default {
 
         }
 }
+
+.apartment-pagination {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+@media screen and (min-width: 992px) {
+    .apartment-pagination {
+        position: fixed;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%);
+        padding: 2rem;
+}
+}
+
+
 
 </style>
