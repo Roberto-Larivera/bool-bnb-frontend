@@ -1,9 +1,9 @@
 <script>
 export default {
     name: 'AppCard',
-    props: [
-        'apartment'
-    ],
+    props: {
+        apartment: Object
+    },
     data() {
         return {
         }
@@ -17,22 +17,22 @@ export default {
 
 <template>
     <div class="col">
-        <router-link :to="{ name: 'apartments-show' }" class="text-decoration-none">
+        <router-link :to="{ name: 'apartment-show', params: { slug: apartment.slug } }" class="text-decoration-none">
             <div class="card">
-            <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
+            <img :src="apartment.main_img" class="card-img" alt="img-card">
             <div class="card-body text-center text-lg-start">
                 <h5 class="card-title">
-                    Appartamento luminoso
+                    {{ apartment.title }}
                 </h5>
-                <div class="card-text ">
+                <div class="card-text">
                     <div>
-                        Via Roma, 2 - Roma, Italia
+                        {{ apartment.address }}
                     </div>
                     <div>
-                        140 &euro; notte
+                        {{ apartment.price }} &euro; notte
                     </div>
                     <div>
-                        200 mq
+                        {{ apartment.mq }}
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@ export default {
 
     .card-img {
         max-width: 100%;
-        height: auto;
+        aspect-ratio: 1 / 1;
         object-fit: cover;
         border-radius: 5px;
     }

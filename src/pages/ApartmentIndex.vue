@@ -16,16 +16,15 @@ export default {
   data(){
     return{
         store,
-        apartment: [],
+        // apartment singolo mi serve?
+        apartment: {},
+        apartments: [],
+        message: 'Non ci sono appartamenti da visualizzare',
+        // controllo di caricamento placeholder
+        received: true,
         moreFilters: false,
-        services: [
-            'Wi-fi',
-            'Parcheggio',
-            'Cucina',
-            'Aria condizionata',
-            'Asciugacapelli',
-            'Allarme antincendio'
-        ],
+        // Modificare services con chiamata API
+        services: [],
         query: '',
         autocomplete: [],
         activeAuto: false,
@@ -52,27 +51,34 @@ export default {
     },
     getApiApartments() {
       axios
-        .get(store.pathServerApi + 'index', {
+        .get(store.pathServerApi, {
             params: {
            
             }
         })
         .then((response) => {
-            console.log(response.results.apartments);
-            return this.store.apartments = response.results.apartments;
+            console.log(response.data.apartments);
+
+            if (response.data.success == true) {
+                 return this.apartments = response.data.apartments;
+            }
+            else {
+                return this.message;
+            }
+
         });
     },
     getApiServices() {
       axios
         // aggiornare per services - cambiare endpoint
-        .get(store.pathServerApi + 'index', {
+        .get(store.pathServerApi + '/services', {
             params: {
            
             }
         })
         .then((response) => {
-            console.log(response.results.apartments);
-            return this.store.apartments = response.results.apartments;
+            console.log(response.data.services);
+            return this.services = response.data.services;
         });
     },
     // metodi per frontend
@@ -89,8 +95,11 @@ export default {
         this.activeAuto = false;
         return this.query = address;
     }
+  },
+  created() {
+    this.getApiApartments();
+    this.getApiServices();
   }
-//   Aggiungi created
 }
 </script>
 
@@ -200,7 +209,7 @@ export default {
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
@@ -244,7 +253,7 @@ export default {
                                             <div class="mb-1" v-for="service in services">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                    {{ service }}
+                                                    {{ service.name }}
                                                 </label>
                                             </div>
                                         </div>
@@ -280,8 +289,8 @@ export default {
     <!-- Cards -->
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-sm-3 g-md-3 g-lg-3">
-            <AppCard class="d-lg-none" v-for="index in 5" />
-            <AppCard class="d-none d-lg-block" v-for="index in 20" />
+            <!-- <AppCard class="d-lg-none" v-for="index in 5" /> -->
+            <AppCard v-for="apartment in apartments" :apartment="apartment" />
         </div>
     </div>
 </template>
