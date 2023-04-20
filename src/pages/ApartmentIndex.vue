@@ -57,10 +57,10 @@ export default {
             }
         })
         .then((response) => {
-            console.log(response.data.apartments);
+            console.log(response.data.apartments.data);
 
             if (response.data.success == true) {
-                 return this.apartments = response.data.apartments;
+                 return this.apartments = response.data.apartments.data;
             }
             else {
                 return this.message;
