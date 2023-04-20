@@ -11,19 +11,21 @@ export default {
   },
   data() {
     return {
-      apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs'  
+      apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
+      apartment: null 
     }
   },
   methods: {
     getApiShow() {
       axios.get(`http://localhost:8006/api/apartments/appartamento-milano-loreto`)
         .then(response => {
-          console.log(response.apartment);
+          console.log(response);
+          this.apartment = response.data.apartment;
         }
       );
     },
   },
-  mounted(){
+  created(){
     this.getApiShow()
   }
 }
@@ -38,14 +40,14 @@ export default {
     <div class="row">
       <div class="col">
 
-        <h1>Mirror House North</h1>
+        <h1>{{ apartment.title }}</h1>
 
         <div class="mb-3">
           <span>
             <font-awesome-icon :icon="['fas', 'location-dot']" />
           </span>
           <span>
-            <a href="#" class="my-link mx-2">Bolzano, Trentino-Alto Adige/Südtirol, Italia</a>
+            <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
           </span>
         </div>
 
@@ -55,7 +57,7 @@ export default {
           <div class="row">
 
             <div class="col-12 col-lg-6">
-              <img src="https://placehold.co/650x436" alt="Img" class="img-fluid">
+              <img :src="apartment.main_img" alt="Img" class="img-fluid">
             </div>
 
             <div class="col-6 d-none d-lg-block">
@@ -91,10 +93,10 @@ export default {
                 <h3>Minicase - Host: Sabina Angela</h3>
 
                 <div>
-                  <span>4 ospiti · </span>
-                  <span>2 camere da letto · </span>
-                  <span>1 letto · </span>
-                  <span>1 bagno </span>
+                  <span>{{apartment.max_guest}} ospiti · </span>
+                  <span>{{apartment.rooms}} camere da letto · </span>
+                  <span>{{apartment.beds}} letto · </span>
+                  <span>{{apartment.baths}} bagno </span>
                 </div>
 
               </div>
@@ -152,20 +154,20 @@ export default {
 
           <!-- Protezione aircover -->
           <div class="col">
-            <p>Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
-              inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.</p>
+            <p>
+              Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
+              inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.
+            </p>
           </div>
 
           <hr>
 
           <!-- Descrizione dell'appartamento -->
           <div class="col">
-            <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South Tyrolean
-              Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The Mirror houses
-              offer a unique chance to spend a beautiful vacation surrounded by contemporary architecture of the highest
-              standards and the most astonishing Landscape and beauty nature has to offer.</p>
-            <a href="#" class="my-link fw-semibold" data-bs-toggle="modal" data-bs-target="#descriptionModal">Mostra altro
-              ></a>
+            <p>{{ apartment.description }}</p>
+            <a href="#" class="my-link fw-semibold" data-bs-toggle="modal" data-bs-target="#descriptionModal">
+              Mostra altro >
+            </a>
           </div>
 
           <!-- Modal -->
@@ -178,15 +180,7 @@ export default {
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>The Mirror Houses are a pair of vacation homes, set in the marvellous surroundings of the South
-                    Tyrolean Dolomites, amidst a beautiful scenery of apple trees, just outside the city of Bolzano. The
-                    Mirror houses offer a unique chance to spend a beautiful vacation surrounded by contemporary
-                    architecture of the highest standards and the most astonishing Landscape and beauty nature has to
-                    offer.</p>
-                  <p>The houses are designed to blend in with the natural surroundings and feature floor-to-ceiling
-                    windows that provide stunning views of the mountains and the valley below. The interiors are sleek and
-                    modern, with minimalist furnishings and high-end finishes. Each house has a fully equipped kitchen, a
-                    spacious living room, and a private outdoor terrace.</p>
+                  <p>{{ apartment.address }}</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
@@ -321,13 +315,10 @@ export default {
           <div>
             <Map :apiKey="apiKey"></Map>
           </div>
-          <span class="fw-semibold">Bolzano, Trentino-Alto Adige/Südtirol, Italia</span>
+          <span class="fw-semibold">{{ apartment.address }}</span>
         </div>
       </div>
-
     </div>
-
-
   </div>
 </template>
 
@@ -370,4 +361,6 @@ img {
 
 .single-image-container img {
   border-radius: 10px;
-}</style>
+}
+
+</style>
