@@ -105,7 +105,7 @@ export default {
                 <label for="exampleFormControlInput1" class="form-label">Dove</label>
                 <input type="text" class="form-control radius" v-model="query" name="address" @input="controlModal()" id="exampleFormControlInput1"
                   placeholder="Inserisci una destinazione" autocomplete="off">
-                  <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                  <ListAutoComplete class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
               </div>
 
               <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">

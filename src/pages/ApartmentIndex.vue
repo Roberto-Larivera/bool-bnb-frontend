@@ -28,7 +28,9 @@ export default {
         currentPage: 1,
         numPages: null,
         disabled: false,
-        address: ''
+        address: '',
+        currentGuest: 1,
+        maxGuests: 6
     }
   },
   methods: {
@@ -131,6 +133,20 @@ export default {
             this.currentPage++;
             this.getPagination();
         }
+    },
+    lessGuests() {
+        console.log('ok');
+        if (this.currentGuest > 1) {
+
+            this.currentGuest--;
+        }
+    },
+    moreGuests() {
+        console.log('ok');
+        if (this.currentGuest < this.maxGuests) {
+
+            this.currentGuest++;
+        }
     }
   },
   created() {
@@ -142,7 +158,7 @@ export default {
 </script>
 
 <template>
-   
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -163,14 +179,14 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" class="form-container-small" @submit.prevent="">
+                                    <form action="" class="form-container-small" @submit.prevent="getApiApartments()">
                                         <div class="mb-3 position-relative">
                                             <label for="place" class="form-label">
                                                 Dove
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
                                             <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()" autocomplete="off">
-                                            <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                                            <ListAutoComplete class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                         </div>
                                         <!-- DATI COMMENTATI -->
                                         <!-- <div class="mb-3">
@@ -212,7 +228,7 @@ export default {
                                         Dove
                                     </label> -->
                                     <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()" autocomplete="off">
-                                    <ListAutoComplete class="position-absolute" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                                    <ListAutoComplete class="position-absolute address-list" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                 </span>
                                 <!-- <span class="form-floating">
                                     <input type="date" id="check-in" placeholder="Da quando">
@@ -289,13 +305,13 @@ export default {
                                                 </label>
                                                 <div class="inline-block">
                                                     <div class="d-flex">
-                                                        <div class="rounded-start guest">
+                                                        <div class="rounded-start guest" @click="lessGuests()">
                                                             -
                                                         </div>
                                                         <div class="d-flex justify-content-center align-items-center" style="width: 50px; border: 1px solid lightgray;">
-                                                            1
+                                                            {{ currentGuest }}
                                                         </div>
-                                                        <div class="rounded-end guest">
+                                                        <div class="rounded-end guest" @click="moreGuests()">
                                                             +
                                                         </div>
                                                     </div>
@@ -428,23 +444,13 @@ export default {
         <div class="row">
             <div class="col">
                 <div class="apartment-pagination d-flex justify-content-around">
-                    <!-- <div :disabled="currentPage === 1" @click="goPrev()">
+                    <div :disabled="currentPage === 1" :class="currentPage === 1 ? '' : 'fw-bold' " @click="goPrev()">
                             <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
                     </div>
                     <div>
                         {{ currentPage }} di {{ numPages }}
                     </div>
-                    <div :disabled="currentPage === numPages" @click="goNext()">
-                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
-                    </div> -->
-
-                    <div :class="currentPage === 1 ? '' : 'fw-bold' " @click="goPrev()">
-                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
-                    </div>
-                    <div>
-                        {{ currentPage }} di {{ numPages }}
-                    </div>
-                    <div :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
+                    <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
                             next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                     </div>
                 </div>
@@ -501,6 +507,7 @@ export default {
                 }
             }
 
+
             input[type="range"]::-webkit-slider-thumb {
                 background-color: $color_primary;
                 border-color: $color_primary;
@@ -513,13 +520,6 @@ export default {
                 background-color: $color_primary;
                 border-color: $color_primary;
             }
-
-            // .map-container {
-            //     max-width: 100%;
-            //     aspect-ratio: 1 / 1;
-            //     background-color: lightgray;
-            //     border: 1px solid gray;
-            // }
 
             .input-text-price {
                 display: flex;
@@ -584,6 +584,14 @@ export default {
             &:focus {
                 outline: none;
             }
+        }
+
+        .address-list {
+                border-radius: 30px;
+                box-shadow: none;
+                border: 2px solid $color_primary;
+                background-color: $color_light;
+                top: 60px;
         }
 
         .form-select {
