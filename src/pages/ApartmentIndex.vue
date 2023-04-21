@@ -27,6 +27,7 @@ export default {
         activeAuto: false,
         currentPage: 1,
         numPages: null,
+        disabled: false
     }
   },
   methods: {
@@ -249,13 +250,21 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" class="form-container-small">
+                                    <div class="form-container-small">
                                         <!-- raggio 20 km -->
                                         <div class="mb-3">
                                             <label for="km" class="form-label">
                                                 Distanza / km 
                                             </label>
-                                            <input type="range" class="form-range" min="5" max="20" step="5" id="km">
+                                            <input type="range" class="form-range" min="0" max="20" step="5" id="km">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    0 km
+                                                </div>
+                                                <div>
+                                                    20 km
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!-- mappa da inserire -->
@@ -322,7 +331,7 @@ export default {
                                                 </label>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
@@ -371,13 +380,23 @@ export default {
         <div class="row">
             <div class="col">
                 <div class="apartment-pagination d-flex justify-content-around">
-                    <div :disabled="currentPage === 1" @click="goPrev()" :class="disabled ? '' : 'fw-bold'">
+                    <!-- <div :disabled="currentPage === 1" @click="goPrev()">
                             <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
                     </div>
                     <div>
                         {{ currentPage }} di {{ numPages }}
                     </div>
-                    <div :disabled="currentPage === numPages" @click="goNext()" :class="disabled ? '' : 'fw-bold'">
+                    <div :disabled="currentPage === numPages" @click="goNext()">
+                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                    </div> -->
+
+                    <div :class="currentPage === 1 ? '' : 'fw-bold' " @click="goPrev()">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
+                    </div>
+                    <div>
+                        {{ currentPage }} di {{ numPages }}
+                    </div>
+                    <div :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
                             next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                     </div>
                 </div>
