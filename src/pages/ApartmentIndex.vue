@@ -27,6 +27,8 @@ export default {
         activeAuto: false,
         currentPage: 1,
         numPages: null,
+        disabled: false,
+        address: ''
     }
   },
   methods: {
@@ -52,7 +54,7 @@ export default {
       axios
         .get(store.pathServerApi, {
             params: {
-           
+                'address': this.query
             }
         })
         .then((response) => {
@@ -70,6 +72,11 @@ export default {
             }
 
         });
+    },
+    getInputAddress() {
+        if(this.$route.query.address) {
+            this.query = this.$route.query.address;
+        }
     },
     getApiServices() {
       axios
@@ -127,6 +134,7 @@ export default {
     }
   },
   created() {
+    this.getInputAddress();
     this.getApiApartments();
     this.getApiServices();
   }
@@ -155,7 +163,7 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" class="form-container-small">
+                                    <form action="" class="form-container-small" @submit.prevent="">
                                         <div class="mb-3 position-relative">
                                             <label for="place" class="form-label">
                                                 Dove
@@ -197,7 +205,7 @@ export default {
 
                     <!-- Ricerca - Tablet / Desktop -->
                     <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block flex-md-grow-1">
-                        <form action="" class="d-flex justify-content-between align-items-center">
+                        <form action="" class="d-flex justify-content-between align-items-center" @submit.prevent="getApiApartments()">
                             <span class="d-flex justify-content-between align-items-center" style="width: 90%">
                                 <span class="form-floating position-relative flex-grow-1" style="z-index: 4;">
                                     <!-- <label for="place">
@@ -249,18 +257,50 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" class="form-container-small">
+                                    <div class="form-container-small">
                                         <!-- raggio 20 km -->
                                         <div class="mb-3">
                                             <label for="km" class="form-label">
                                                 Distanza / km 
                                             </label>
-                                            <input type="range" class="form-range" min="5" max="20" step="5" id="km">
+                                            <input type="range" class="form-range" min="0" max="20" step="5" id="km">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    0 km
+                                                </div>
+                                                <div>
+                                                    20 km
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!-- mappa da inserire -->
-                                        <div class="mb-3 map-container rounded">
-                                           
+                                        <div class="mb-3">
+                                            <div class="map-container rounded">
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ospiti aggiungere -->
+                                        <div class="mb-3">
+                                            <div class="guests">
+                                                <label for="guests" class="form-label">
+                                                    Numero ospiti
+                                                </label>
+                                                <div class="inline-block">
+                                                    <div class="d-flex">
+                                                        <div class="rounded-start guest">
+                                                            -
+                                                        </div>
+                                                        <div class="d-flex justify-content-center align-items-center" style="width: 50px; border: 1px solid lightgray;">
+                                                            1
+                                                        </div>
+                                                        <div class="rounded-end guest">
+                                                            +
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!-- price -->
@@ -274,11 +314,11 @@ export default {
                                                         &euro;
                                                     </span>
                                                     <input type="number" class="my-form-control rounded-end" aria-label="Amount (to the nearest dollar)">
-                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <!-- numero / stanze e bagni -->
+                                        <!-- numero / stanze e bagni modifica come airbnb -->
                                         <div class="mb-3">
                                             <div class="d-flex">
                                                 <div class="rooms" style="width: 50%;">
@@ -314,15 +354,32 @@ export default {
                                         <div class="mb-3">
                                             Servizi 
                                         </div>
-                                        <div class="form-check">
-                                            <div class="mb-1" v-for="service in services">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    {{ service.name }}
-                                                </label>
+                                        <div class="d-lg-none">
+                                            <div class="row row-cols-1">
+                                                <div class="form-check ms-3">
+                                                    <div class="mb-1" v-for="service in services">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            {{ service.name }}
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </form>
+                            
+                                       <div class="d-none d-lg-block">
+                                            <ul class="row row-cols-lg-2">
+                                                <li v-for="service in services" class="col ps-lg-0">
+                                                    <div class="mb-1" >
+                                                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            {{ service.name }}
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                       </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
@@ -371,14 +428,24 @@ export default {
         <div class="row">
             <div class="col">
                 <div class="apartment-pagination d-flex justify-content-around">
-                    <div :disabled="currentPage === 1" @click="goPrev()">
-                            <strong><font-awesome-icon :icon="['fas', 'chevron-left']" /> prev</strong>
+                    <!-- <div :disabled="currentPage === 1" @click="goPrev()">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
                     </div>
                     <div>
                         {{ currentPage }} di {{ numPages }}
                     </div>
                     <div :disabled="currentPage === numPages" @click="goNext()">
-                            <strong>next <font-awesome-icon :icon="['fas', 'chevron-right']" /></strong>
+                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                    </div> -->
+
+                    <div :class="currentPage === 1 ? '' : 'fw-bold' " @click="goPrev()">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
+                    </div>
+                    <div>
+                        {{ currentPage }} di {{ numPages }}
+                    </div>
+                    <div :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
+                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                     </div>
                 </div>
             </div>
@@ -403,6 +470,19 @@ export default {
     max-width: auto;
 }
 
+.map-container {
+                max-width: 100%;
+                aspect-ratio: 1 / 1;
+                background-color: lightgray;
+                border: 1px solid gray;
+}
+
+.guest {
+    background-color: lightgray;
+    padding: 0.5rem;
+    width: 30px;
+    border: 1px solid lightgray;
+}
 
 .modal-content {
 
@@ -434,12 +514,12 @@ export default {
                 border-color: $color_primary;
             }
 
-            .map-container {
-                max-width: 100%;
-                aspect-ratio: 1 / 1;
-                background-color: lightgray;
-                border: 1px solid gray;
-            }
+            // .map-container {
+            //     max-width: 100%;
+            //     aspect-ratio: 1 / 1;
+            //     background-color: lightgray;
+            //     border: 1px solid gray;
+            // }
 
             .input-text-price {
                 display: flex;
@@ -584,22 +664,27 @@ export default {
 .apartment-pagination {
     width: 100%;
     margin-top: 3rem;
+    background-color: $color_light;
 }
 
 
 // MEDIAQUERY
 @media screen and (min-width: 768px) {
 
-    .map-container {
-            max-width: 50%;
+    .my-width {
+        max-width: 60%;
+        .map-container {
+            max-width: 70%;
+            margin: 0 auto;
         }
+    }
 }
 
 @media screen and (min-width: 992px) {
 
-    // width del modale modificata 
+    width del modale modificata 
     .my-width {
-        max-width: 80%;
+        max-width: 60%;
     }
 
     .apartment-pagination {

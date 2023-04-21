@@ -62,18 +62,19 @@ export default {
         return this.query = address;
     },
     sendAddress(){
-      axios.get('http://127.0.0.1:8000/api/apartments/',{
-        params:{
-          'address' : this.query,
-        }
-      })
-        .then(response => {
-          console.log(response);
-          this.$router.push({name:'apartments-index'})
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      // axios.get('http://127.0.0.1:8000/api/apartments/',{
+      //   params:{
+      //     'address' : this.query,
+      //   }
+      // })
+      //   .then(response => {
+      //     console.log(response);
+      //     this.$router.push({name:'apartments-index'})
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+      this.$router.push({name:'apartments-index', query: {address:this.query}})
     }
   },
   created(){
