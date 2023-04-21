@@ -60,6 +60,19 @@ export default {
     takeAddress(address) {
         this.activeAuto = false;
         return this.query = address;
+    },
+    sendAddress(){
+      axios.get('http://127.0.0.1:8000/api/apartments/',{
+        params:{
+          'address' : this.query,
+        }
+      })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   created(){
@@ -75,53 +88,52 @@ export default {
 
 
         <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
-          <div class=" my-research p-4 p-md-5 shadow-lg">
+          <form action="/apartments"  method="get">
+            <div class=" my-research p-4 p-md-5 shadow-lg">
+  
+              <h3>
+                Trova alloggi su BoolBNB
+              </h3>
+  
+              <p class="text-gray">
+                Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
+              </p>
 
-            <h3>
-              Trova alloggi su BoolBNB
-            </h3>
+              <div class="mb-3 position-relative">
+                <label for="exampleFormControlInput1" class="form-label">Dove</label>
+                <input type="text" class="form-control radius" v-model="query" name="address" @input="controlModal()" id="exampleFormControlInput1"
+                  placeholder="Inserisci una destinazione" autocomplete="off">
+                  <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+              </div>
 
-            <p class="text-gray">
-              Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
-            </p>
+              <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">
+                <div class="data mt-2 me-sm-2" style="width: 100%;">
+                  <label for="exampleFormControlInput1" class="check-in">Check-in</label>
+                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+                <div class="data mt-2" style="width: 100%;">
+                  <label for="exampleFormControlInput1" class="check-out">Check-out</label>
+                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <div>
+                  <label for="exampleFormControlInput1" class="check-in">Ospiti</label>
+                  <select class="form-select" id="exampleFormControlInput1" placeholder="">
+                    <option selected>1</option>
+                    <option value="1">2</option>
+                    <option value="2">3</option>
+                    <option value="3">4</option>
+                  </select>
+                </div>
+              </div> -->
 
-
-
-            <div class="mb-3 position-relative">
-              <label for="exampleFormControlInput1" class="form-label">Dove</label>
-              <input type="text" class="form-control radius" v-model="query" @input="controlModal()" id="exampleFormControlInput1"
-                placeholder="Inserisci una destinazione" autocomplete="off">
-                <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+              <button type="submit" class="btn" onclick="sendAddress()">
+                Cerca
+              </button>
             </div>
-            
-
-            <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">
-              <div class="data mt-2 me-sm-2" style="width: 100%;">
-                <label for="exampleFormControlInput1" class="check-in">Check-in</label>
-                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-              </div>
-              <div class="data mt-2" style="width: 100%;">
-                <label for="exampleFormControlInput1" class="check-out">Check-out</label>
-                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <div>
-                <label for="exampleFormControlInput1" class="check-in">Ospiti</label>
-                <select class="form-select" id="exampleFormControlInput1" placeholder="">
-                  <option selected>1</option>
-                  <option value="1">2</option>
-                  <option value="2">3</option>
-                  <option value="3">4</option>
-                </select>
-              </div>
-            </div> -->
-
-            <button class="btn">
-              Cerca
-            </button>
-          </div>
+          </form>
           <div class="image-container d-none d-lg-block ">
             <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="">
