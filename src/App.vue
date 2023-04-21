@@ -1,4 +1,7 @@
 <script>
+// Axios
+import axios from 'axios';
+
 import { store } from './store.js';
 import sessionMixin from './mixins/session.js';
 import AppHeader from './components/Header/AppHeader.vue';
@@ -40,16 +43,33 @@ export default {
       const urlParams = new URLSearchParams(window.location.search);
       const login = urlParams.get('login');
 
-      if(login == 'true'){
-        this.setSession('key', login);
-      const value = this.getSession('key');
-      console.log('sei entrato', value); // output: 'value'
-    }else if(login == 'false'){
-      this.removeSession('key');
-      store.user=null;
-      console.log('sei uscito'); // output: 'value'
+      if (login == 'true') {
+        this.setSession('login', login);
+        this.setSession('auth', urlParams.get('auth'));
+        const value = this.getSession('login');
+        const id = this.getSession('auth');
+        console.log('sei entrato', value, id); // output: 'value'
+        this.getUser()
+
+      } else if (login == 'false') {
+        this.removeSession('login');
+        this.removeSession('auth');
+        store.user = null;
+        console.log('sei uscito'); // output: 'value'
       }
-    }
+    },
+    getUser() {
+      axios.get(`${this.store.pathServerHome}login`, {
+        params: {
+          'user_id': this.getSession('auth'),
+        }
+      })
+        .then(response => {
+          console.log(response);
+          this.store.user = response.data.user;
+        }
+        );
+    },
   }
 
 }
