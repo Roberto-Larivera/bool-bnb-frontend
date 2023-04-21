@@ -275,6 +275,26 @@ export default {
                                         </div>
 
                                         <!-- ospiti aggiungere -->
+                                        <div class="mb-3">
+                                            <div class="guests">
+                                                <label for="guests" class="form-label">
+                                                    Numero ospiti
+                                                </label>
+                                                <div class="inline-block">
+                                                    <div class="d-flex">
+                                                        <div class="rounded-start guest">
+                                                            -
+                                                        </div>
+                                                        <div class="" style="width: 50px;">
+                                                            1
+                                                        </div>
+                                                        <div class="rounded-end guest">
+                                                            +
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <!-- price -->
                                         <div class="mb-3">
@@ -450,8 +470,11 @@ export default {
                 border: 1px solid gray;
 }
 
-.font-small {
-    font-size: 0.8rem;
+.guest {
+    background-color: lightgray;
+    padding: 0.5rem;
+    width: 30px;
+    border: 1px solid lightgray;
 }
 
 .modal-content {
