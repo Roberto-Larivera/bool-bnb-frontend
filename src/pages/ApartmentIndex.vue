@@ -31,7 +31,7 @@ export default {
         disabled: false,
         address: '',
         currentGuest: 1,
-        maxGuests: 6
+        maxGuests: 6,
     }
   },
   methods: {
@@ -192,7 +192,7 @@ export default {
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
                                             <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()" autocomplete="off">
-                                            <ListAutoComplete class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                                            <ListAutoComplete class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress" v-if="this.store.addressListVisible"/>
                                         </div>
                                         <!-- DATI COMMENTATI -->
                                         <!-- <div class="mb-3">
@@ -416,7 +416,7 @@ export default {
                                                 <li v-for="service in services" class="col ps-lg-0">
                                                     <div class="mb-1" >
                                                         <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                        <label class="form-check-label text-break" for="flexCheckDefault">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -459,10 +459,10 @@ export default {
     <!-- Risposta no apartments -->
      <div class="container" :class="messageChecked == false ? 'd-none' : 'd-block'">
         <div class="row">
-            <div class="col">
-                <h1>
+            <div class="col mt-5">
+                <h3 class="fst-italic">
                     {{ message }}
-                </h1>
+                </h3>
             </div>
         </div>
     </div>
@@ -575,6 +575,9 @@ export default {
                 background-clip: padding-box;
                 border: 1px solid #ced4da;
                 appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                box-shadow: none !important;
                 
                 // non funziona border input number disabilitato
                 &:focus {
@@ -589,7 +592,7 @@ export default {
                     border-color: $color_primary;   
                 }
 
-                &:focus-visible {
+                &:focus-within {
                     border-color: $color_primary;   
                 }
 
@@ -746,6 +749,8 @@ export default {
     width: 100%;
     margin-top: 3rem;
     background-color: $color_light;
+    position: fixed;
+    bottom: 150px;
 }
 
 
@@ -763,7 +768,7 @@ export default {
 
 @media screen and (min-width: 992px) {
 
-    width del modale modificata 
+    // width del modale modificata 
     .my-width {
         max-width: 60%;
     }
@@ -775,6 +780,15 @@ export default {
         transform: translate(-50%);
         padding: 2rem;
 }
+}
+
+@media screen and (min-width: 1024px) {
+
+// width del modale modificata 
+.my-width {
+    max-width: 80%;
+}
+
 }
 
 
