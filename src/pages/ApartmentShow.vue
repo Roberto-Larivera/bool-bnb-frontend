@@ -81,7 +81,8 @@ export default {
       <div class="row">
         <div class="col">
 
-          <h1>{{ apartment.title }}</h1>
+          <h1>{{ apartment.title }} </h1>
+          <h1>Visualizzazioni {{ apartment.views_count }}</h1>
 
           <div class="mb-3">
             <span>
