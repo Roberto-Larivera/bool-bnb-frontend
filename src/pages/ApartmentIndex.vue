@@ -16,18 +16,17 @@ export default {
   data(){
     return{
         store,
-        // apartment singolo mi serve?
         apartment: {},
         apartments: [],
         message: 'Non ci sono appartamenti da visualizzare',
-        // controllo di caricamento placeholder
-        received: true,
+        messageChecked: false,
         moreFilters: false,
-        // Modificare services con chiamata API
         services: [],
         query: '',
         autocomplete: [],
         activeAuto: false,
+        currentPage: 1,
+        numPages: null,
     }
   },
   methods: {
@@ -57,20 +56,23 @@ export default {
             }
         })
         .then((response) => {
-            console.log(response.data.apartments.data);
+            console.log(response.data);
 
             if (response.data.success == true) {
-                 return this.apartments = response.data.apartments.data;
+                 this.apartments = response.data.apartments.data;
+                 this.messageChecked = false;
+                  //  pagination
+                this.numPages = response.data.apartments.last_page;
             }
             else {
-                return this.message;
+                this.message;
+                this.messageChecked = true;
             }
 
         });
     },
     getApiServices() {
       axios
-        // aggiornare per services - cambiare endpoint
         .get(store.pathServerApi + 'services', {
             params: {
            
@@ -80,6 +82,17 @@ export default {
             console.log(response.data.services);
             return this.services = response.data.services;
         });
+    },
+    getPagination() {
+        let urlPagination =  `http://127.0.0.1:8000/api/apartments?page=${this.currentPage} `;
+
+    
+            axios
+            .get(urlPagination)
+            .then(response => {
+
+                this.apartments = response.data.apartments.data;
+            });
     },
     // metodi per frontend
     controlModal() {
@@ -94,6 +107,23 @@ export default {
     takeAddress(address) {
         this.activeAuto = false;
         return this.query = address;
+    },
+    goPrev() {
+        console.log('ok');
+        if (this.currentPage > 1) {
+
+            this.currentPage--;
+            this.getPagination();
+           
+        }
+    },
+    goNext() {
+        console.log('ok');
+        if (this.currentPage < this.numPages) {
+
+            this.currentPage++;
+            this.getPagination();
+        }
     }
   },
   created() {
@@ -117,7 +147,7 @@ export default {
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content rounded">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Ricerca appartamenti
@@ -134,7 +164,8 @@ export default {
                                             <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()" autocomplete="off">
                                             <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                         </div>
-                                        <div class="mb-3">
+                                        <!-- DATI COMMENTATI -->
+                                        <!-- <div class="mb-3">
                                             <label for="check-in" class="form-label">
                                                 Check-in
                                             </label>
@@ -152,8 +183,8 @@ export default {
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
-                                        </select>
-                                        <button type="submit" class="my-submit rounded">
+                                        </select> -->
+                                        <button type="submit" class="my-submit-modal rounded">
                                             Vai
                                         </button>
                                     </form>
@@ -175,13 +206,13 @@ export default {
                                     <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()" autocomplete="off">
                                     <ListAutoComplete class="position-absolute" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                 </span>
-                                <span class="form-floating">
+                                <!-- <span class="form-floating">
                                     <input type="date" id="check-in" placeholder="Da quando">
                                 </span>
                                 <span class="form-floating">
                                     <input type="date" id="check-out" placeholder="A quando">
-                                </span>
-                                <span>
+                                </span> -->
+                                <!-- <span>
                                     <select class="form-select" aria-label="Default select example">
                                         <option selected>Ospiti</option>
                                         <option value="1">1</option>
@@ -189,7 +220,7 @@ export default {
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                     </select>
-                                </span>
+                                </span> -->
                             </span>
                             <button type="submit" class="my-submit rounded-pill px-3">
                                 Cerca
@@ -209,8 +240,8 @@ export default {
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
+                        <div class="modal-dialog modal-dialog-scrollable my-width">
+                            <div class="modal-content rounded">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Filtri avanzati
@@ -219,33 +250,67 @@ export default {
                                 </div>
                                 <div class="modal-body">
                                     <form action="" class="form-container-small">
+                                        <!-- raggio 20 km -->
                                         <div class="mb-3">
-                                            <label for="price" class="form-label">
-                                                Prezzo per notte
+                                            <label for="km" class="form-label">
+                                                Distanza / km 
                                             </label>
-                                            <input type="number" class="form-control" min="0" max="3000" id="price">
+                                            <input type="range" class="form-range" min="5" max="20" step="5" id="km">
                                         </div>
 
-                                        <div class="mb-3">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Numero stanze</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
+                                        <!-- mappa da inserire -->
+                                        <div class="mb-3 map-container rounded">
+                                           
                                         </div>
 
+                                        <!-- price -->
                                         <div class="mb-3">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Numero bagni</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
+                                            <div class="input-group flex-column mb-3">
+                                                <label for="price" class="form-label d-block">
+                                                    Prezzo massimo / notte
+                                                </label>
+                                                <div class="d-flex">
+                                                    <span class="input-text-price rounded-start">
+                                                        &euro;
+                                                    </span>
+                                                    <input type="number" class="my-form-control rounded-end" aria-label="Amount (to the nearest dollar)">
+                                                    </div>
+                                            </div>
                                         </div>
-                        
+
+                                        <!-- numero / stanze e bagni -->
+                                        <div class="mb-3">
+                                            <div class="d-flex">
+                                                <div class="rooms" style="width: 50%;">
+                                                    <label for="price" class="form-label d-block">
+                                                        Numero stanze
+                                                    </label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Scegli...</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                                <div class="bathrooms ms-2" style="width: 50%;">
+                                                    <label for="price" class="form-label d-block">
+                                                        Numero bagni
+                                                    </label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Scegli...</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- servizi -->
                                         <div class="mb-3">
                                             Servizi 
                                         </div>
@@ -259,14 +324,14 @@ export default {
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
-                                    Esci
-                                </button>
-                                <button type="submit" class="my-submit rounded">
-                                    Aggiungi filtri
-                                </button>
+                                <div class="modal-footer">
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
+                                        Esci
+                                    </button>
+                                    <button type="submit" class="my-submit rounded">
+                                        Aggiungi filtri
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -275,8 +340,8 @@ export default {
         </div>
     </div>
 
-    <!-- Titolo pagina -->
-    <div class="container">
+    <!-- Cards -->
+    <div class="container" :class="messageChecked == false ? 'd-block' : 'd-none'">
         <div class="row">
             <div class="col my-5">
                 <h1 class="text-center text-md-start">
@@ -284,15 +349,42 @@ export default {
                 </h1>
             </div>
         </div>
-    </div>
-
-    <!-- Cards -->
-    <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-sm-3 g-md-3 g-lg-3">
             <!-- <AppCard class="d-lg-none" v-for="index in 5" /> -->
             <AppCard v-for="apartment in apartments" :apartment="apartment" />
         </div>
     </div>
+
+    <!-- Risposta no apartments -->
+     <div class="container" :class="messageChecked == false ? 'd-none' : 'd-block'">
+        <div class="row">
+            <div class="col">
+                <h1>
+                    {{ message }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginazione -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="apartment-pagination d-flex justify-content-around">
+                    <div :disabled="currentPage === 1" @click="goPrev()">
+                            <strong><font-awesome-icon :icon="['fas', 'chevron-left']" /> prev</strong>
+                    </div>
+                    <div>
+                        {{ currentPage }} di {{ numPages }}
+                    </div>
+                    <div :disabled="currentPage === numPages" @click="goNext()">
+                            <strong>next <font-awesome-icon :icon="['fas', 'chevron-right']" /></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <style lang="scss" scoped>
@@ -304,7 +396,12 @@ export default {
         color: $color_dark;
         text-decoration: none;
         border: 1px solid $color_gray;
-    }
+}
+
+// width del modale modificata 
+.my-width {
+    max-width: auto;
+}
 
 
 .modal-content {
@@ -324,15 +421,65 @@ export default {
                 }
             }
 
-            .my-submit {
+            input[type="range"]::-webkit-slider-thumb {
+                background-color: $color_primary;
+                border-color: $color_primary;
+            }
+                input[type="range"]::-moz-range-thumb {
+                background-color: $color_primary;
+                border-color: $color_primary;
+            }
+                input[type="range"]::-ms-thumb {
+                background-color: $color_primary;
+                border-color: $color_primary;
+            }
+
+            .map-container {
+                max-width: 100%;
+                aspect-ratio: 1 / 1;
+                background-color: lightgray;
+                border: 1px solid gray;
+            }
+
+            .input-text-price {
+                display: flex;
+                align-items: center;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                text-align: center;
+                white-space: nowrap;
+                background-color: #e9ecef;
+                border: 1px solid #ced4da;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+            .my-form-control {
+                display: block;
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #ced4da;
+                appearance: none;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+            .my-submit-modal {
                 padding: 0.5rem;
                 display: inline-block;
                 background-color: $color_primary;
                 color: $color_light;
                 text-decoration: none;
                 border: 1px solid $color_primary;
-                margin-top: 2rem;
                 padding: 0.5rem 1rem;
+                width: 100%;
             }
         }
     }
@@ -366,17 +513,6 @@ export default {
             border: 0;
             border-radius: 0;
             height: auto;
-
-            // TOGLIERE IN FOCUS BORDO BLU
-        //     border-top-style: hidden;
-        //     border-right-style: hidden;
-        //     border-left-style: hidden;
-        //     border-bottom-style: hidden;
-        //     background-color: $color_light;
-
-        //     &:focus {
-        //         outline: none;
-        // }
 }
 
         .no-outline:focus {
@@ -444,5 +580,37 @@ export default {
 
         }
 }
+
+.apartment-pagination {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+
+// MEDIAQUERY
+@media screen and (min-width: 768px) {
+
+    .map-container {
+            max-width: 50%;
+        }
+}
+
+@media screen and (min-width: 992px) {
+
+    // width del modale modificata 
+    .my-width {
+        max-width: 80%;
+    }
+
+    .apartment-pagination {
+        position: fixed;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%);
+        padding: 2rem;
+}
+}
+
+
 
 </style>
