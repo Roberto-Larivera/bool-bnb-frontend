@@ -1,5 +1,6 @@
 <script>
 import { store } from './store.js';
+import sessionMixin from './mixins/session.js';
 import AppHeader from './components/Header/AppHeader.vue';
 import AppFooter from './components/Footer/AppFooter.vue';
 import NavBarResponsive from "./components/Footer/NavBarResponsive.vue";
@@ -10,6 +11,7 @@ export default {
     AppFooter,
     NavBarResponsive
   },
+  mixins: [sessionMixin],
   data() {
     return {
       store,
@@ -21,6 +23,7 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -36,19 +39,16 @@ export default {
     checkLogin() {
       const urlParams = new URLSearchParams(window.location.search);
       const login = urlParams.get('login');
-      
-      if (!this.$session.exists())
-        this.$session.start()
 
-      if(login == true){
-        this.$session.set('login', true);
-        console.log(login); // Output: true
-      }else if(login == false){
-        this.$session.destroy()
+      if(login == 'true'){
+        this.setSession('key', login);
+      const value = this.getSession('key');
+      console.log('sei entrato', value); // output: 'value'
+    }else if(login == 'false'){
+      this.removeSession('key');
+      store.user=null;
+      console.log('sei uscito'); // output: 'value'
       }
-      // if(this.$route.query.login) {
-      //   console.log(this.$route.query.login);
-      // }
     }
   }
 

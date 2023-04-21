@@ -54,4 +54,3 @@ library.add(faLocationDot, faHeartCirclePlus, faKey, faWifi, faParking, faUtensi
 
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
-
