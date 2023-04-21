@@ -24,6 +24,10 @@ export default {
   created() {
     this.checkLogin();
     console.log(this.getSession('user'));
+    if(this.getSession('user')){
+      this.store.user = this.getSession('user');
+      console.log('non sono undefined',this.store.user )
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -69,6 +73,7 @@ export default {
           console.log(response);
           this.setSession('user', response.data.user);
           console.log(this.getSession('user'));
+          this.store.user = this.getSession('user');
         }
         );
     },
