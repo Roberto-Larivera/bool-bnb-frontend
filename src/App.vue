@@ -16,6 +16,9 @@ export default {
       scrolled: false,
     }
   },
+  created() {
+    this.checkLogin();
+  },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
   },
@@ -29,6 +32,23 @@ export default {
       } else {
         this.scrolled = false;
       }
+    },
+    checkLogin() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const login = urlParams.get('login');
+      
+      if (!this.$session.exists())
+        this.$session.start()
+
+      if(login == true){
+        this.$session.set('login', true);
+        console.log(login); // Output: true
+      }else if(login == false){
+        this.$session.destroy()
+      }
+      // if(this.$route.query.login) {
+      //   console.log(this.$route.query.login);
+      // }
     }
   }
 
