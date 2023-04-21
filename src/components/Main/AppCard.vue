@@ -29,7 +29,8 @@ export default {
     <template v-if="delay">
         <div class="col">
             <router-link :to="{ name: 'apartments-show', params: { slug: apartment.slug }}" class="text-decoration-none">
-                <div class="card">
+                <div class="card position-relative">
+                    <font-awesome-icon v-if="apartment.sponsored" class="position-absolute my-icon-sponsor rounded-circle" :icon="['fas', 'rocket']" />
                 <img :src="apartment.main_img" class="card-img" alt="img-card">
                 <div class="card-body text-center text-lg-start">
                     <h5 class="card-title">
@@ -88,6 +89,14 @@ export default {
         aspect-ratio: 1 / 1;
         object-fit: cover;
         border-radius: 5px;
+    }
+    .my-icon-sponsor{
+        top: 10px;
+        right: 10px;
+        color: $color_primary;
+        padding: 10px;
+        background-color:$color_light ;
+
     }
 }
 
