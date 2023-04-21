@@ -285,7 +285,7 @@ export default {
                                                         <div class="rounded-start guest">
                                                             -
                                                         </div>
-                                                        <div class="" style="width: 50px;">
+                                                        <div class="d-flex justify-content-center align-items-center" style="width: 50px; border: 1px solid lightgray;">
                                                             1
                                                         </div>
                                                         <div class="rounded-end guest">
