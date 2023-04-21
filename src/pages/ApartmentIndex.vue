@@ -371,14 +371,14 @@ export default {
         <div class="row">
             <div class="col">
                 <div class="apartment-pagination d-flex justify-content-around">
-                    <div :disabled="currentPage === 1" @click="goPrev()">
-                            <strong><font-awesome-icon :icon="['fas', 'chevron-left']" /> prev</strong>
+                    <div :disabled="currentPage === 1" @click="goPrev()" :class="disabled ? '' : 'fw-bold'">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
                     </div>
                     <div>
                         {{ currentPage }} di {{ numPages }}
                     </div>
-                    <div :disabled="currentPage === numPages" @click="goNext()">
-                            <strong>next <font-awesome-icon :icon="['fas', 'chevron-right']" /></strong>
+                    <div :disabled="currentPage === numPages" @click="goNext()" :class="disabled ? '' : 'fw-bold'">
+                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                     </div>
                 </div>
             </div>
@@ -584,6 +584,7 @@ export default {
 .apartment-pagination {
     width: 100%;
     margin-top: 3rem;
+    background-color: $color_light;
 }
 
 
