@@ -35,6 +35,7 @@ import { faUtensils } from '@fortawesome/free-solid-svg-icons'
 import { faSnowflake } from '@fortawesome/free-solid-svg-icons'
 import { faShower} from '@fortawesome/free-solid-svg-icons'
 import { faFireExtinguisher} from '@fortawesome/free-solid-svg-icons'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(faChevronLeft)
@@ -47,6 +48,7 @@ library.add(faCalendar)
 library.add(faLocationDot, faHeartCirclePlus, faKey)
 library.add(faHouse)
 library.add(faMagnifyingGlass)
+library.add(faEye)
 
 library.add(faLocationDot, faHeartCirclePlus, faKey, faWifi, faParking, faUtensils, faSnowflake, faShower, faFireExtinguisher)
 
