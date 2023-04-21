@@ -95,7 +95,7 @@ export default {
             </div>
             
 
-            <div class="mb-3 d-sm-flex justify-content-sm-between">
+            <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">
               <div class="data mt-2 me-sm-2" style="width: 100%;">
                 <label for="exampleFormControlInput1" class="check-in">Check-in</label>
                 <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
@@ -116,7 +116,7 @@ export default {
                   <option value="3">4</option>
                 </select>
               </div>
-            </div>
+            </div> -->
 
             <button class="btn">
               Cerca
@@ -190,8 +190,7 @@ export default {
         </div>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-4 g-4">
-        <AppCard :apartment="apartments[index-1]" class="d-lg-none" v-for="index in 3" />
-        <AppCard :apartment="apartments[index-1]" class="d-none d-lg-block" v-for="index in 4" />
+        <AppCard :apartment="apartment" v-for="apartment in apartments" />
       </div>
 
       <div class="row">
