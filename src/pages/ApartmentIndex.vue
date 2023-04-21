@@ -240,8 +240,8 @@ export default {
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
+                        <div class="modal-dialog modal-dialog-scrollable my-width">
+                            <div class="modal-content rounded">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Filtri avanzati
@@ -250,6 +250,13 @@ export default {
                                 </div>
                                 <div class="modal-body">
                                     <form action="" class="form-container-small">
+                                        <!-- raggio 20 km -->
+                                        <div class="mb-3">
+                                            <label for="km" class="form-label">
+                                                Distanza / km 
+                                            </label>
+                                            <input type="range" class="form-range" min="5" max="20" step="5" id="km">
+                                        </div>
                                         <div class="mb-3">
                                             <label for="price" class="form-label">
                                                 Prezzo per notte
@@ -290,14 +297,14 @@ export default {
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
-                                    Esci
-                                </button>
-                                <button type="submit" class="my-submit rounded">
-                                    Aggiungi filtri
-                                </button>
+                                <div class="modal-footer">
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
+                                        Esci
+                                    </button>
+                                    <button type="submit" class="my-submit rounded">
+                                        Aggiungi filtri
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -362,7 +369,12 @@ export default {
         color: $color_dark;
         text-decoration: none;
         border: 1px solid $color_gray;
-    }
+}
+
+// width del modale modificata 
+.my-width {
+    max-width: auto;
+}
 
 
 .modal-content {
@@ -380,6 +392,19 @@ export default {
                     box-shadow: none;
                     border: 2px solid $color_primary;
                 }
+            }
+
+            input[type="range"]::-webkit-slider-thumb {
+                background-color: $color_primary;
+                border-color: $color_primary;
+            }
+                input[type="range"]::-moz-range-thumb {
+                background-color: $color_primary;
+                border-color: $color_primary;
+            }
+                input[type="range"]::-ms-thumb {
+                background-color: $color_primary;
+                border-color: $color_primary;
             }
 
             .my-submit-modal {
@@ -424,17 +449,6 @@ export default {
             border: 0;
             border-radius: 0;
             height: auto;
-
-            // TOGLIERE IN FOCUS BORDO BLU
-        //     border-top-style: hidden;
-        //     border-right-style: hidden;
-        //     border-left-style: hidden;
-        //     border-bottom-style: hidden;
-        //     background-color: $color_light;
-
-        //     &:focus {
-        //         outline: none;
-        // }
 }
 
         .no-outline:focus {
@@ -509,6 +523,12 @@ export default {
 }
 
 @media screen and (min-width: 992px) {
+
+    // width del modale modificata 
+    .my-width {
+        max-width: 80%;
+    }
+
     .apartment-pagination {
         position: fixed;
         bottom: 5%;
