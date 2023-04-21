@@ -453,6 +453,7 @@ export default {
                 white-space: nowrap;
                 background-color: #e9ecef;
                 border: 1px solid #ced4da;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             }
 
             .my-form-control {
