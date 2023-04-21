@@ -263,20 +263,22 @@ export default {
                                            
                                         </div>
 
+                                        <!-- price -->
                                         <div class="mb-3">
                                             <div class="input-group flex-column mb-3">
                                                 <label for="price" class="form-label d-block">
-                                                    Prezzo max / notte
+                                                    Prezzo massimo / notte
                                                 </label>
                                                 <div class="d-flex">
-                                                    <span class="input-group-text rounded-start">
+                                                    <span class="input-text-price rounded-start">
                                                         &euro;
                                                     </span>
-                                                    <input type="text" class="form-control rounded-end" aria-label="Amount (to the nearest dollar)">
+                                                    <input type="number" class="my-form-control rounded-end" aria-label="Amount (to the nearest dollar)">
                                                     </div>
                                             </div>
                                         </div>
 
+                                        <!-- numero / stanze e bagni -->
                                         <div class="mb-3">
                                             <select class="form-select" aria-label="Default select example">
                                                 <option selected>Numero stanze</option>
@@ -297,6 +299,7 @@ export default {
                                             </select>
                                         </div>
                         
+                                        <!-- servizi -->
                                         <div class="mb-3">
                                             Servizi 
                                         </div>
@@ -439,6 +442,21 @@ export default {
                 white-space: nowrap;
                 background-color: #e9ecef;
                 border: 1px solid #ced4da;
+            }
+
+            .my-form-control {
+                display: block;
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #ced4da;
+                appearance: none;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             }
 
             .my-submit-modal {
