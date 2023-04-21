@@ -23,6 +23,7 @@ export default {
   },
   created() {
     this.checkLogin();
+    console.log(this.getSession('user'));
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -54,7 +55,7 @@ export default {
       } else if (login == 'false') {
         this.removeSession('login');
         this.removeSession('auth');
-        store.user = null;
+        this.removeSession('user');
         console.log('sei uscito'); // output: 'value'
       }
     },
@@ -66,7 +67,8 @@ export default {
       })
         .then(response => {
           console.log(response);
-          this.store.user = response.data.user;
+          this.setSession('user', response.data.user);
+          console.log(this.getSession('user'));
         }
         );
     },
