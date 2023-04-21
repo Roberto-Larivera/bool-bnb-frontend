@@ -17,7 +17,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faRocket } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faSort } from '@fortawesome/free-solid-svg-icons'
@@ -40,7 +40,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(faChevronLeft)
 library.add(faChevronRight)
-library.add(faUserSecret, faUser)
+library.add(faUserSecret, faUser,faRocket)
 library.add(faSort)
 library.add(faShield)
 library.add(faHeadset)
