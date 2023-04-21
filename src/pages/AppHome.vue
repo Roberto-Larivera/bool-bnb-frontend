@@ -69,6 +69,7 @@ export default {
       })
         .then(response => {
           console.log(response);
+          this.$router.push({name:'apartments-index'})
         })
         .catch(error => {
           console.log(error);
@@ -88,7 +89,7 @@ export default {
 
 
         <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
-          <form action="/apartments"  method="get">
+          <form @submit.prevent="sendAddress" >
             <div class=" my-research p-4 p-md-5 shadow-lg">
   
               <h3>
@@ -129,7 +130,7 @@ export default {
                 </div>
               </div> -->
 
-              <button type="submit" class="btn" onclick="sendAddress()">
+              <button type="submit" class="btn">
                 Cerca
               </button>
             </div>
