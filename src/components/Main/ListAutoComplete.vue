@@ -19,7 +19,7 @@ export default {
 </script>
 
 <template>
-  <div class="card radius">
+  <div>
     <ul v-if="itemsComplete.length > 1">
         <!-- al click figlio  -->
       <li class="p-3 cursor" v-for="search, index in itemsComplete" @click="giveAddress(search.address.freeformAddress)">

@@ -22,13 +22,16 @@ export default {
         messageChecked: false,
         moreFilters: false,
         services: [],
+        moreServices: false,
         query: '',
         autocomplete: [],
         activeAuto: false,
         currentPage: 1,
         numPages: null,
         disabled: false,
-        address: ''
+        address: '',
+        currentGuest: 1,
+        maxGuests: 6,
     }
   },
   methods: {
@@ -131,6 +134,25 @@ export default {
             this.currentPage++;
             this.getPagination();
         }
+    },
+    lessGuests() {
+        console.log('ok');
+        if (this.currentGuest > 1) {
+
+            this.currentGuest--;
+        }
+    },
+    moreGuests() {
+        console.log('ok');
+        if (this.currentGuest < this.maxGuests) {
+
+            this.currentGuest++;
+        }
+    },
+    getServices() {
+        console.log('ok');
+        console.log(this.services);
+        this.moreServices = true;
     }
   },
   created() {
@@ -142,7 +164,7 @@ export default {
 </script>
 
 <template>
-   
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -163,14 +185,14 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" class="form-container-small" @submit.prevent="">
+                                    <form action="" class="form-container-small" @submit.prevent="getApiApartments()">
                                         <div class="mb-3 position-relative">
                                             <label for="place" class="form-label">
                                                 Dove
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
                                             <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()" autocomplete="off">
-                                            <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                                            <ListAutoComplete class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress" v-if="this.store.addressListVisible"/>
                                         </div>
                                         <!-- DATI COMMENTATI -->
                                         <!-- <div class="mb-3">
@@ -212,7 +234,7 @@ export default {
                                         Dove
                                     </label> -->
                                     <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%" v-model="query" @input="controlModal()" autocomplete="off">
-                                    <ListAutoComplete class="position-absolute" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                                    <ListAutoComplete class="position-absolute address-list" style="width: 100%; z-index: 3;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                 </span>
                                 <!-- <span class="form-floating">
                                     <input type="date" id="check-in" placeholder="Da quando">
@@ -289,13 +311,13 @@ export default {
                                                 </label>
                                                 <div class="inline-block">
                                                     <div class="d-flex">
-                                                        <div class="rounded-start guest">
+                                                        <div class="rounded-start guest" @click="lessGuests()">
                                                             -
                                                         </div>
                                                         <div class="d-flex justify-content-center align-items-center" style="width: 50px; border: 1px solid lightgray;">
-                                                            1
+                                                            {{ currentGuest }}
                                                         </div>
-                                                        <div class="rounded-end guest">
+                                                        <div class="rounded-end guest" @click="moreGuests()">
                                                             +
                                                         </div>
                                                     </div>
@@ -357,7 +379,29 @@ export default {
                                         <div class="d-lg-none">
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
-                                                    <div class="mb-1" v-for="service in services">
+                                                    <div class="mb-1" v-for="service in services.slice(-services.length, 7)">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            {{ service.name }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button class="my-submit rounded d-lg-none" @click="getServices()" :class="{
+                                                // non prende
+                                                'mt-2': moreServices == false,
+                                                'd-none': moreServices
+                                            }">
+                                                + servizi
+                                            </button>
+                                        </div>
+                                        <!-- più servizi -->
+                                        <div class="d-lg-none" v-if="moreServices">
+                                            <div class="row row-cols-1">
+                                                <div class="form-check ms-3">
+                                                    <div class="mb-1" v-for="service in services.slice(7)">
                                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             {{ service.name }}
@@ -372,7 +416,7 @@ export default {
                                                 <li v-for="service in services" class="col ps-lg-0">
                                                     <div class="mb-1" >
                                                         <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                        <label class="form-check-label text-break" for="flexCheckDefault">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -415,10 +459,10 @@ export default {
     <!-- Risposta no apartments -->
      <div class="container" :class="messageChecked == false ? 'd-none' : 'd-block'">
         <div class="row">
-            <div class="col">
-                <h1>
+            <div class="col mt-5">
+                <h3 class="fst-italic">
                     {{ message }}
-                </h1>
+                </h3>
             </div>
         </div>
     </div>
@@ -428,23 +472,13 @@ export default {
         <div class="row">
             <div class="col">
                 <div class="apartment-pagination d-flex justify-content-around">
-                    <!-- <div :disabled="currentPage === 1" @click="goPrev()">
+                    <div :disabled="currentPage === 1" :class="currentPage === 1 ? '' : 'fw-bold' " @click="goPrev()">
                             <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
                     </div>
                     <div>
                         {{ currentPage }} di {{ numPages }}
                     </div>
-                    <div :disabled="currentPage === numPages" @click="goNext()">
-                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
-                    </div> -->
-
-                    <div :class="currentPage === 1 ? '' : 'fw-bold' " @click="goPrev()">
-                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
-                    </div>
-                    <div>
-                        {{ currentPage }} di {{ numPages }}
-                    </div>
-                    <div :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
+                    <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
                             next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                     </div>
                 </div>
@@ -501,6 +535,7 @@ export default {
                 }
             }
 
+
             input[type="range"]::-webkit-slider-thumb {
                 background-color: $color_primary;
                 border-color: $color_primary;
@@ -514,13 +549,6 @@ export default {
                 border-color: $color_primary;
             }
 
-            // .map-container {
-            //     max-width: 100%;
-            //     aspect-ratio: 1 / 1;
-            //     background-color: lightgray;
-            //     border: 1px solid gray;
-            // }
-
             .input-text-price {
                 display: flex;
                 align-items: center;
@@ -533,7 +561,6 @@ export default {
                 white-space: nowrap;
                 background-color: #e9ecef;
                 border: 1px solid #ced4da;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             }
 
             .my-form-control {
@@ -548,7 +575,56 @@ export default {
                 background-clip: padding-box;
                 border: 1px solid #ced4da;
                 appearance: none;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                box-shadow: none !important;
+                
+                // non funziona border input number disabilitato
+                &:focus {
+                    border-color: $color_primary;   
+                }
+
+                &:active {
+                    border-color: $color_primary;   
+                }
+
+                &:hover {
+                    border-color: $color_primary;   
+                }
+
+                &:focus-within {
+                    border-color: $color_primary;   
+                }
+
+                &:focus-visible {
+                    border-color: $color_primary;   
+                }
+            }
+
+            .form-select {
+                &:focus {
+                    border: 2px solid;
+                    border-color: $color_primary;
+                    box-shadow: 0 0 0 0.25rem transparent;   
+                }
+
+                &:focus-visible {
+                    border: 2px solid;
+                    border-color: $color_primary;   
+                }
+            }
+
+            .form-check-input {
+                &:checked {
+                    background-color: $color_primary;  
+                    border-color: transparent; 
+                }
+
+                &:focus {
+                    border: 2px solid;
+                    border-color: $color_primary;   
+                    box-shadow: 0 0 0 0.25rem transparent; 
+                }
             }
 
             .my-submit-modal {
@@ -584,6 +660,14 @@ export default {
             &:focus {
                 outline: none;
             }
+        }
+
+        .address-list {
+                border-radius: 30px;
+                box-shadow: none;
+                border: 2px solid $color_primary;
+                background-color: $color_light;
+                top: 60px;
         }
 
         .form-select {
@@ -665,6 +749,8 @@ export default {
     width: 100%;
     margin-top: 3rem;
     background-color: $color_light;
+    position: fixed;
+    bottom: 150px;
 }
 
 
@@ -682,7 +768,7 @@ export default {
 
 @media screen and (min-width: 992px) {
 
-    width del modale modificata 
+    // width del modale modificata 
     .my-width {
         max-width: 60%;
     }
@@ -694,6 +780,15 @@ export default {
         transform: translate(-50%);
         padding: 2rem;
 }
+}
+
+@media screen and (min-width: 1024px) {
+
+// width del modale modificata 
+.my-width {
+    max-width: 80%;
+}
+
 }
 
 
