@@ -257,11 +257,24 @@ export default {
                                             </label>
                                             <input type="range" class="form-range" min="5" max="20" step="5" id="km">
                                         </div>
+
+                                        <!-- mappa da inserire -->
+                                        <div class="mb-3 map-container rounded">
+                                           
+                                        </div>
+
                                         <div class="mb-3">
-                                            <label for="price" class="form-label">
-                                                Prezzo per notte
-                                            </label>
-                                            <input type="number" class="form-control" min="0" max="3000" id="price">
+                                            <div class="input-group flex-column mb-3">
+                                                <label for="price" class="form-label d-block">
+                                                    Prezzo max / notte
+                                                </label>
+                                                <div class="d-flex">
+                                                    <span class="input-group-text rounded-start">
+                                                        &euro;
+                                                    </span>
+                                                    <input type="text" class="form-control rounded-end" aria-label="Amount (to the nearest dollar)">
+                                                    </div>
+                                            </div>
                                         </div>
 
                                         <div class="mb-3">
@@ -407,6 +420,27 @@ export default {
                 border-color: $color_primary;
             }
 
+            .map-container {
+                max-width: 100%;
+                aspect-ratio: 1 / 1;
+                background-color: lightgray;
+                border: 1px solid gray;
+            }
+
+            .input-text-price {
+                display: flex;
+                align-items: center;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                text-align: center;
+                white-space: nowrap;
+                background-color: #e9ecef;
+                border: 1px solid #ced4da;
+            }
+
             .my-submit-modal {
                 padding: 0.5rem;
                 display: inline-block;
@@ -520,6 +554,15 @@ export default {
 .apartment-pagination {
     width: 100%;
     margin-top: 3rem;
+}
+
+
+// MEDIAQUERY
+@media screen and (min-width: 768px) {
+
+    .map-container {
+            max-width: 50%;
+        }
 }
 
 @media screen and (min-width: 992px) {
