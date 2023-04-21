@@ -147,7 +147,7 @@ export default {
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content rounded">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                                         Ricerca appartamenti
@@ -164,7 +164,8 @@ export default {
                                             <input type="text" class="form-control radius" id="place" v-model="query" @input="controlModal()" autocomplete="off">
                                             <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
                                         </div>
-                                        <div class="mb-3">
+                                        <!-- DATI COMMENTATI -->
+                                        <!-- <div class="mb-3">
                                             <label for="check-in" class="form-label">
                                                 Check-in
                                             </label>
@@ -182,8 +183,8 @@ export default {
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
-                                        </select>
-                                        <button type="submit" class="my-submit rounded">
+                                        </select> -->
+                                        <button type="submit" class="my-submit-modal rounded">
                                             Vai
                                         </button>
                                     </form>
@@ -381,15 +382,15 @@ export default {
                 }
             }
 
-            .my-submit {
+            .my-submit-modal {
                 padding: 0.5rem;
                 display: inline-block;
                 background-color: $color_primary;
                 color: $color_light;
                 text-decoration: none;
                 border: 1px solid $color_primary;
-                margin-top: 2rem;
                 padding: 0.5rem 1rem;
+                width: 100%;
             }
         }
     }
