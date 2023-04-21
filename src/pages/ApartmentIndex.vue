@@ -389,7 +389,7 @@ export default {
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <button class="my-submit rounded" @click="getServices()" :class="{
+                                            <button class="my-submit rounded d-lg-none" @click="getServices()" :class="{
                                                 // non prende
                                                 'mt-2': moreServices == false,
                                                 'd-none': moreServices
@@ -561,7 +561,6 @@ export default {
                 white-space: nowrap;
                 background-color: #e9ecef;
                 border: 1px solid #ced4da;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             }
 
             .my-form-control {
@@ -576,7 +575,53 @@ export default {
                 background-clip: padding-box;
                 border: 1px solid #ced4da;
                 appearance: none;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                
+                // non funziona border input number disabilitato
+                &:focus {
+                    border-color: $color_primary;   
+                }
+
+                &:active {
+                    border-color: $color_primary;   
+                }
+
+                &:hover {
+                    border-color: $color_primary;   
+                }
+
+                &:focus-visible {
+                    border-color: $color_primary;   
+                }
+
+                &:focus-visible {
+                    border-color: $color_primary;   
+                }
+            }
+
+            .form-select {
+                &:focus {
+                    border: 2px solid;
+                    border-color: $color_primary;
+                    box-shadow: 0 0 0 0.25rem transparent;   
+                }
+
+                &:focus-visible {
+                    border: 2px solid;
+                    border-color: $color_primary;   
+                }
+            }
+
+            .form-check-input {
+                &:checked {
+                    background-color: $color_primary;  
+                    border-color: transparent; 
+                }
+
+                &:focus {
+                    border: 2px solid;
+                    border-color: $color_primary;   
+                    box-shadow: 0 0 0 0.25rem transparent; 
+                }
             }
 
             .my-submit-modal {
