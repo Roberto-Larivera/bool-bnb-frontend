@@ -268,9 +268,13 @@ export default {
                                         </div>
 
                                         <!-- mappa da inserire -->
-                                        <div class="mb-3 map-container rounded">
-                                           
+                                        <div class="mb-3">
+                                            <div class="map-container rounded">
+
+                                            </div>
                                         </div>
+
+                                        <!-- ospiti aggiungere -->
 
                                         <!-- price -->
                                         <div class="mb-3">
@@ -283,11 +287,11 @@ export default {
                                                         &euro;
                                                     </span>
                                                     <input type="number" class="my-form-control rounded-end" aria-label="Amount (to the nearest dollar)">
-                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <!-- numero / stanze e bagni -->
+                                        <!-- numero / stanze e bagni modifica come airbnb -->
                                         <div class="mb-3">
                                             <div class="d-flex">
                                                 <div class="rooms" style="width: 50%;">
@@ -323,14 +327,31 @@ export default {
                                         <div class="mb-3">
                                             Servizi 
                                         </div>
-                                        <div class="form-check">
-                                            <div class="mb-1" v-for="service in services">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    {{ service.name }}
-                                                </label>
+                                        <div class="d-lg-none">
+                                            <div class="row row-cols-1">
+                                                <div class="form-check ms-3">
+                                                    <div class="mb-1" v-for="service in services">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            {{ service.name }}
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                            
+                                       <div class="d-none d-lg-block">
+                                            <ul class="row row-cols-lg-2">
+                                                <li v-for="service in services" class="col ps-lg-0">
+                                                    <div class="mb-1" >
+                                                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            {{ service.name }}
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                       </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -422,6 +443,16 @@ export default {
     max-width: auto;
 }
 
+.map-container {
+                max-width: 100%;
+                aspect-ratio: 1 / 1;
+                background-color: lightgray;
+                border: 1px solid gray;
+}
+
+.font-small {
+    font-size: 0.8rem;
+}
 
 .modal-content {
 
@@ -453,12 +484,12 @@ export default {
                 border-color: $color_primary;
             }
 
-            .map-container {
-                max-width: 100%;
-                aspect-ratio: 1 / 1;
-                background-color: lightgray;
-                border: 1px solid gray;
-            }
+            // .map-container {
+            //     max-width: 100%;
+            //     aspect-ratio: 1 / 1;
+            //     background-color: lightgray;
+            //     border: 1px solid gray;
+            // }
 
             .input-text-price {
                 display: flex;
@@ -610,16 +641,20 @@ export default {
 // MEDIAQUERY
 @media screen and (min-width: 768px) {
 
-    .map-container {
-            max-width: 50%;
+    .my-width {
+        max-width: 60%;
+        .map-container {
+            max-width: 70%;
+            margin: 0 auto;
         }
+    }
 }
 
 @media screen and (min-width: 992px) {
 
-    // width del modale modificata 
+    width del modale modificata 
     .my-width {
-        max-width: 80%;
+        max-width: 60%;
     }
 
     .apartment-pagination {
