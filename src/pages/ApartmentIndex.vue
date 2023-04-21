@@ -30,8 +30,12 @@ export default {
         numPages: null,
         disabled: false,
         address: '',
-        currentGuest: 1,
-        maxGuests: 6,
+        currentGuest: 0,
+        maxGuests: 30,
+        roomsValue: 0,
+        bathsValue: 0,
+        priceValue: 0,
+        isChecked: [],
     }
   },
   methods: {
@@ -153,6 +157,66 @@ export default {
         console.log('ok');
         console.log(this.services);
         this.moreServices = true;
+    },
+    filterApartments() {
+       let newApartments = this.apartments.filter((item) => {
+            // return item.propToRemove !== valueToRemove;
+            if (this.currentGuest == 0) {
+                return this.apartments;
+            }
+            else {
+                return item.max_guests <= this.currentGuest;
+            }
+        });
+
+        console.log(newApartments);
+
+        newApartments = newApartments.filter((item) => {
+            if (this.roomsValue == 0) 
+            return newApartments;
+            
+            else
+            return item.rooms <= this.roomsValue;
+        });
+
+        console.log(newApartments);
+
+        newApartments = newApartments.filter((item) => {
+            if (this.bathsValue == 0) 
+            return newApartments;
+            
+            else
+            return item.baths <= this.bathsValue;
+        });
+
+        console.log(newApartments);
+
+        newApartments = newApartments.filter((item) => {
+            if (this.priceValue == 0) 
+            return newApartments;
+            
+            else
+            return item.price <= this.priceValue;
+        });
+
+        console.log(newApartments);
+
+        newApartments = newApartments.filter((item) => {
+            if (this.isChecked.length === 0) 
+            return newApartments;
+            
+            else
+            console.log('entrato in else');
+            // this.isChecked.includes(item);
+            console.log(item.services.includes(option));
+            return this.isChecked.some(option => item.services.includes(option));
+
+        });
+
+        // esempio
+        // const valoriInComune = array1.filter(valore => array2.includes(valore));
+
+        console.log(this.isChecked, 'checked', newApartments);
     }
   },
   created() {
@@ -335,7 +399,7 @@ export default {
                                                     <span class="input-text-price rounded-start">
                                                         &euro;
                                                     </span>
-                                                    <input type="number" class="my-form-control rounded-end" aria-label="Amount (to the nearest dollar)">
+                                                    <input type="number" class="my-form-control rounded-end" aria-label="Amount (to the nearest dollar)" v-model="priceValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -347,8 +411,8 @@ export default {
                                                     <label for="price" class="form-label d-block">
                                                         Numero stanze
                                                     </label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Scegli...</option>
+                                                    <select class="form-select" aria-label="Default select example" v-model="roomsValue">
+                                                        <option selected value="0">Scegli...</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -360,8 +424,8 @@ export default {
                                                     <label for="price" class="form-label d-block">
                                                         Numero bagni
                                                     </label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Scegli...</option>
+                                                    <select class="form-select" aria-label="Default select example" v-model="bathsValue">
+                                                        <option selected value="0">Scegli...</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -415,7 +479,7 @@ export default {
                                             <ul class="row row-cols-lg-2">
                                                 <li v-for="service in services" class="col ps-lg-0">
                                                     <div class="mb-1" >
-                                                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
+                                                        <input class="form-check-input me-2" type="checkbox" :value="service.id" id="flexCheckDefault" v-model="isChecked">
                                                         <label class="form-check-label text-break" for="flexCheckDefault">
                                                             {{ service.name }}
                                                         </label>
@@ -429,7 +493,7 @@ export default {
                                     <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
                                         Esci
                                     </button>
-                                    <button type="submit" class="my-submit rounded">
+                                    <button type="submit" class="my-submit rounded" @click="filterApartments()">
                                         Aggiungi filtri
                                     </button>
                                 </div>
