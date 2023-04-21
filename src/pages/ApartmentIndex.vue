@@ -27,7 +27,8 @@ export default {
         activeAuto: false,
         currentPage: 1,
         numPages: null,
-        disabled: false
+        disabled: false,
+        address: ''
     }
   },
   methods: {
@@ -53,7 +54,7 @@ export default {
       axios
         .get(store.pathServerApi, {
             params: {
-           
+                'address': this.query
             }
         })
         .then((response) => {
@@ -71,6 +72,11 @@ export default {
             }
 
         });
+    },
+    getInputAddress() {
+        if(this.$route.query.address) {
+            this.query = this.$route.query.address;
+        }
     },
     getApiServices() {
       axios
@@ -128,6 +134,7 @@ export default {
     }
   },
   created() {
+    this.getInputAddress();
     this.getApiApartments();
     this.getApiServices();
   }
@@ -156,7 +163,7 @@ export default {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" class="form-container-small">
+                                    <form action="" class="form-container-small" @submit.prevent="">
                                         <div class="mb-3 position-relative">
                                             <label for="place" class="form-label">
                                                 Dove
@@ -198,7 +205,7 @@ export default {
 
                     <!-- Ricerca - Tablet / Desktop -->
                     <div class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block flex-md-grow-1">
-                        <form action="" class="d-flex justify-content-between align-items-center">
+                        <form action="" class="d-flex justify-content-between align-items-center" @submit.prevent="getApiApartments()">
                             <span class="d-flex justify-content-between align-items-center" style="width: 90%">
                                 <span class="form-floating position-relative flex-grow-1" style="z-index: 4;">
                                     <!-- <label for="place">
