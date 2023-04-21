@@ -44,6 +44,29 @@ export default {
   },
   created() {
     this.getApiShow()
+  },
+  mounted() {
+    axios.get('https://api.ipify.org?format=json')
+      .then(response => {
+        const ipAddress = response.data.ip;
+        axios.post('http://127.0.0.1:8000/api/view/store', {
+          apartment_id: this.apartment.id,
+          ip_address: ipAddress,
+        })
+          .then(response => {
+            if (response.data.success) {
+              console.log('La view è stata registrata veramente');
+            } else {
+              console.log('Errore: ' + response.data.message);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   
 }
@@ -60,13 +83,18 @@ export default {
 
           <h1>{{ apartment.title }}</h1>
 
-          <div class="mb-3">
-            <span>
-              <font-awesome-icon :icon="['fas', 'location-dot']" />
-            </span>
-            <span>
-              <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
-            </span>
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div>
+              <span>
+                <font-awesome-icon :icon="['fas', 'location-dot']" />
+              </span>
+              <span>
+                <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
+              </span>
+            </div>
+            <div>
+              <font-awesome-icon :icon="['fas', 'eye']" /> {{ apartment.views_count }} Visualizzazioni
+            </div>
           </div>
 
           <!-- Carosello di immagini -->
