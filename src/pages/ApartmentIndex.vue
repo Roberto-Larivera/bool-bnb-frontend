@@ -280,25 +280,36 @@ export default {
 
                                         <!-- numero / stanze e bagni -->
                                         <div class="mb-3">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Numero stanze</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
+                                            <div class="d-flex">
+                                                <div class="rooms" style="width: 50%;">
+                                                    <label for="price" class="form-label d-block">
+                                                        Numero stanze
+                                                    </label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Scegli...</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                                <div class="bathrooms ms-2" style="width: 50%;">
+                                                    <label for="price" class="form-label d-block">
+                                                        Numero bagni
+                                                    </label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Scegli...</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Numero bagni</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </div>
-                        
                                         <!-- servizi -->
                                         <div class="mb-3">
                                             Servizi 
