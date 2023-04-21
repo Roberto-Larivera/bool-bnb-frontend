@@ -22,6 +22,7 @@ export default {
         messageChecked: false,
         moreFilters: false,
         services: [],
+        moreServices: false,
         query: '',
         autocomplete: [],
         activeAuto: false,
@@ -147,6 +148,11 @@ export default {
 
             this.currentGuest++;
         }
+    },
+    getServices() {
+        console.log('ok');
+        console.log(this.services);
+        this.moreServices = true;
     }
   },
   created() {
@@ -373,7 +379,29 @@ export default {
                                         <div class="d-lg-none">
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
-                                                    <div class="mb-1" v-for="service in services">
+                                                    <div class="mb-1" v-for="service in services.slice(-services.length, 7)">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            {{ service.name }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button class="my-submit rounded" @click="getServices()" :class="{
+                                                // non prende
+                                                'mt-2': moreServices == false,
+                                                'd-none': moreServices
+                                            }">
+                                                + servizi
+                                            </button>
+                                        </div>
+                                        <!-- più servizi -->
+                                        <div class="d-lg-none" v-if="moreServices">
+                                            <div class="row row-cols-1">
+                                                <div class="form-check ms-3">
+                                                    <div class="mb-1" v-for="service in services.slice(7)">
                                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             {{ service.name }}
