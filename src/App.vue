@@ -33,6 +33,7 @@ export default {
     hideAddressList() {
         console.log('ok');
         this.store.addressListVisible = false;
+        console.log(this.store.addressListVisible)
     }
   }
 
