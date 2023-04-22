@@ -268,16 +268,16 @@ export default {
                                 </div>
                                 <div class="modal-body">
                                     <form action="" class="form-container-small" @submit.prevent="getApiApartments()">
-                                        <div class="mb-3 position-relative">
+                                        <div class="mb-3 position-relative" @click.stop>
                                             <label for="place" class="form-label">
                                                 Dove
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
                                             <input type="text" class="form-control radius" id="place" v-model="query"
-                                                @input="controlModal()" autocomplete="off">
-                                            <ListAutoComplete class="position-absolute card radius" style="width: 100%;"
+                                                @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
+                                            <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;"
                                                 :class="activeAuto ? 'd-block' : 'd-none'" :itemsComplete="autocomplete"
-                                                @takeAddress="takeAddress" v-if="this.store.addressListVisible" />
+                                                @takeAddress="takeAddress" />
                                         </div>
                                         <!-- DATI COMMENTATI -->
                                         <!-- <div class="mb-3">
@@ -315,14 +315,14 @@ export default {
                         class="form-container-large rounded-pill p-2 shadow bg-body-tertiary rounded d-none d-md-inline-block flex-md-grow-1">
                         <form action="" class="d-flex justify-content-between align-items-center"
                             @submit.prevent="getApiApartments()">
-                            <span class="d-flex justify-content-between align-items-center" style="width: 90%">
+                            <span class="d-flex justify-content-between align-items-center" style="width: 90%" @click.stop>
                                 <span class="form-floating position-relative flex-grow-1" style="z-index: 4;">
                                     <!-- <label for="place">
                                             Dove
                                         </label> -->
                                     <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%"
-                                        v-model="query" @input="controlModal()" autocomplete="off">
-                                    <ListAutoComplete class="position-absolute address-list"
+                                        v-model="query" @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
+                                    <ListAutoComplete v-if="store.addressListVisible" class="position-absolute address-list"
                                         style="width: 100%; z-index: 3;" :class="activeAuto ? 'd-block' : 'd-none'"
                                         :itemsComplete="autocomplete" @takeAddress="takeAddress" />
                                 </span>
