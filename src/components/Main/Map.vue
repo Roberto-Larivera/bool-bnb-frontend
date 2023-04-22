@@ -17,7 +17,8 @@ export default {
                 key: props.apiKey,
                 container: 'map',
                 center: [props.long, props.lat],
-                zoom: 10
+                zoom: 10,
+                radius: 20000
             });
 
             const marker = new tt.Marker().setLngLat([props.long, props.lat]).addTo(map);

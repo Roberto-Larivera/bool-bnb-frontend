@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         // METODI PER CHIAMATE API
-        getApiProjects() {
+        getApiAddresses() {
             axios
                 .get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
                     params: {
@@ -115,7 +115,7 @@ export default {
                 this.activeAuto = false
             else {
                 if (this.query.length > 2)
-                    this.getApiProjects()
+                    this.getApiAddresses()
                 this.activeAuto = true
             }
         },
@@ -166,7 +166,6 @@ export default {
     computed: {
         filteredApartments() {
             let newApartments = this.apartments.filter((item) => {
-                // return item.propToRemove !== valueToRemove;
                 if (this.currentGuest == 0) {
                     return this.apartments;
                 }
@@ -175,7 +174,6 @@ export default {
                 }
             });
 
-            console.log(newApartments);
 
             newApartments = newApartments.filter((item) => {
                 if (this.roomsValue == 0)
@@ -185,7 +183,6 @@ export default {
                     return item.rooms <= this.roomsValue;
             });
 
-            console.log(newApartments);
 
             newApartments = newApartments.filter((item) => {
                 if (this.bathsValue == 0)
@@ -195,7 +192,7 @@ export default {
                     return item.baths <= this.bathsValue;
             });
 
-            console.log(newApartments);
+            
 
             newApartments = newApartments.filter((item) => {
                 if (this.priceValue == 0)
@@ -205,14 +202,13 @@ export default {
                     return item.price <= this.priceValue;
             });
 
-            console.log(newApartments);
+            
 
             newApartments = newApartments.filter((item) => {
                 if (this.isChecked.length === 0)
                     return newApartments;
 
                 else {
-                    console.log('entrato in else');
 
                     let bool = true;
 
@@ -223,27 +219,18 @@ export default {
                     });
 
                     this.isChecked.forEach(serviceChecked => {
-                        console.log(serviceChecked);
-                        // bool = aptServicesId.includes(serviceChecked);
 
                         if (!aptServicesId.includes(serviceChecked)) {
                             bool = false;
-                            console.log(bool);
                             return bool
                         }
                     });
 
                     return bool;
 
-                    // return this.isChecked.every(option => item.services.includes(option));
                 }
             });
 
-            // esempio
-            // const valoriInComune = array1.filter(valore => array2.includes(valore));
-
-            console.log(newApartments);
-            // this.filteredApartments = newApartments;
             return newApartments;
         }
     },
