@@ -573,16 +573,17 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="apartment-pagination d-flex justify-content-around">
-                    <div :disabled="currentPage === 1" :class="currentPage === 1 ? '' : 'fw-bold'" @click="goPrev()">
-                        <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
-                    </div>
-                    <div>
-                        {{ currentPage }} di {{ numPages }}
-                    </div>
-                    <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'"
-                        @click="goNext()">
-                        next <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                <div class="apartment-pagination">
+                    <div class="d-flex justify-content-around py-2">
+                        <div :disabled="currentPage === 1" :class="currentPage === 1 ? '' : 'fw-bold'" @click="goPrev()">
+                            <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
+                        </div>
+                        <div>
+                            {{ currentPage }} di {{ numPages }}
+                        </div>
+                        <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
+                            next <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -849,11 +850,12 @@ export default {
 }
 
 .apartment-pagination {
-    width: 100%;
-    margin-top: 3rem;
-    background-color: $color_light;
     position: fixed;
-    bottom: 150px;
+    bottom: 112px;
+    width: 100%; 
+    background-color: $color_light;
+    z-index: 9; 
+
 }
 
 
@@ -876,21 +878,19 @@ export default {
     .my-width {
         max-width: 60%;
     }
-
-    .apartment-pagination {
-        position: fixed;
-        bottom: 5%;
-        left: 50%;
-        transform: translate(-50%);
-        padding: 2rem;
-    }
 }
 
 @media screen and (min-width: 1024px) {
 
     // width del modale modificata 
     .my-width {
-        max-width: 80%;
+        max-width: 60%;
+
     }
 
-}</style>
+    .apartment-pagination {
+        bottom: 50px;
+    }
+}
+
+</style>
