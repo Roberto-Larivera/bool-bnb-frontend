@@ -64,8 +64,8 @@ export default {
             axios
                 .get(store.pathServerApi, {
                     params: {
-                        'address': this.query
-                        'lat': this.lat
+                        'address': this.query,
+                        'lat': this.lat,
                         'lon': this.lon
                     }
                 })
