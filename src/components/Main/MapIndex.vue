@@ -24,9 +24,14 @@ export default {
 
             this.apartments.forEach(apartment => {
 
-                const marker = new tt.Marker().setLngLat([apartment.lon, apartment.lat]).addTo(map);
-                
-                
+                let marker = new tt.Marker()
+                .setLngLat([apartment.longitude, apartment.latitude])
+                .addTo(map);
+
+                // marker.setPopup(new tt.Popup().setHTML(`<p>${apartment.price}</p>`));
+                marker.setPopup(new tt.Popup().setHTML(`<h6>${apartment.title}</h6><p>${apartment.address}</p>`));
+                // marker.setIcon(new tt.Marker({ icon: new TTIcon({ iconUrl: 'data:image/svg+xml;charset=UTF-8,<svg></svg>', iconSize: [0,0] }) }).setHTML(`<h6>${apartment.title}</h6><p>${apartment.address}</p>`));
+
             });
 
             map.addControl(new tt.NavigationControl());
@@ -36,7 +41,7 @@ export default {
 
     },
     mounted() {
-        this.getMapIndex;
+        this.getMapIndex();
     }
    
 }
