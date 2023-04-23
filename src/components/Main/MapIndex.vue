@@ -26,6 +26,7 @@ export default {
 
                 const marker = new tt.Marker().setLngLat([apartment.lon, apartment.lat]).addTo(map);
                 
+                
             });
 
             map.addControl(new tt.NavigationControl());
