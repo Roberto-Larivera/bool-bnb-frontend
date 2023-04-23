@@ -33,7 +33,7 @@ export default {
           'countrySet' : 'IT',
           'lat' : '45.4642',
           'lon' : '9.1900',
-          'radius' : '10000',
+          'radius' : '20000',
           'limit' : '5',
         }
       })
