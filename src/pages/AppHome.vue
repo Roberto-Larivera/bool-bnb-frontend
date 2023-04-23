@@ -27,7 +27,7 @@ export default {
    },
   methods: {
     getApiProjects() {
-      axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+      axios.get(`https://api.tomtom.com/search/2/search/${this.store.address}.json`, {
         params: {
           'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
           'countrySet' : 'IT',
@@ -51,17 +51,17 @@ export default {
       );
     },
     controlModal(){
-      if (this.query.length == 0 )
+      if (this.store.address.length == 0 )
       this.activeAuto = false
       else{
-        if(this.query.length > 2)
+        if(this.store.address.length > 2)
           this.getApiProjects()
         this.activeAuto = true
       }
     },
     takeAddress(address) {
         this.activeAuto = false;
-        return this.query = address;
+        return this.store.address = address;
     },
     sendAddress(){
       // axios.get('http://127.0.0.1:8000/api/apartments/',{
@@ -76,9 +76,9 @@ export default {
       //   .catch(error => {
       //     console.log(error);
       //   });
-      this.lat = this.autocomplete[0].position.lat;
-      this.lon = this.autocomplete[0].position.lon;
-      this.$router.push({name:'apartments-index', query: {address:this.query, lat: this.lat, lon: this.lon}})
+      this.store.lat = this.autocomplete[0].position.lat;
+      this.store.lon = this.autocomplete[0].position.lon;
+      // this.$router.push({name:'apartments-index', query: {address:this.query, lat: this.lat, lon: this.lon}})
     }
   },
   created(){
@@ -94,7 +94,7 @@ export default {
 
 
         <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
-          <form @submit.prevent="sendAddress" >
+          <form submit.prevent >
             <div class=" my-research p-4 p-md-5 shadow-lg">
   
               <h3>
@@ -107,7 +107,7 @@ export default {
 
               <div class="mb-3 position-relative" @click.stop> 
                 <label for="exampleFormControlInput1" class="form-label">Dove</label>
-                <input type="text" class="form-control radius" v-model="query" name="address" @click="store.addressListVisible = true" @input="controlModal()" id="exampleFormControlInput1"
+                <input type="text" class="form-control radius" v-model="store.address" name="address" @click="store.addressListVisible = true" @input="controlModal()" id="exampleFormControlInput1"
                   placeholder="Inserisci una destinazione" autocomplete="off">
                   <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
               </div>
@@ -134,10 +134,9 @@ export default {
                   </select>
                 </div>
               </div> -->
-
-              <button type="submit" class="btn">
+              <router-link :to="{ name: 'apartments-index' }" class="btn">
                 Cerca
-              </button>
+              </router-link>
             </div>
           </form>
           <div class="image-container d-none d-lg-block ">

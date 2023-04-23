@@ -45,7 +45,7 @@ export default {
         // METODI PER CHIAMATE API
         getApiAddresses() {
             axios
-                .get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+                .get(`https://api.tomtom.com/search/2/search/${this.store.address}.json`, {
                     params: {
                         'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
                         'countrySet': 'IT',
@@ -61,14 +61,18 @@ export default {
                 });
         },
         getApiApartments() {
-            this.lat = this.autocomplete[0].position.lat;
-            this.lon = this.autocomplete[0].position.lon;
+            if(this.autocomplete == ''){
+            }
+            else{
+                this.store.lat = this.autocomplete[0].position.lat;
+                this.store.lon = this.autocomplete[0].position.lon;
+            }
             axios
                 .get(store.pathServerApi, {
                     params: {
-                        'address': this.query,
-                        'lat': this.lat,
-                        'lon': this.lon
+                        'address': this.store.address,
+                        'lat': this.store.lat,
+                        'lon': this.store.lon
                     }
                 })
                 .then((response) => {
@@ -86,13 +90,6 @@ export default {
                     }
 
                 });
-        },
-        getInputAddress() {
-            if (this.$route.query.address) {
-                this.query = this.$route.query.address;
-                this.lat = this.$route.query.lat;
-                this.lon = this.$route.query.lon;
-            }
         },
         getApiServices() {
             axios
@@ -119,17 +116,17 @@ export default {
         },
         // metodi per frontend
         controlModal() {
-            if (this.query.length == 0)
+            if (this.store.address.length == 0)
                 this.activeAuto = false
             else {
-                if (this.query.length > 2)
+                if (this.store.address.length > 2)
                     this.getApiAddresses()
                 this.activeAuto = true
             }
         },
         takeAddress(address) {
             this.activeAuto = false;
-            return this.query = address;
+            return this.store.address = address;
         },
         goPrev() {
             console.log('ok');
@@ -241,7 +238,6 @@ export default {
         }
     },
     created() {
-        this.getInputAddress();
         this.getApiApartments();
         this.getApiServices();
     }
@@ -279,7 +275,7 @@ export default {
                                                 Dove
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
-                                            <input type="text" class="form-control radius" id="place" v-model="query"
+                                            <input type="search" class="form-control radius" id="place" v-model="this.store.address" 
                                                 @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
                                             <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;"
                                                 :class="activeAuto ? 'd-block' : 'd-none'" :itemsComplete="autocomplete"
@@ -326,8 +322,8 @@ export default {
                                     <!-- <label for="place">
                                             Dove
                                         </label> -->
-                                    <input type="text" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%"
-                                        v-model="query" @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
+                                    <input type="search" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%"
+                                        v-model="this.store.address" @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
                                     <ListAutoComplete v-if="store.addressListVisible" class="position-absolute address-list"
                                         style="width: 100%; z-index: 3;" :class="activeAuto ? 'd-block' : 'd-none'"
                                         :itemsComplete="autocomplete" @takeAddress="takeAddress" />
