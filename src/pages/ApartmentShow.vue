@@ -212,10 +212,14 @@ export default {
             <!-- Servizi inclusi -->
             <div class="col">
               <h5 class="my-3">Cosa troverai</h5>
-              <ul>
+              <ul v-for="service in apartment.services">
 
                 <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
-                <li></li>
+                
+                <li>
+                  <font-awesome-icon :icon="service.icon" />
+                  {{ service.name }}
+                </li>
 
               </ul>
             </div>
