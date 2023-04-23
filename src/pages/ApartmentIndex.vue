@@ -427,7 +427,7 @@ export default {
                                         <!-- mappa da inserire -->
                                         <div class="mb-3">
                                             <div class="map-container rounded">
-                                                <MapIndex :lat="'45.46362'" :long="'9.18812'" :apartments="filteredApartments" :apiKey="store.apiKey" />
+                                                <MapIndex :lat="'45.46362'" :long="'9.18812'" :apartments="filteredApartments" :apiKey="store.apiKey"/>
                                             </div>
                                         </div>
 
