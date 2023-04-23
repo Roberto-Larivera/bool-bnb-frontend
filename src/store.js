@@ -7,5 +7,6 @@ export const store = reactive({
     addressListVisible: true,
     lat: '',
     lon: '',
-    address: ''
+    address: '',
+    range: 20
 });

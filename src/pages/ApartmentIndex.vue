@@ -51,7 +51,7 @@ export default {
                         'countrySet': 'IT',
                         'lat': '45.4642',
                         'lon': '9.1900',
-                        'radius': '10000',
+                        'radius': '20000',
                         'limit': '5',
                     }
                 })
@@ -61,22 +61,24 @@ export default {
                 });
         },
         getApiApartments() {
-            if(this.autocomplete == ''){
+            if (this.autocomplete == '') {
             }
-            else{
+            else {
                 this.store.lat = this.autocomplete[0].position.lat;
                 this.store.lon = this.autocomplete[0].position.lon;
             }
             axios
                 .get(store.pathServerApi, {
                     params: {
-                        'address': this.store.address,
+                        'range': this.store.range,
                         'lat': this.store.lat,
-                        'lon': this.store.lon
+                        'lon': this.store.lon,
                     }
                 })
                 .then((response) => {
                     console.log(response.data);
+
+                    console.log(this.store.range);
 
                     if (response.data.success == true) {
                         this.apartments = response.data.apartments.data;
@@ -164,10 +166,18 @@ export default {
         },
         switchFilter() {
             this.apartments = this.filteredApartments;
-        }
+        },
+        // styleRange() {
+        //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
+        //     newPosition = 10 - (newValue * 0.2);
+        //     rangeV.innerHTML = `<span>${range.value}</span>`;
+        //     rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+        //     }
+        // }
     },
     computed: {
         filteredApartments() {
+
             let newApartments = this.apartments.filter((item) => {
                 if (this.currentGuest == 0) {
                     return this.apartments;
@@ -195,7 +205,7 @@ export default {
                     return item.baths >= this.bathsValue;
             });
 
-            
+
 
             newApartments = newApartments.filter((item) => {
                 if (this.priceValue == 0)
@@ -205,7 +215,7 @@ export default {
                     return item.price <= this.priceValue;
             });
 
-            
+
 
             newApartments = newApartments.filter((item) => {
                 if (this.isChecked.length === 0)
@@ -275,9 +285,11 @@ export default {
                                                 Dove
                                             </label>
                                             <!-- <input type="text" class="form-control" id="place"> -->
-                                            <input type="search" class="form-control radius" id="place" v-model="this.store.address" 
-                                                @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
-                                            <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;"
+                                            <input type="search" class="form-control radius" id="place"
+                                                v-model="this.store.address" @input="controlModal()"
+                                                @click="store.addressListVisible = true" autocomplete="off">
+                                            <ListAutoComplete v-if="store.addressListVisible"
+                                                class="position-absolute card radius" style="width: 100%;"
                                                 :class="activeAuto ? 'd-block' : 'd-none'" :itemsComplete="autocomplete"
                                                 @takeAddress="takeAddress" />
                                         </div>
@@ -322,8 +334,9 @@ export default {
                                     <!-- <label for="place">
                                             Dove
                                         </label> -->
-                                    <input type="search" id="place" class="ms-3 radius" placeholder="Dove" style="width: 90%"
-                                        v-model="this.store.address" @input="controlModal()" @click="store.addressListVisible = true" autocomplete="off">
+                                    <input type="search" id="place" class="ms-3 radius" placeholder="Dove"
+                                        style="width: 90%" v-model="this.store.address" @input="controlModal()"
+                                        @click="store.addressListVisible = true" autocomplete="off">
                                     <ListAutoComplete v-if="store.addressListVisible" class="position-absolute address-list"
                                         style="width: 100%; z-index: 3;" :class="activeAuto ? 'd-block' : 'd-none'"
                                         :itemsComplete="autocomplete" @takeAddress="takeAddress" />
@@ -378,10 +391,22 @@ export default {
                                     <div class="form-container-small">
                                         <!-- raggio 20 km -->
                                         <div class="mb-3">
-                                            <label for="km" class="form-label">
+                                            <label for="km" class="form-label" style="display: block;">
                                                 Distanza / km
                                             </label>
-                                            <input type="range" class="form-range" min="0" max="20" step="5" id="km">
+                                            <div class="range-wrap">
+                                                <div class="range-value" id="rangeV">
+                                                    <span>
+                                                        {{ store.range }}
+                                                    </span>
+                                                </div>
+                                                <input type="range" class="form-range" id="km" min="1" max="20"
+                                                    v-model="store.range" @change="getApiApartments()" step="1">
+                                            </div>
+
+                                            <!-- <input type="range" class="form-range" :value="store.range" min="1" max="20" oninput="this.nextElementSibling.value = this.value" style="width: 80%;">
+                                            <output>20</output>  -->
+
                                             <div class="d-flex justify-content-between">
                                                 <div>
                                                     0 km
@@ -492,10 +517,10 @@ export default {
                                         </div>
                                         <div class="mb-3">
                                             <button class="my-submit rounded d-lg-none" @click="getServices()" :class="{
-                                                // non prende
-                                                'mt-2': moreServices == false,
-                                                'd-none': moreServices
-                                            }">
+                                                    // non prende
+                                                    'mt-2': moreServices == false,
+                                                    'd-none': moreServices
+                                                }">
                                                 + servizi
                                             </button>
                                         </div>
@@ -533,7 +558,8 @@ export default {
                                     <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
                                         Esci
                                     </button>
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal">
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
+                                        data-bs-dismiss="modal">
                                         Mostra <span> {{ filteredApartments.length }}</span>
                                     </button>
                                 </div>
@@ -583,7 +609,8 @@ export default {
                         <div>
                             {{ currentPage }} di {{ numPages }}
                         </div>
-                        <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'" @click="goNext()">
+                        <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'"
+                            @click="goNext()">
                             next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                         </div>
                     </div>
@@ -654,6 +681,47 @@ export default {
                 background-color: $color_primary;
                 border-color: $color_primary;
             }
+
+            .range-wrap {
+                width: 500px;
+                position: relative;
+            }
+
+            .range-value {
+                position: absolute;
+                top: -50%;
+            }
+
+            .range-value span {
+                width: 30px;
+                height: 24px;
+                line-height: 24px;
+                text-align: center;
+                background: $color_primary;
+                color: $color_light;
+                font-size: 12px;
+                display: block;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, 0);
+                border-radius: 6px;
+            }
+
+            .range-value span:before {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-top: 10px solid $color_primary;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                margin-top: -1px;
+            }
+
+
 
             .input-text-price {
                 display: flex;
@@ -854,9 +922,9 @@ export default {
 .apartment-pagination {
     position: fixed;
     bottom: 112px;
-    width: 100%; 
+    width: 100%;
     background-color: $color_light;
-    z-index: 9; 
+    z-index: 9;
 
 }
 
@@ -893,6 +961,4 @@ export default {
     .apartment-pagination {
         bottom: 50px;
     }
-}
-
-</style>
+}</style>
