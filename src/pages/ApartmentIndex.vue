@@ -173,7 +173,7 @@ export default {
                     return this.apartments;
                 }
                 else {
-                    return item.max_guests <= this.currentGuest;
+                    return item.max_guests >= this.currentGuest;
                 }
             });
 
@@ -183,7 +183,7 @@ export default {
                     return newApartments;
 
                 else
-                    return item.rooms <= this.roomsValue;
+                    return item.rooms >= this.roomsValue;
             });
 
 
@@ -192,7 +192,7 @@ export default {
                     return newApartments;
 
                 else
-                    return item.baths <= this.bathsValue;
+                    return item.baths >= this.bathsValue;
             });
 
             

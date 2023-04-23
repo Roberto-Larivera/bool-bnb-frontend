@@ -59,10 +59,6 @@ export default {
         this.activeAuto = true
       }
     },
-    takeAddress(address) {
-        this.activeAuto = false;
-        return this.store.address = address;
-    },
     sendAddress(){
       // axios.get('http://127.0.0.1:8000/api/apartments/',{
       //   params:{
@@ -109,7 +105,7 @@ export default {
                 <label for="exampleFormControlInput1" class="form-label">Dove</label>
                 <input type="text" class="form-control radius" v-model="store.address" name="address" @click="store.addressListVisible = true" @input="controlModal()" id="exampleFormControlInput1"
                   placeholder="Inserisci una destinazione" autocomplete="off">
-                  <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                  <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
               </div>
 
               <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">
