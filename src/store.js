@@ -8,5 +8,6 @@ export const store = reactive({
     lat: '',
     lon: '',
     address: '',
-    range: 20
+    range: 20,
+    apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
 });

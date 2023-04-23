@@ -3,6 +3,7 @@ import { store } from '../store';
 
 import AppCard from '../components/Main/AppCard.vue';
 import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
+import MapIndex from '../components/Main/MapIndex.vue';
 
 // Axios
 import axios from 'axios';
@@ -11,7 +12,8 @@ export default {
     name: 'ApartmentIndex',
     components: {
         AppCard,
-        ListAutoComplete
+        ListAutoComplete,
+        MapIndex,
     },
     data() {
         return {
@@ -167,6 +169,11 @@ export default {
         switchFilter() {
             this.apartments = this.filteredApartments;
         },
+        getAllApartments() {
+            this.filteredApartments = this.apartments;
+            console.log(this.filteredApartments);
+            return this.filteredApartments;
+        }
         // styleRange() {
         //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
         //     newPosition = 10 - (newValue * 0.2);
@@ -420,7 +427,7 @@ export default {
                                         <!-- mappa da inserire -->
                                         <div class="mb-3">
                                             <div class="map-container rounded">
-
+                                                <MapIndex :lat="'45.46362'" :long="'9.18812'" :apartments="filteredApartments" :apiKey="store.apiKey" />
                                             </div>
                                         </div>
 
@@ -555,8 +562,8 @@ export default {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
-                                        Esci
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="getAllApartments()">
+                                       Rimuovi filtri
                                     </button>
                                     <button type="submit" class="my-submit rounded" @click="switchFilter()"
                                         data-bs-dismiss="modal">

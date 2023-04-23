@@ -12,7 +12,6 @@ export default {
   },
   data() {
     return {
-      apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
       apartment: {},
       caricamento: false,
       store,
@@ -354,7 +353,7 @@ export default {
             <h5 class="my-3">Dove ti troverai</h5>
             <!-- !! MAPPA !! -->
             <div>
-              <Map :apiKey="apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
+              <Map :apiKey="store.apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
             </div>
             <span class="fw-semibold">{{ apartment.address }}</span>
           </div>

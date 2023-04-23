@@ -23,6 +23,7 @@ export default {
 
             const marker = new tt.Marker().setLngLat([props.long, props.lat]).addTo(map);
             map.addControl(new tt.NavigationControl());
+
         });
 
         return { map };
