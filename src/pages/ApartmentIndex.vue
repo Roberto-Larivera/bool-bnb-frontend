@@ -36,6 +36,8 @@ export default {
             bathsValue: 0,
             priceValue: 0,
             isChecked: [],
+            lat: '',
+            lon: '',
             // filteredApartments: []
         }
     },
@@ -63,6 +65,8 @@ export default {
                 .get(store.pathServerApi, {
                     params: {
                         'address': this.query
+                        'lat': this.lat
+                        'lon': this.lon
                     }
                 })
                 .then((response) => {
@@ -84,6 +88,8 @@ export default {
         getInputAddress() {
             if (this.$route.query.address) {
                 this.query = this.$route.query.address;
+                this.lat = this.$route.query.lat;
+                this.lon = this.$route.query.lon;
             }
         },
         getApiServices() {
@@ -155,8 +161,6 @@ export default {
             }
         },
         getServices() {
-            console.log('ok');
-            console.log(this.services);
             this.moreServices = true;
         },
         switchFilter() {

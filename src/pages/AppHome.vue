@@ -17,6 +17,8 @@ export default {
       activeAuto: false,
       store,
       apartments: null,
+      lat: '',
+      lon: ''
     };
   },
   components: { 
@@ -74,12 +76,13 @@ export default {
       //   .catch(error => {
       //     console.log(error);
       //   });
-      this.$router.push({name:'apartments-index', query: {address:this.query}})
+      this.lat = this.autocomplete[0].position.lat;
+      this.lon = this.autocomplete[0].position.lon;
+      this.$router.push({name:'apartments-index', query: {address:this.query, lat: this.lat, lon: this.lon}})
     }
   },
   created(){
     this.getApiHome()
-    console.log(this.store.addressListVisible)
   }
 }
 </script>
