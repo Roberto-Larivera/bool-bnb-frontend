@@ -61,6 +61,8 @@ export default {
                 });
         },
         getApiApartments() {
+            this.lat = this.autocomplete[0].position.lat;
+            this.lon = this.autocomplete[0].position.lon;
             axios
                 .get(store.pathServerApi, {
                     params: {
