@@ -340,7 +340,7 @@ export default {
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                             </select> -->
-                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal">
+                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal" @click="cancelAddress()">
                                             Vai
                                         </button>
                                     </form>
