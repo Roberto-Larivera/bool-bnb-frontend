@@ -693,7 +693,7 @@ export default {
             }
 
             .range-wrap {
-                width: 500px;
+                width: 100%;
                 position: relative;
             }
 
