@@ -169,10 +169,21 @@ export default {
         switchFilter() {
             this.apartments = this.filteredApartments;
         },
-        getAllApartments() {
-            this.filteredApartments = this.apartments;
-            console.log(this.filteredApartments);
+        cancelFilters() {
+            this.currentGuest = 0;
+            this.roomsValue = 0;
+            this.bathsValue = 0;
+            this.priceValue = 0;
+            this.isChecked = [];
+        
+            if (this.store.range != 20) {
+                this.store.range = 20;
+                this.getApiApartments();
+            }
+
+
             return this.filteredApartments;
+
         }
         // styleRange() {
         //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
@@ -562,7 +573,7 @@ export default {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="getAllApartments()">
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="cancelFilters()">
                                        Rimuovi filtri
                                     </button>
                                     <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-if="filteredApartments">
