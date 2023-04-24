@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
-      apartment: {},
+      apartment: [],
+      services: [],
       caricamento: false,
       store,
       formData: {}
@@ -28,6 +29,9 @@ export default {
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
+          if (response.data.apartment.services > 0) {
+            this.services = response.data.apartment.services;
+          }
           this.caricamento = true;
         }
         );
@@ -212,13 +216,11 @@ export default {
             <!-- Servizi inclusi -->
             <div class="col">
               <h5 class="my-3">Cosa troverai</h5>
-              <ul v-for="service in apartment.services">
+              <ul v-if="(apartment.services.length > 0)">
 
                 <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
-                
-                <li>
-                  <font-awesome-icon :icon="service.icon" />
-                  {{ service.name }}
+                <li v-for="service in apartment.services">
+                  <font-awesome-icon :icon="service.icon" />  {{ service.name }}
                 </li>
 
               </ul>
