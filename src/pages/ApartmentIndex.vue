@@ -184,6 +184,14 @@ export default {
 
             return this.filteredApartments;
 
+        },
+        cancelAddress() {
+            if(this.store.address.length > 0) {
+                this.store.filteredMap = true;
+            }
+            else {
+                this.store.filteredMap = false;
+            }
         }
         // styleRange() {
         //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
@@ -262,6 +270,7 @@ export default {
                 }
             });
 
+            // this.store.filteredMap = true;
             return newApartments;
         }
     },
@@ -375,7 +384,7 @@ export default {
                                         </select>
                                     </span> -->
                             </span>
-                            <button type="submit" class="my-submit rounded-pill px-3">
+                            <button type="submit" class="my-submit rounded-pill px-3" @click="cancelAddress()">
                                 Cerca
                             </button>
                         </form>
@@ -408,39 +417,41 @@ export default {
                                 <div class="modal-body">
                                     <div class="form-container-small">
                                         <!-- raggio 20 km -->
-                                        <div class="mb-3">
-                                            <label for="km" class="form-label" style="display: block;">
-                                                Distanza / km
-                                            </label>
-                                            <div class="range-wrap">
-                                                <div class="range-value" id="rangeV">
-                                                    <span>
-                                                        {{ store.range }}
-                                                    </span>
+                                        <template v-if="this.store.filteredMap == true && this.store.address.length > 0">
+                                            <div class="mb-3">
+                                                <label for="km" class="form-label" style="display: block;">
+                                                    Distanza / km
+                                                </label>
+                                                <div class="range-wrap">
+                                                    <div class="range-value" id="rangeV">
+                                                        <span>
+                                                            {{ store.range }}
+                                                        </span>
+                                                    </div>
+                                                    <input type="range" class="form-range" id="km" min="1" max="20"
+                                                        v-model="store.range" @change="getApiApartments()" step="1">
                                                 </div>
-                                                <input type="range" class="form-range" id="km" min="1" max="20"
-                                                    v-model="store.range" @change="getApiApartments()" step="1">
+
+                                                <!-- <input type="range" class="form-range" :value="store.range" min="1" max="20" oninput="this.nextElementSibling.value = this.value" style="width: 80%;">
+                                                <output>20</output>  -->
+
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        0 km
+                                                    </div>
+                                                    <div>
+                                                        20 km
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <!-- <input type="range" class="form-range" :value="store.range" min="1" max="20" oninput="this.nextElementSibling.value = this.value" style="width: 80%;">
-                                            <output>20</output>  -->
-
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    0 km
-                                                </div>
-                                                <div>
-                                                    20 km
-                                                </div>
+                                            <!-- mappa da inserire -->
+                                            <div class="mb-3 px-5">
+                                                <!-- <div class="map-container rounded"> -->
+                                                    <MapIndex :lat="filteredApartments[0].latitude" :long="filteredApartments[0].longitude" :apartments="filteredApartments" :apiKey="store.apiKey" class="rounded"/>
+                                                <!-- </div> -->
                                             </div>
-                                        </div>
-
-                                        <!-- mappa da inserire -->
-                                        <div class="mb-3">
-                                            <div class="map-container rounded">
-                                                <MapIndex :lat="'45.46362'" :long="'9.18812'" :apartments="filteredApartments" :apiKey="store.apiKey"/>
-                                            </div>
-                                        </div>
+                                        </template>
 
                                         <!-- ospiti aggiungere -->
                                         <div class="mb-3">
@@ -642,6 +653,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
 .my-btn {
     padding: 0.5rem;
     display: inline-block;
@@ -958,7 +970,7 @@ export default {
         max-width: 60%;
 
         .map-container {
-            max-width: 70%;
+            // width: 70%;
             margin: 0 auto;
         }
     }
