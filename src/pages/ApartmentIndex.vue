@@ -151,7 +151,7 @@ export default {
         },
         lessGuests() {
             console.log('ok');
-            if (this.currentGuest > 1) {
+            if (this.currentGuest > 0) {
 
                 this.currentGuest--;
             }
@@ -320,7 +320,7 @@ export default {
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                             </select> -->
-                                        <button type="submit" class="my-submit-modal rounded">
+                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal">
                                             Vai
                                         </button>
                                     </form>
@@ -565,9 +565,12 @@ export default {
                                     <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="getAllApartments()">
                                        Rimuovi filtri
                                     </button>
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
-                                        data-bs-dismiss="modal">
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-if="filteredApartments">
                                         Mostra <span> {{ filteredApartments.length }}</span>
+                                    </button>
+
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-else>
+                                        Mostra <span> 0 </span>
                                     </button>
                                 </div>
                             </div>
@@ -741,7 +744,7 @@ export default {
                 text-align: center;
                 white-space: nowrap;
                 background-color: #e9ecef;
-                border: 1px solid #ced4da;
+                border: 2px solid #ced4da;
             }
 
             .my-form-control {
@@ -759,6 +762,7 @@ export default {
                 -webkit-appearance: none;
                 -moz-appearance: none;
                 box-shadow: none !important;
+                outline: none;
 
                 // non funziona border input number disabilitato
                 &:focus {
@@ -957,6 +961,15 @@ export default {
     }
 }
 
+
+@media screen and (min-width: 1013px) {
+
+.apartment-pagination {
+    bottom: 50px;
+}
+
+}
+
 @media screen and (min-width: 1024px) {
 
     // width del modale modificata 
@@ -965,7 +978,4 @@ export default {
 
     }
 
-    .apartment-pagination {
-        bottom: 50px;
-    }
 }</style>
