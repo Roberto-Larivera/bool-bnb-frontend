@@ -1,6 +1,8 @@
 <script>
 import Map from '../components/Main/Map.vue';
+import NotFound from '../pages/NotFound.vue'
 import { store } from '../store.js';
+
 
 // Axios
 import axios from 'axios';
@@ -8,7 +10,8 @@ import axios from 'axios';
 export default {
   name: 'ApartmentShow',
   components: {
-    Map
+    Map,
+    NotFound
   },
   data() {
     return {
@@ -242,8 +245,7 @@ export default {
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
+            <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -252,32 +254,32 @@ export default {
                   </div>
                   <form @submit.prevent="sendMessage">
                     <div class="modal-body">
-                      <div>
-                        <div>
+                      <div class="d-flex justify-content-between">
+                        <div class="mb-2">
                           <label for="name">Nome</label>
                           <br>
-                          <input type="text" id="name" v-model="formData.sender_name" required>
+                          <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name" required>
                         </div>
-                        <div>
+                        <div class="mb-2">
                           <label for="surname">Cognome</label>
                           <br>
-                          <input type="text" id="surname" v-model="formData.sender_surname" required>
+                          <input type="text" id="surname" class="form-control outline-primary" v-model="formData.sender_surname" required>
                         </div>
                       </div>
-                      <div>
+                      <div class="mb-2">
                         <label for="email">Email</label>
                         <br>
-                        <input type="email" id="email" v-model="formData.sender_email" required>
+                        <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email" required>
                       </div>
-                      <div>
+                      <div class="mb-2">
                         <label for="subject">Oggetto</label>
                         <br>
-                        <input type="text" id="subject" v-model="formData.object" required>
+                        <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object" required>
                       </div>
-                      <div>
+                      <div class="mb-2">
                         <label for="message">Messaggio</label>
                         <br>
-                        <textarea id="message" v-model="formData.sender_text" required></textarea>
+                        <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text" required></textarea>
                       </div>
                     </div>
                     <div class="modal-footer">
@@ -368,7 +370,9 @@ export default {
 
       </div>
     </template>
-
+    <template v-else>
+      <NotFound />
+    </template>
   </div>
 </template>
 
@@ -399,14 +403,18 @@ img {
   color: $color_light;
 }
 
-.grey-text {
-  color: $color_gray;
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-#message {
-  width: 100%;
-  border: 1px solid $color_light_gray;
-  border-radius: 10px;
+input:focus,
+textarea:focus{
+  border-color: $color_primary;
+}
+
+.grey-text {
+  color: $color_gray;
 }
 
 .single-image-container img {
