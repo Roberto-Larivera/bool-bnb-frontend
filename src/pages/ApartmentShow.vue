@@ -247,29 +247,36 @@ export default {
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci qua il tuo messaggio</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci qua il tuo messaggio per {{ apartment.user.user_data.name }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <form @submit.prevent="sendMessage">
                     <div class="modal-body">
                       <div>
-                        <label for="name">Nome:</label>
-                        <input type="text" id="name" v-model="formData.sender_name" required>
+                        <div>
+                          <label for="name">Nome</label>
+                          <br>
+                          <input type="text" id="name" v-model="formData.sender_name" required>
+                        </div>
+                        <div>
+                          <label for="surname">Cognome</label>
+                          <br>
+                          <input type="text" id="surname" v-model="formData.sender_surname" required>
+                        </div>
                       </div>
                       <div>
-                        <label for="surname">Cognome:</label>
-                        <input type="text" id="surname" v-model="formData.sender_surname" required>
-                      </div>
-                      <div>
-                        <label for="email">Email:</label>
+                        <label for="email">Email</label>
+                        <br>
                         <input type="email" id="email" v-model="formData.sender_email" required>
                       </div>
                       <div>
-                        <label for="subject">Oggetto:</label>
+                        <label for="subject">Oggetto</label>
+                        <br>
                         <input type="text" id="subject" v-model="formData.object" required>
                       </div>
                       <div>
-                        <label for="message">Messaggio:</label>
+                        <label for="message">Messaggio</label>
+                        <br>
                         <textarea id="message" v-model="formData.sender_text" required></textarea>
                       </div>
                     </div>
