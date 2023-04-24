@@ -3,6 +3,7 @@ import { store } from '../store';
 
 import AppCard from '../components/Main/AppCard.vue';
 import ListAutoComplete from '../components/Main/ListAutoComplete.vue';
+import MapIndex from '../components/Main/MapIndex.vue';
 
 // Axios
 import axios from 'axios';
@@ -11,7 +12,8 @@ export default {
     name: 'ApartmentIndex',
     components: {
         AppCard,
-        ListAutoComplete
+        ListAutoComplete,
+        MapIndex,
     },
     data() {
         return {
@@ -149,7 +151,7 @@ export default {
         },
         lessGuests() {
             console.log('ok');
-            if (this.currentGuest > 1) {
+            if (this.currentGuest > 0) {
 
                 this.currentGuest--;
             }
@@ -167,6 +169,11 @@ export default {
         switchFilter() {
             this.apartments = this.filteredApartments;
         },
+        getAllApartments() {
+            this.filteredApartments = this.apartments;
+            console.log(this.filteredApartments);
+            return this.filteredApartments;
+        }
         // styleRange() {
         //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
         //     newPosition = 10 - (newValue * 0.2);
@@ -313,7 +320,7 @@ export default {
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                             </select> -->
-                                        <button type="submit" class="my-submit-modal rounded">
+                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal">
                                             Vai
                                         </button>
                                     </form>
@@ -420,7 +427,7 @@ export default {
                                         <!-- mappa da inserire -->
                                         <div class="mb-3">
                                             <div class="map-container rounded">
-
+                                                <MapIndex :lat="'45.46362'" :long="'9.18812'" :apartments="filteredApartments" :apiKey="store.apiKey"/>
                                             </div>
                                         </div>
 
@@ -555,12 +562,15 @@ export default {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal">
-                                        Esci
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="getAllApartments()">
+                                       Rimuovi filtri
                                     </button>
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
-                                        data-bs-dismiss="modal">
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-if="filteredApartments">
                                         Mostra <span> {{ filteredApartments.length }}</span>
+                                    </button>
+
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-else>
+                                        Mostra <span> 0 </span>
                                     </button>
                                 </div>
                             </div>
@@ -683,7 +693,7 @@ export default {
             }
 
             .range-wrap {
-                width: 500px;
+                width: 100%;
                 position: relative;
             }
 
@@ -734,7 +744,7 @@ export default {
                 text-align: center;
                 white-space: nowrap;
                 background-color: #e9ecef;
-                border: 1px solid #ced4da;
+                border: 2px solid #ced4da;
             }
 
             .my-form-control {
@@ -752,6 +762,7 @@ export default {
                 -webkit-appearance: none;
                 -moz-appearance: none;
                 box-shadow: none !important;
+                outline: none;
 
                 // non funziona border input number disabilitato
                 &:focus {
@@ -950,6 +961,15 @@ export default {
     }
 }
 
+
+@media screen and (min-width: 1013px) {
+
+.apartment-pagination {
+    bottom: 50px;
+}
+
+}
+
 @media screen and (min-width: 1024px) {
 
     // width del modale modificata 
@@ -958,7 +978,4 @@ export default {
 
     }
 
-    .apartment-pagination {
-        bottom: 50px;
-    }
 }</style>
