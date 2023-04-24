@@ -40,6 +40,7 @@ export default {
             isChecked: [],
             lat: '',
             lon: '',
+            childRef: null,
             // filteredApartments: []
         }
     },
@@ -87,6 +88,16 @@ export default {
                         this.messageChecked = false;
                         //  pagination
                         this.numPages = response.data.apartments.last_page;
+                        this.store.filteredMap = false;
+                        console.log(this.store.filteredMap, 'prima');
+                        this.cancelAddress();
+
+                        if (this.childRef) {
+                            console.log(this.childRef);
+                            this.childRef.getMapIndex();
+                        }
+                        console.log(this.store.filteredMap, 'dopo');
+
                     }
                     else {
                         this.message;
@@ -175,7 +186,7 @@ export default {
             this.bathsValue = 0;
             this.priceValue = 0;
             this.isChecked = [];
-        
+
             if (this.store.range != 20) {
                 this.store.range = 20;
                 this.getApiApartments();
@@ -186,7 +197,7 @@ export default {
 
         },
         cancelAddress() {
-            if(this.store.address.length > 0) {
+            if (this.store.address.length > 0) {
                 this.store.filteredMap = true;
             }
             else {
@@ -277,7 +288,13 @@ export default {
     created() {
         this.getApiApartments();
         this.getApiServices();
-    }
+    },
+    mounted() {
+        console.log(this.childRef); // Output: undefined
+        this.$nextTick(() => {
+            console.log(this.childRef); // Output: { /* ChildComponent object */ }
+        });
+    },
 }
 </script>
 
@@ -340,7 +357,8 @@ export default {
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                             </select> -->
-                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal" @click="cancelAddress()">
+                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal"
+                                            @click="cancelAddress()">
                                             Vai
                                         </button>
                                     </form>
@@ -448,7 +466,9 @@ export default {
                                             <!-- mappa da inserire -->
                                             <div class="mb-3 px-5">
                                                 <!-- <div class="map-container rounded"> -->
-                                                    <MapIndex :lat="filteredApartments[0].latitude" :long="filteredApartments[0].longitude" :apartments="filteredApartments" :apiKey="store.apiKey" class="rounded"/>
+                                                <MapIndex :lat="filteredApartments[0].latitude"
+                                                    :long="filteredApartments[0].longitude" :apartments="filteredApartments"
+                                                    :apiKey="store.apiKey" ref="childRef" class="rounded" />
                                                 <!-- </div> -->
                                             </div>
                                         </template>
@@ -584,14 +604,17 @@ export default {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="cancelFilters()">
-                                       Rimuovi filtri
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal"
+                                        @click="cancelFilters()">
+                                        Rimuovi filtri
                                     </button>
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-if="filteredApartments">
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
+                                        data-bs-dismiss="modal" v-if="filteredApartments">
                                         Mostra <span> {{ filteredApartments.length }}</span>
                                     </button>
 
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-else>
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
+                                        data-bs-dismiss="modal" v-else>
                                         Mostra <span> 0 </span>
                                     </button>
                                 </div>
@@ -653,7 +676,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
 .my-btn {
     padding: 0.5rem;
     display: inline-block;
@@ -987,9 +1009,9 @@ export default {
 
 @media screen and (min-width: 1013px) {
 
-.apartment-pagination {
-    bottom: 50px;
-}
+    .apartment-pagination {
+        bottom: 50px;
+    }
 
 }
 
@@ -1001,4 +1023,5 @@ export default {
 
     }
 
-}</style>
+}
+</style>
