@@ -85,21 +85,20 @@ export default {
 <style lang="scss">
 .my-map {
     width: 100%;
-    height: 100%;
+    // height: 100%;
 
     // Mappa per index
     .custom-marker {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 30px;
             height: 30px;
             background-color: $color_light;
             color: $color_primary;
             border-radius: 5px;
             border: 1px solid $color_primary;
             font-size: 12px;
-            padding: 0.5rem;
+            padding: 0.2rem;
     }
 }
 
