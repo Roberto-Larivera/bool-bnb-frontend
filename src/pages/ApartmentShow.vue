@@ -15,11 +15,14 @@ export default {
   },
   data() {
     return {
-      apartment: {},
+      apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
+      apartment: [],
+      services: [],
       caricamento: false,
       store,
-      formData: {}
-    }
+      formData: {},
+      isSent: false
+    };
   },
   methods: {
     setApartmentId() {
@@ -30,6 +33,9 @@ export default {
         .then(response => {
           console.log(response);
           this.apartment = response.data.apartment;
+          if (response.data.apartment.services > 0) {
+            this.services = response.data.apartment.services;
+          }
           this.caricamento = true;
         }
         );
@@ -37,7 +43,7 @@ export default {
     sendMessage() {
       axios.post('http://127.0.0.1:8000/api/messages/store', this.formData)
         .then(response => {
-          console.log(response);
+          this.isSent = true;
         })
         .catch(error => {
           console.log(error);
@@ -82,6 +88,11 @@ export default {
     <template v-if="caricamento">
       <div class="row">
         <div class="col">
+
+          <!-- Invio messaggio con successo -->
+          <div v-if="isSent" class="alert alert-success" role="alert">
+            Messaggio inviato con successo!
+          </div>
 
           <h1>{{ apartment.title }}</h1>
 
@@ -214,13 +225,11 @@ export default {
             <!-- Servizi inclusi -->
             <div class="col">
               <h5 class="my-3">Cosa troverai</h5>
-              <ul v-for="service in apartment.services">
+              <ul v-if="(apartment.services.length > 0)">
 
                 <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
-                
-                <li>
-                  <font-awesome-icon :icon="service.icon" />
-                  {{ service.name }}
+                <li v-for="service in apartment.services">
+                  <font-awesome-icon :icon="service.icon" />  {{ service.name }}
                 </li>
 
               </ul>
