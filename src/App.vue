@@ -1,40 +1,37 @@
 <script>
 // Axios
-import axios from 'axios';
+import axios from "axios";
 
-import { store } from './store.js';
-import sessionMixin from './mixins/session.js';
-import AppHeader from './components/Header/AppHeader.vue';
-import AppFooter from './components/Footer/AppFooter.vue';
+import { store } from "./store.js";
+import sessionMixin from "./mixins/session.js";
+import AppHeader from "./components/Header/AppHeader.vue";
+import AppFooter from "./components/Footer/AppFooter.vue";
 import NavBarResponsive from "./components/Footer/NavBarResponsive.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AppHeader,
     AppFooter,
-    NavBarResponsive
+    NavBarResponsive,
   },
   mixins: [sessionMixin],
   data() {
     return {
       store,
       scrolled: false,
-    }
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   created() {
     this.checkLogin();
-    console.log(this.getSession('user'));
-    if(this.getSession('user')){
-      this.store.user = this.getSession('user');
-      console.log('non sono undefined',this.store.user )
+    if (this.getSession("auth")) {
+      this.setUserData();
     }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     handleScroll() {
@@ -46,45 +43,48 @@ export default {
     },
     checkLogin() {
       const urlParams = new URLSearchParams(window.location.search);
-      const login = urlParams.get('login');
+      const login = urlParams.get("login");
 
-      if (login == 'true') {
-        this.setSession('login', login);
-        this.setSession('auth', urlParams.get('auth'));
-        const value = this.getSession('login');
-        const id = this.getSession('auth');
-        console.log('sei entrato', value, id); // output: 'value'
-        this.getUser()
-
-      } else if (login == 'false') {
-        this.removeSession('login');
-        this.removeSession('auth');
-        this.removeSession('user');
-        console.log('sei uscito'); // output: 'value'
+      if (login == "true") {
+        //Gestione LogIn User
+        this.setSession("login", login);
+        this.setSession("auth", urlParams.get("auth"));
+        this.getUser();
+      } else if (login == "false") {
+        //Gestione Logout User
+        this.removeSession("login");
+        this.removeSession("auth");
+        this.removeSession("name");
+        this.removeSession("surname");
+        this.removeSession("email");
       }
     },
-    getUser() {
-      axios.get(`${this.store.pathServerHome}login`, {
-        params: {
-          'user_id': this.getSession('auth'),
-        }
-      })
-        .then(response => {
-          console.log(response);
-          this.setSession('user', response.data.user);
-          console.log(this.getSession('user'));
-          this.store.user = this.getSession('user');
-        }
-        );
+    getUser() {//Funzione se user ha loggato recupero i dati tramite userid
+      axios
+        .get(`${this.store.pathServerHome}login`, {
+          params: {
+            user_id: this.getSession("auth"),
+          },
+        })
+        .then((response) => {
+          this.setSession("name", response.data.user.name);
+          this.setSession("surname", response.data.user.surname);
+          this.setSession("email", response.data.user.email)
+          this.setUserData();
+        });
     },
-  }
-
-}
+    setUserData() { //Funzione che imposta i dati degli utenti sullo store
+      this.store.user_name = this.getSession("name");
+      this.store.user_surname = this.getSession("surname");
+      this.store.user_email = this.getSession("email");
+    },
+  },
+};
 </script>
 
 <template>
   <div>
-    <header :class="{ 'shadow': scrolled }">
+    <header :class="{ shadow: scrolled }">
       <AppHeader />
     </header>
     <main>
@@ -100,7 +100,7 @@ export default {
 </template>
 
 <style lang="scss">
-@import './style/main.scss';
+@import "./style/main.scss";
 
 header {
   height: 70px;

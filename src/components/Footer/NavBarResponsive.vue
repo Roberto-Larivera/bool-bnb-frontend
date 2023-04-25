@@ -6,10 +6,9 @@ export default {
         return {
             linkHover: null,
             store,
-            pathServer: store.pathServer
+            pathServer: store.pathServer,
         }
-    }
-
+    },
 }
 </script>
 
@@ -58,7 +57,7 @@ export default {
                                     <font-awesome-icon :icon="['fas', 'user']" />
                                 </span>
                                 <span>
-                                    Accedi
+                                    {{ store.user_name }}
                                 </span>
                             </div>
                         </a>
