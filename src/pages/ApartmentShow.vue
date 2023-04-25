@@ -201,6 +201,7 @@ export default {
 
             <!-- Protezione aircover -->
             <div class="col">
+              <h5 class="my-3">Protezione</h5>
               <p>
                 Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
                 inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.
@@ -306,7 +307,12 @@ export default {
             <div>
               <Map :apiKey="store.apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
             </div>
-            <span class="fw-semibold">{{ apartment.address }}</span>
+            <div class="mt-2">
+              <span>
+                <font-awesome-icon :icon="['fas', 'location-dot']" />
+              </span>
+              <span class="fw-semibold mx-2">{{ apartment.address }}</span>
+            </div>
           </div>
         </div>
 
