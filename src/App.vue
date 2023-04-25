@@ -2,14 +2,16 @@
 import { store } from './store.js';
 import AppHeader from './components/Header/AppHeader.vue';
 import AppFooter from './components/Footer/AppFooter.vue';
-export default{
+import NavBarResponsive from "./components/Footer/NavBarResponsive.vue";
+export default {
   name: 'App',
-  components:{
+  components: {
     AppHeader,
     AppFooter,
+    NavBarResponsive
   },
-  data(){
-    return{
+  data() {
+    return {
       store,
       scrolled: false,
     }
@@ -27,29 +29,36 @@ export default{
       } else {
         this.scrolled = false;
       }
+    },
+    hideAddressList() {
+        this.store.addressListVisible = false;
     }
   }
-  
+
 }
 </script>
 
 <template>
-  <div>
-    <header :class="{'shadow':scrolled}">
-        <AppHeader/>
+  <div @click="hideAddressList()">
+    <header :class="{ 'shadow': scrolled }">
+      <AppHeader />
     </header>
     <main>
-        <router-view></router-view>
+      <router-view></router-view>
     </main>
-    <footer>
-        <AppFooter/>
+    <nav class="d-block d-lg-none sticky-bottom shadow-lg">
+      <NavBarResponsive />
+    </nav>
+    <footer class="d-none d-lg-block">
+      <AppFooter />
     </footer>
   </div>
 </template>
 
 <style lang="scss">
 @import './style/main.scss';
-header{
+
+header {
   height: 70px;
   position: fixed;
   top: 0;
@@ -59,12 +68,14 @@ header{
   // border-bottom: 2px solid $color_light_gray;
   background-color: $color_light;
 }
-main{
+
+main {
   margin-top: 70px;
   margin-bottom: 50px;
   min-height: calc(100vh - 120px);
 }
-footer{
+
+footer {
   height: 50px;
   position: fixed;
   bottom: 0;
@@ -74,5 +85,10 @@ footer{
   transition: 0.5s;
   border-top: 2px solid $color_light_gray;
   background-color: $color_light;
+}
+
+nav {
+  background-color: $color_light;
+  border-top: 2px solid $color_light_gray;
 }
 </style>

@@ -1,14 +1,23 @@
 <script>
+import { delay } from 'lodash';
+
 export default {
     name: 'AppCard',
-    props: [
-        'apartment'
-    ],
+    props: {
+        apartment: Object,
+        caricamento: Boolean
+    },
     data() {
         return {
+            delay: false
         }
     },
     methods: {
+    },
+    created() { 
+ 
+        setTimeout(() => this.delay = true, 1000);
+
     }
 }
 
@@ -16,33 +25,56 @@ export default {
 
 
 <template>
-    <div class="col">
-        <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
-        <div class="card  shadow">
-            <img src="https://picsum.photos/200/200" class="card-img" alt="img-card">
-            <div class="card-body text-center text-lg-start p-3">
-                <h5 class="card-title">
-                    Appartamento luminoso
-                </h5>
-                <div class="card-text ">
-                    <div>
-                        Via Roma, 2 - Roma, Italia
-                    </div>
-                    <div>
-                        140 &euro; notte
-                    </div>
-                    <div>
-                        200 mq
+
+    <template v-if="delay">
+        <div class="col">
+            <router-link :to="{ name: 'apartments-show', params: { slug: apartment.slug }}" class="text-decoration-none">
+                <div class="card position-relative">
+                    <font-awesome-icon v-if="apartment.sponsored" class="position-absolute my-icon-sponsor rounded-circle" :icon="['fas', 'rocket']" />
+                <img :src="apartment.main_img" class="card-img" alt="img-card">
+                <div class="card-body text-center text-lg-start">
+                    <h5 class="card-title">
+                        {{ apartment.title }}
+                    </h5>
+                    <div class="card-text">
+                        <div>
+                            {{ apartment.address }}
+                        </div>
+                        <div>
+                            {{ apartment.price }} &euro; notte
+                        </div>
+                        <div>
+                            {{ apartment.mq }} mq
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <a href="#" class="my-btn">
-                        Dettagli
-                    </a>
+            </div>
+            </router-link>
+             <!-- Da inserire rotta / nel caso preferiamo centrale text-center -->
+        </div>
+    </template>
+
+    <template v-else>
+         <!-- placeholder -->
+        <!-- finchè carica placeholder, altrimenti card -->
+        <div class="col">
+            <div class="card" aria-hidden="true">
+                <span class="card-img" style="background-color: lightgray;"></span>
+                <div class="card-body text-center text-lg-start">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                    </h5>
+                    <div class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 </template>
 
 <style lang="scss" scoped>
@@ -54,9 +86,17 @@ export default {
 
     .card-img {
         max-width: 100%;
-        height: auto;
+        aspect-ratio: 1 / 1;
         object-fit: cover;
         border-radius: 5px;
+    }
+    .my-icon-sponsor{
+        top: 10px;
+        right: 10px;
+        color: $color_primary;
+        padding: 10px;
+        background-color:$color_light ;
+
     }
 }
 
@@ -94,8 +134,9 @@ export default {
     border: 1px solid $color_gray;
 
     &:hover {
-        background-color: $color_gray;
+        background-color: $color_primary;
         color: $color_light;
+        border: none;
     }
 }
 </style>
