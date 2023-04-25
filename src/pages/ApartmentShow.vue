@@ -229,14 +229,6 @@ export default {
               </ul>
             </div>
 
-            <hr>
-
-            <!-- Calendario con disponibilità -->
-            <div class="col">
-              <h5 class="my-3">Calendario disponibilità</h5>
-              <p>!!! DA AGGIUNGERE EVENTUALMENTE !!!</p>
-            </div>
-
           </div>
 
 
