@@ -40,6 +40,7 @@ export default {
             isChecked: [],
             lat: '',
             lon: '',
+            childRef: null,
             // filteredApartments: []
         }
     },
@@ -87,6 +88,16 @@ export default {
                         this.messageChecked = false;
                         //  pagination
                         this.numPages = response.data.apartments.last_page;
+                        this.store.filteredMap = false;
+                        console.log(this.store.filteredMap, 'prima');
+                        this.cancelAddress();
+
+                        if (this.childRef) {
+                            console.log(this.childRef);
+                            this.childRef.getMapIndex();
+                        }
+                        console.log(this.store.filteredMap, 'dopo');
+
                     }
                     else {
                         this.message;
@@ -169,10 +180,29 @@ export default {
         switchFilter() {
             this.apartments = this.filteredApartments;
         },
-        getAllApartments() {
-            this.filteredApartments = this.apartments;
-            console.log(this.filteredApartments);
+        cancelFilters() {
+            this.currentGuest = 0;
+            this.roomsValue = 0;
+            this.bathsValue = 0;
+            this.priceValue = 0;
+            this.isChecked = [];
+
+            if (this.store.range != 20) {
+                this.store.range = 20;
+                this.getApiApartments();
+            }
+
+
             return this.filteredApartments;
+
+        },
+        cancelAddress() {
+            if (this.store.address.length > 0) {
+                this.store.filteredMap = true;
+            }
+            else {
+                this.store.filteredMap = false;
+            }
         }
         // styleRange() {
         //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
@@ -251,6 +281,7 @@ export default {
                 }
             });
 
+            // this.store.filteredMap = true;
             return newApartments;
         },
         // prova per input range
@@ -264,7 +295,13 @@ export default {
     created() {
         this.getApiApartments();
         this.getApiServices();
-    }
+    },
+    mounted() {
+        console.log(this.childRef); // Output: undefined
+        this.$nextTick(() => {
+            console.log(this.childRef); // Output: { /* ChildComponent object */ }
+        });
+    },
 }
 </script>
 
@@ -327,7 +364,8 @@ export default {
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                             </select> -->
-                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal">
+                                        <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal"
+                                            @click="cancelAddress()">
                                             Vai
                                         </button>
                                     </form>
@@ -371,7 +409,7 @@ export default {
                                         </select>
                                     </span> -->
                             </span>
-                            <button type="submit" class="my-submit rounded-pill px-3">
+                            <button type="submit" class="my-submit rounded-pill px-3" @click="cancelAddress()">
                                 Cerca
                             </button>
                         </form>
@@ -404,39 +442,43 @@ export default {
                                 <div class="modal-body">
                                     <div class="form-container-small">
                                         <!-- raggio 20 km -->
-                                        <div class="mb-3">
-                                            <label for="km" class="form-label" style="display: block;">
-                                                Distanza / km
-                                            </label>
-                                            <div class="range-wrap">
-                                                <div class="range-value" id="rangeV" style ="`calc(${this.newValue}% + (${this.newPosition}px))`;">
-                                                    <span>
-                                                        {{ store.range }}
-                                                    </span>
+                                        <template v-if="this.store.filteredMap == true && this.store.address.length > 0">
+                                            <div class="mb-3">
+                                                <label for="km" class="form-label" style="display: block;">
+                                                    Distanza / km
+                                                </label>
+                                                <div class="range-wrap">
+                                                    <div class="range-value" id="rangeV">
+                                                        <span>
+                                                            {{ store.range }}
+                                                        </span>
+                                                    </div>
+                                                    <input type="range" class="form-range" id="km" min="1" max="20"
+                                                        v-model="store.range" @change="getApiApartments()" step="1">
                                                 </div>
-                                                <input type="range" class="form-range" id="range" min="1" max="20"
-                                                    v-model="store.range" @change="getApiApartments()" step="1">
+
+                                                <!-- <input type="range" class="form-range" :value="store.range" min="1" max="20" oninput="this.nextElementSibling.value = this.value" style="width: 80%;">
+                                                <output>20</output>  -->
+
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        0 km
+                                                    </div>
+                                                    <div>
+                                                        20 km
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <!-- <input type="range" class="form-range" :value="store.range" min="1" max="20" oninput="this.nextElementSibling.value = this.value" style="width: 80%;">
-                                            <output>20</output>  -->
-
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    0 km
-                                                </div>
-                                                <div>
-                                                    20 km
-                                                </div>
+                                            <!-- mappa da inserire -->
+                                            <div class="mb-3 px-5">
+                                                <!-- <div class="map-container rounded"> -->
+                                                <MapIndex :lat="filteredApartments[0].latitude"
+                                                    :long="filteredApartments[0].longitude" :apartments="filteredApartments"
+                                                    :apiKey="store.apiKey" ref="childRef" class="rounded" />
+                                                <!-- </div> -->
                                             </div>
-                                        </div>
-
-                                        <!-- mappa da inserire -->
-                                        <div class="mb-3">
-                                            <div class="map-container rounded">
-                                                <MapIndex :lat="'45.46362'" :long="'9.18812'" :apartments="filteredApartments" :apiKey="store.apiKey"/>
-                                            </div>
-                                        </div>
+                                        </template>
 
                                         <!-- ospiti aggiungere -->
                                         <div class="mb-3">
@@ -569,14 +611,17 @@ export default {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal" @click="getAllApartments()">
-                                       Rimuovi filtri
+                                    <button type="button" class="my-btn rounded" data-bs-dismiss="modal"
+                                        @click="cancelFilters()">
+                                        Rimuovi filtri
                                     </button>
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-if="filteredApartments">
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
+                                        data-bs-dismiss="modal" v-if="filteredApartments">
                                         Mostra <span> {{ filteredApartments.length }}</span>
                                     </button>
 
-                                    <button type="submit" class="my-submit rounded" @click="switchFilter()" data-bs-dismiss="modal" v-else>
+                                    <button type="submit" class="my-submit rounded" @click="switchFilter()"
+                                        data-bs-dismiss="modal" v-else>
                                         Mostra <span> 0 </span>
                                     </button>
                                 </div>
@@ -969,7 +1014,7 @@ export default {
         max-width: 60%;
 
         .map-container {
-            max-width: 70%;
+            // width: 70%;
             margin: 0 auto;
         }
     }
@@ -986,9 +1031,9 @@ export default {
 
 @media screen and (min-width: 1013px) {
 
-.apartment-pagination {
-    bottom: 50px;
-}
+    .apartment-pagination {
+        bottom: 50px;
+    }
 
 }
 
@@ -1000,4 +1045,5 @@ export default {
 
     }
 
-}</style>
+}
+</style>
