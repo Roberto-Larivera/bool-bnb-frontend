@@ -80,6 +80,7 @@ export default {
 
                     if (response.data.success == true) {
                         this.apartments = response.data.apartments.data;
+                        console.log(this.apartments);
                         this.messageChecked = false;
                         //  pagination
                         this.numPages = response.data.apartments.last_page;
