@@ -32,7 +32,7 @@ export default {
             class="position-absolute my-icon-sponsor rounded-circle"
             :icon="['fas', 'rocket']"
           />
-          <img :src="apartment.main_img" class="card-img" alt="img-card" />
+          <img :src="apartment.full_path_main_img" class="card-img" alt="img-card" />
           <div class="card-body text-center text-lg-start">
             <h5 class="card-title">
               {{ apartment.title }}
