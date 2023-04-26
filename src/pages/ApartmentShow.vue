@@ -200,20 +200,22 @@ export default {
 
           <hr>
 
-          <!-- Protezione aircover -->
-          <div class="col">
-            <p>
-              Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
-              inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.
-            </p>
-          </div>
+            <!-- Protezione aircover -->
+            <div class="col">
+              <h5 class="my-3">Protezione</h5>
+              <p>
+                Ogni prenotazione include una protezione gratuita in caso di cancellazione da parte dell'host, di
+                inesattezze dell'annuncio e di altri problemi come le difficoltà in fase di check-in.
+              </p>
+            </div>
 
           <hr>
 
-          <!-- Descrizione dell'appartamento -->
-          <div class="col">
-            <p>{{ apartment.description }}</p>
-          </div>
+            <!-- Descrizione dell'appartamento -->
+            <div class="col">
+              <h5 class="my-3">Descrizione</h5>
+              <p>{{ apartment.description }}</p>
+            </div>
 
           <hr>
 
@@ -230,153 +232,90 @@ export default {
             </ul>
           </div>
 
-          <hr>
-
-          <!-- Calendario con disponibilità -->
-          <div class="col">
-            <h5 class="my-3">Calendario disponibilità</h5>
-            <p>!!! DA AGGIUNGERE EVENTUALMENTE !!!</p>
           </div>
 
+          <!-- Sezione a destra -->
+          <div class="col-12 col-lg-4 special-col">
+            
+            <!-- Riepilogo prenotazione e costi (sezione sul lato destro) -->
+            <div class="message-box shadow-lg p-4">
+
+              <!-- Invio messaggio all'host -->
+              <!-- Button trigger modal -->
+              <button type="button" class="btn my-btn-primary" data-bs-toggle="modal" data-bs-target="#messageModal">
+                Contatta l'host
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci qua il tuo messaggio per {{ apartment.user.user_data.name }}</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Form dati e messaggio utente -->
+                    <form @submit.prevent="sendMessage">
+                      <div class="modal-body">
+                        <div class="d-flex justify-content-between">
+                          <div class="mb-2">
+                            <label for="name">Nome</label>
+                            <br>
+                            <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name" required>
+                          </div>
+                          <div class="mb-2">
+                            <label for="surname">Cognome</label>
+                            <br>
+                            <input type="text" id="surname" class="form-control outline-primary" v-model="formData.sender_surname" required>
+                          </div>
+                        </div>
+                        <div class="mb-2">
+                          <label for="email">Email</label>
+                          <br>
+                          <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email" required>
+                        </div>
+                        <div class="mb-2">
+                          <label for="subject">Oggetto</label>
+                          <br>
+                          <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object" required>
+                        </div>
+                        <div class="mb-2">
+                          <label for="message">Messaggio</label>
+                          <br>
+                          <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text" required></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="submit" class="btn my-btn" @click="setApartmentId">Invia</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-
-        <div class="col-12 col-lg-4 special-col">
-          <!-- Invio messaggio all'host -->
-          <!-- Button trigger modal -->
-          <button type="button" class="btn my-btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#messageModal">
-            Contatta l'host
-          </button>
-
-          <!-- Modal -->
-          <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci qua il tuo messaggio per {{
-                    apartment.user.user_data.name }}</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form @submit.prevent="sendMessage">
-                  <div class="modal-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="mb-2">
-                        <label for="name">Nome</label>
-                        <br>
-                        <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name"
-                          required>
-                      </div>
-                      <div class="mb-2">
-                        <label for="surname">Cognome</label>
-                        <br>
-                        <input type="text" id="surname" class="form-control outline-primary"
-                          v-model="formData.sender_surname" required>
-                      </div>
-                    </div>
-                    <div class="mb-2">
-                      <label for="email">Email</label>
-                      <br>
-                      <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email"
-                        required>
-                    </div>
-                    <div class="mb-2">
-                      <label for="subject">Oggetto</label>
-                      <br>
-                      <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object"
-                        required>
-                    </div>
-                    <div class="mb-2">
-                      <label for="message">Messaggio</label>
-                      <br>
-                      <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text"
-                        required></textarea>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="btn my-btn" @click="setApartmentId">Invia</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Riepilogo prenotazione e costi (sezione sul lato destro) -->
-          <div class="booking-review shadow-lg p-4">
-
-            <div class="mb-3">
-              <span class="fw-bold fs-5">{{ apartment.price }} € </span>
-              <span>notte</span>
-            </div>
-
-            <div>
-              <div class="mb-3">
-                <div class="data">
-                  <label for="exampleFormControlInput1" class="check-in">Check-in</label>
-                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-                <div class="data">
-                  <label for="exampleFormControlInput1" class="check-out">Check-out</label>
-                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <div>
-                <label for="exampleFormControlInput1" class="check-in">Ospiti</label>
-                <select class="form-select" id="exampleFormControlInput1" placeholder="">
-                  <option selected>1</option>
-                  <option value="1">2</option>
-                  <option value="2">3</option>
-                  <option value="3">4</option>
-                </select>
-              </div>
-            </div>
-
-            <button class="btn my-btn-primary mb-2">
-              Prenota
-            </button>
-
-            <div class="mb-3">
-              <p class="grey-text text-center">Non riceverai alcun addebito in questa fase</p>
-            </div>
-
-            <div class="mb-3 d-flex justify-content-between">
-              <span class="text-decoration-underline">{{ apartment.price }} € x 5 notti</span>
-              <span>1.100 €</span>
-            </div>
-
-            <div class="mb-3 d-flex justify-content-between">
-              <span class="text-decoration-underline">Costi del servizio Airbnb</span>
-              <span>189 €</span>
-            </div>
-
+        <!-- Localizzazione dell'appartamento -->
+        <div class="row">
+          <div class="col mb-3">
             <hr>
-
-            <div class="mb-3 d-flex justify-content-between">
-              <span class="fw-bold">Totale</span>
-              <span class="fw-bold">1289 €</span>
+            <h5 class="my-3">Dove ti troverai</h5>
+            <!-- !! MAPPA !! -->
+            <div>
+              <Map :apiKey="store.apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
             </div>
-
+            <div class="mt-2">
+              <span>
+                <font-awesome-icon :icon="['fas', 'location-dot']" />
+              </span>
+              <span class="fw-semibold mx-2">{{ apartment.address }}</span>
+            </div>
           </div>
-
         </div>
-
-      </div>
-
-      <!-- Localizzazione dell'appartamento -->
-      <div class="row">
-        <div class="col mb-3">
-          <hr>
-          <h5 class="my-3">Dove ti troverai</h5>
-          <!-- !! MAPPA !! -->
-          <div>
-            <Map :apiKey="store.apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
-          </div>
-          <span class="fw-semibold">{{ apartment.address }}</span>
-        </div>
-      </div>
 
     </div>
 
@@ -393,10 +332,9 @@ img {
   object-fit: contain;
 }
 
-.booking-review {
+.message-box {
   border-radius: 20px;
   background-color: $color_light;
-  min-height: 200px;
 }
 
 .my-btn {
