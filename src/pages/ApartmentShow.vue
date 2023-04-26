@@ -229,7 +229,7 @@ export default {
           <!-- Servizi inclusi -->
           <div class="col">
             <h5 class="my-3">Cosa troverai</h5>
-            <ul v-if="(apartment.services.length > 0)">
+            <ul v-if="apartment.services.length > 0">
 
               <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
               <li v-for="service in apartment.services">
