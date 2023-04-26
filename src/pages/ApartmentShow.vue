@@ -237,8 +237,8 @@ export default {
 
             </ul>
           </div>
-
-          </div>
+          <hr class="d-lg-none">
+        </div>
 
           <!-- Sezione a destra -->
           <div class="col-12 col-lg-4 special-col">
