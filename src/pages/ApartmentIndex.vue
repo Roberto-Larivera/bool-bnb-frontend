@@ -252,7 +252,14 @@ export default {
             });
 
             return newApartments;
-        }
+        },
+        // prova per input range
+        newValue() {
+            return newValue = Number( (this.store.range - this.store.range.min) * 100 / (this.store.range.max - this.store.range.min))
+        },
+        newPosition() {
+            return newPosition = 10 - (this.newValue * 0.2);
+        } 
     },
     created() {
         this.getApiApartments();
@@ -402,12 +409,12 @@ export default {
                                                 Distanza / km
                                             </label>
                                             <div class="range-wrap">
-                                                <div class="range-value" id="rangeV">
+                                                <div class="range-value" id="rangeV" style ="`calc(${this.newValue}% + (${this.newPosition}px))`;">
                                                     <span>
                                                         {{ store.range }}
                                                     </span>
                                                 </div>
-                                                <input type="range" class="form-range" id="km" min="1" max="20"
+                                                <input type="range" class="form-range" id="range" min="1" max="20"
                                                     v-model="store.range" @change="getApiApartments()" step="1">
                                             </div>
 
@@ -677,19 +684,34 @@ export default {
             }
 
 
-            input[type="range"]::-webkit-slider-thumb {
-                background-color: $color_primary;
-                border-color: $color_primary;
+            input[type=range] {
+                // -webkit-appearance: none;
+                margin: 20px 0;
+                width: 100%;
             }
-
-            input[type="range"]::-moz-range-thumb {
-                background-color: $color_primary;
-                border-color: $color_primary;
+            input[type=range]:focus {
+                outline: none;
             }
-
-            input[type="range"]::-ms-thumb {
-                background-color: $color_primary;
-                border-color: $color_primary;
+            input[type=range]::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 4px;
+                cursor: pointer;
+                // animate: 0.2s;
+                background: $color_primary;
+                border-radius: 25px;
+            }
+            input[type=range]::-webkit-slider-thumb {
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #fff;
+                box-shadow: 0 0 4px 0 rgba(0,0,0, 1);
+                cursor: pointer;
+                -webkit-appearance: none;
+                margin-top: -8px;
+            }
+            input[type=range]:focus::-webkit-slider-runnable-track {
+             background: $color_primary;
             }
 
             .range-wrap {
