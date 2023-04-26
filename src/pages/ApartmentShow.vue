@@ -148,7 +148,7 @@ export default {
         <div class="col-12 col-lg-8">
 
           <!-- Descrizione e host -->
-          <div class="row">
+          <div v-if="apartment.user && apartment.user.user_data" class="row">
             <div class="col">
               <div>
                 <h3>Host: {{ apartment.user.user_data.name }} {{ apartment.user.user_data.surname }}</h3>
@@ -346,10 +346,4 @@ textarea:focus {
   border-color: $color_primary;
 }
 
-.grey-text {
-  color: $color_gray;
-}
-
-.single-image-container img {
-  border-radius: 10px;
-}</style>
+</style>
