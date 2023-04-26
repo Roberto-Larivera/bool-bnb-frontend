@@ -80,6 +80,7 @@ export default {
 
                     if (response.data.success == true) {
                         this.apartments = response.data.apartments.data;
+                        console.log(this.apartments);
                         this.messageChecked = false;
                         //  pagination
                         this.numPages = response.data.apartments.last_page;
@@ -516,7 +517,7 @@ export default {
                                                     <label for="price" class="form-label d-block">
                                                         Numero stanze
                                                     </label>
-                                                    <select class="form-select" aria-label="Default select example"
+                                                    <select class="form-select cursor_pointer" aria-label="Default select example"
                                                         v-model="roomsValue">
                                                         <option selected value="0">Scegli...</option>
                                                         <option value="1">1</option>
@@ -530,7 +531,7 @@ export default {
                                                     <label for="price" class="form-label d-block">
                                                         Numero bagni
                                                     </label>
-                                                    <select class="form-select" aria-label="Default select example"
+                                                    <select class="form-select cursor_pointer" aria-label="Default select example"
                                                         v-model="bathsValue">
                                                         <option selected value="0">Scegli...</option>
                                                         <option value="1">1</option>
@@ -552,9 +553,9 @@ export default {
                                                 <div class="form-check ms-3">
                                                     <div class="mb-1"
                                                         v-for="service, index in services.slice(services.length, 7)">
-                                                        <input class="form-check-input" type="checkbox" value=""
+                                                        <input class="form-check-input cursor_pointer" type="checkbox" value=""
                                                             :id="'flexCheckDefault'+index">
-                                                        <label class="form-check-label" :for="'flexCheckDefault'+index">
+                                                        <label class="form-check-label cursor_pointer" :for="'flexCheckDefault'+index">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -562,7 +563,7 @@ export default {
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <button class="my-submit rounded d-lg-none" @click="getServices()" :class="{
+                                            <button class="my-submit rounded d-lg-none cursor_pointer" @click="getServices()" :class="{
                                                     // non prende
                                                     'mt-2': moreServices == false,
                                                     'd-none': moreServices
@@ -576,9 +577,9 @@ export default {
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
                                                     <div class="mb-1" v-for="service, index in services.slice(7)">
-                                                        <input class="form-check-input" type="checkbox" value=""
+                                                        <input class="form-check-input cursor_pointer" type="checkbox" value=""
                                                             :id="'flexCheckDefault'+index">
-                                                        <label class="form-check-label" :for="'flexCheckDefault'+index">
+                                                        <label class="form-check-label cursor_pointer" :for="'flexCheckDefault'+index">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -590,9 +591,9 @@ export default {
                                             <ul class="row row-cols-lg-2">
                                                 <li v-for="service, index in services" class="col ps-lg-0">
                                                     <div class="mb-1">
-                                                        <input class="form-check-input me-2" type="checkbox"
+                                                        <input class="form-check-input me-2 cursor_pointer" type="checkbox"
                                                             :value="service.id" :id="'flexCheckDefault'+index" v-model="isChecked">
-                                                        <label class="form-check-label text-break" :for="'flexCheckDefault'+index">
+                                                        <label class="form-check-label text-break cursor_pointer" :for="'flexCheckDefault'+index">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -625,7 +626,7 @@ export default {
     </div>
 
     <!-- Cards -->
-    <div class="container" :class="messageChecked == false ? 'd-block' : 'd-none'">
+    <div class="container mb-5" :class="messageChecked == false ? 'd-block' : 'd-none'">
         <div class="row">
             <div class="col my-5">
                 <h1 class="text-center text-md-start">
@@ -656,13 +657,13 @@ export default {
             <div class="col">
                 <div class="apartment-pagination">
                     <div class="d-flex justify-content-around py-2">
-                        <div :disabled="currentPage === 1" :class="currentPage === 1 ? '' : 'fw-bold'" @click="goPrev()">
+                        <div :disabled="currentPage === 1" :class="currentPage === 1 ? 'cursor_not-allowed' : 'fw-bold cursor_pointer'" @click="goPrev()">
                             <font-awesome-icon :icon="['fas', 'chevron-left']" /> prev
                         </div>
                         <div>
                             {{ currentPage }} di {{ numPages }}
                         </div>
-                        <div :disabled="currentPage === numPages" :class="currentPage === numPages ? '' : 'fw-bold'"
+                        <div :disabled="currentPage === numPages" :class="currentPage === numPages ? 'cursor_not-allowed' : 'fw-bold cursor_pointer'"
                             @click="goNext()">
                             next <font-awesome-icon :icon="['fas', 'chevron-right']" />
                         </div>
@@ -676,6 +677,9 @@ export default {
 <style lang="scss" scoped>
 .cursor_pointer {
     cursor: pointer;
+}
+.cursor_not-allowed {
+    cursor: not-allowed;
 }
 
 .my-btn {
@@ -999,6 +1003,7 @@ export default {
 .apartment-pagination {
     position: fixed;
     bottom: 112px;
+    left: 0;
     width: 100%;
     background-color: $color_light;
     z-index: 9;
