@@ -248,7 +248,7 @@ export default {
             <div class="message-box shadow-lg p-4">
 
               <!-- Invio messaggio all'host -->
-              <form @submit.prevent="sendMessage">
+              <form @submit.prevent="sendMessage()">
                 <div class="modal-body">
                   <div class="d-flex justify-content-between">
                     <div class="mb-2">
@@ -279,7 +279,7 @@ export default {
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn my-btn-primary mt-2" @click="setApartmentId">Contatta l'host</button>
+                  <button type="submit" class="btn my-btn-primary mt-2" @click="setApartmentId()">Contatta l'host</button>
                 </div>
               </form>
             </div>
