@@ -248,59 +248,42 @@ export default {
 
               <!-- Invio messaggio all'host -->
               <!-- Button trigger modal -->
-              <button type="button" class="btn my-btn-primary" data-bs-toggle="modal" data-bs-target="#messageModal">
-                Contatta l'host
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci qua il tuo messaggio per {{ apartment.user.user_data.name }}</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <form @submit.prevent="sendMessage">
+                <div class="modal-body">
+                  <div class="d-flex justify-content-between">
+                    <div class="mb-2">
+                      <label for="name">Nome</label>
+                      <br>
+                      <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name" required>
                     </div>
-
-                    <!-- Form dati e messaggio utente -->
-                    <form @submit.prevent="sendMessage">
-                      <div class="modal-body">
-                        <div class="d-flex justify-content-between">
-                          <div class="mb-2">
-                            <label for="name">Nome</label>
-                            <br>
-                            <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name" required>
-                          </div>
-                          <div class="mb-2">
-                            <label for="surname">Cognome</label>
-                            <br>
-                            <input type="text" id="surname" class="form-control outline-primary" v-model="formData.sender_surname" required>
-                          </div>
-                        </div>
-                        <div class="mb-2">
-                          <label for="email">Email</label>
-                          <br>
-                          <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email" required>
-                        </div>
-                        <div class="mb-2">
-                          <label for="subject">Oggetto</label>
-                          <br>
-                          <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object" required>
-                        </div>
-                        <div class="mb-2">
-                          <label for="message">Messaggio</label>
-                          <br>
-                          <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text" required></textarea>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="submit" class="btn my-btn" @click="setApartmentId">Invia</button>
-                      </div>
-                    </form>
-
+                    <div class="mb-2">
+                      <label for="surname">Cognome</label>
+                      <br>
+                      <input type="text" id="surname" class="form-control outline-primary" v-model="formData.sender_surname" required>
+                    </div>
+                  </div>
+                  <div class="mb-2">
+                    <label for="email">Email</label>
+                    <br>
+                    <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email" required>
+                  </div>
+                  <div class="mb-2">
+                    <label for="subject">Oggetto</label>
+                    <br>
+                    <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object" required>
+                  </div>
+                  <div class="mb-2">
+                    <label for="message">Messaggio</label>
+                    <br>
+                    <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text" required></textarea>
                   </div>
                 </div>
-              </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn my-btn-primary mt-2">
+                    Contatta l'host
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -322,7 +305,6 @@ export default {
             </div>
           </div>
         </div>
-
     </div>
 
   </div>
