@@ -35,12 +35,12 @@ export default {
           <font-awesome-icon
             v-if="apartment.sponsored"
             class="position-absolute my-icon-sponsor rounded-circle"
-            :icon="['fas', 'rocket']"
+            :icon="['fas', 'rocket']" beat-fade
           />
           
-          <!-- <img :src="apartment.full_path_main_img" class="card-img" alt="img-card" /> -->
+          <img :src="apartment.full_path_main_img" class="card-img" alt="img-card" v-if="apartment.full_image_gallery.length == 0"/>
 
-          <AppSwiper :imgDefault="apartment.full_path_main_img" :images="apartment.full_image_gallery"/>
+          <AppSwiper :imgDefault="apartment.full_path_main_img" :images="apartment.full_image_gallery" v-else/>
 
           <div class="card-body text-center text-lg-start">
             <h5 class="card-title">
@@ -102,6 +102,7 @@ export default {
     color: $color_primary;
     padding: 10px;
     background-color: $color_light;
+    z-index: 20;
   }
 }
 
