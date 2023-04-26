@@ -24,7 +24,7 @@ export default {
                 key: this.apiKey,
                 container: 'map',
                 center: [this.long, this.lat],
-                zoom: 10,
+                zoom: 11,
                 radius: 20000
             });
 

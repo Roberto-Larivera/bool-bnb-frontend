@@ -270,8 +270,6 @@ export default {
             });
 
             if (newApartments.length > 0 && newApartments != this.apartments) {
-                console.log('entro qui')
-                
                 this.store.filteredMap = false;
                 this.cancelAddress()
             }
@@ -553,7 +551,7 @@ export default {
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
                                                     <div class="mb-1"
-                                                        v-for="service, index in services.slice(-services.length, 7)">
+                                                        v-for="service, index in services.slice(services.length, 7)">
                                                         <input class="form-check-input" type="checkbox" value=""
                                                             :id="'flexCheckDefault'+index">
                                                         <label class="form-check-label" :for="'flexCheckDefault'+index">
