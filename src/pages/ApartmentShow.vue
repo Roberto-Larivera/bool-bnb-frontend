@@ -46,6 +46,7 @@ export default {
       axios.post('http://127.0.0.1:8000/api/messages/store', this.formData)
         .then(response => {
           this.isSent = true;
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
@@ -117,7 +118,7 @@ export default {
           <div class="row">
 
             <div class="col-12 col-lg-6">
-              <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
             </div>
 
             <div class="col-6 d-none d-lg-block">
@@ -247,7 +248,6 @@ export default {
             <div class="message-box shadow-lg p-4">
 
               <!-- Invio messaggio all'host -->
-              <!-- Button trigger modal -->
               <form @submit.prevent="sendMessage">
                 <div class="modal-body">
                   <div class="d-flex justify-content-between">
@@ -279,9 +279,7 @@ export default {
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn my-btn-primary mt-2">
-                    Contatta l'host
-                  </button>
+                  <button type="submit" class="btn my-btn-primary mt-2" @click="setApartmentId">Contatta l'host</button>
                 </div>
               </form>
             </div>
