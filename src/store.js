@@ -1,5 +1,8 @@
 import { reactive } from 'vue'
  
+// import axios per fare call api
+import axios from 'axios';
+
 export const store = reactive({
     pathServer: "#nogo",
     pathServerHome: 'http://127.0.0.1:8000/api/',
@@ -8,7 +11,7 @@ export const store = reactive({
     lat: '',
     lon: '',
     address: '',
-    range: 2,
+    range: 20,
     apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
     filteredMap: false
 });

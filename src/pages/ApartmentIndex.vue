@@ -40,7 +40,6 @@ export default {
             isChecked: [],
             lat: '',
             lon: '',
-            childRef: null,
             // filteredApartments: []
         }
     },
@@ -59,7 +58,6 @@ export default {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
                     this.autocomplete = response.data.results;
                 });
         },
@@ -79,9 +77,6 @@ export default {
                     }
                 })
                 .then((response) => {
-                    console.log(response.data);
-
-                    console.log(this.store.range);
 
                     if (response.data.success == true) {
                         this.apartments = response.data.apartments.data;
@@ -89,15 +84,7 @@ export default {
                         //  pagination
                         this.numPages = response.data.apartments.last_page;
                         this.store.filteredMap = false;
-                        console.log(this.store.filteredMap, 'prima');
                         this.cancelAddress();
-
-                        if (this.childRef) {
-                            console.log(this.childRef);
-                            this.childRef.getMapIndex();
-                        }
-                        console.log(this.store.filteredMap, 'dopo');
-
                     }
                     else {
                         this.message;
@@ -114,7 +101,6 @@ export default {
                     }
                 })
                 .then((response) => {
-                    console.log(response.data.services);
                     return this.services = response.data.services;
                 });
         },
@@ -153,7 +139,6 @@ export default {
             }
         },
         goNext() {
-            console.log('ok');
             if (this.currentPage < this.numPages) {
 
                 this.currentPage++;
@@ -161,14 +146,12 @@ export default {
             }
         },
         lessGuests() {
-            console.log('ok');
             if (this.currentGuest > 0) {
 
                 this.currentGuest--;
             }
         },
         moreGuests() {
-            console.log('ok');
             if (this.currentGuest < this.maxGuests) {
 
                 this.currentGuest++;
@@ -196,14 +179,18 @@ export default {
             return this.filteredApartments;
 
         },
+        startMap() {
+            setTimeout(() => this.$refs.MapIndex.getMapIndex(), 1000);
+        },
         cancelAddress() {
             if (this.store.address.length > 0) {
+                this.startMap()
                 this.store.filteredMap = true;
             }
             else {
                 this.store.filteredMap = false;
             }
-        }
+        },
         // styleRange() {
         //     const newValue = Number( (this.store.range.value - range.min) * 100 / (range.max - range.min) ),
         //     newPosition = 10 - (newValue * 0.2);
@@ -211,6 +198,7 @@ export default {
         //     rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
         //     }
         // }
+
     },
     computed: {
         filteredApartments() {
@@ -219,9 +207,9 @@ export default {
                 if (this.currentGuest == 0) {
                     return this.apartments;
                 }
-                else {
+                else 
                     return item.max_guests >= this.currentGuest;
-                }
+                
             });
 
 
@@ -281,26 +269,26 @@ export default {
                 }
             });
 
-            // this.store.filteredMap = true;
+            if (newApartments.length > 0 && newApartments != this.apartments) {
+                this.store.filteredMap = false;
+                this.cancelAddress()
+            }
+
             return newApartments;
         },
         // prova per input range
         newValue() {
-            return newValue = Number( (this.store.range - this.store.range.min) * 100 / (this.store.range.max - this.store.range.min))
+            return newValue = Number((this.store.range - this.store.range.min) * 100 / (this.store.range.max - this.store.range.min))
         },
         newPosition() {
             return newPosition = 10 - (this.newValue * 0.2);
-        } 
+        }
     },
     created() {
         this.getApiApartments();
         this.getApiServices();
     },
     mounted() {
-        console.log(this.childRef); // Output: undefined
-        this.$nextTick(() => {
-            console.log(this.childRef); // Output: { /* ChildComponent object */ }
-        });
     },
 }
 </script>
@@ -442,7 +430,8 @@ export default {
                                 <div class="modal-body">
                                     <div class="form-container-small">
                                         <!-- raggio 20 km -->
-                                        <template v-if="this.store.filteredMap == true && this.store.address.length > 0">
+                                        <template
+                                            v-if="filteredApartments.length > 0 && this.store.filteredMap == true && this.store.address.length > 0">
                                             <div class="mb-3">
                                                 <label for="km" class="form-label" style="display: block;">
                                                     Distanza / km
@@ -475,7 +464,7 @@ export default {
                                                 <!-- <div class="map-container rounded"> -->
                                                 <MapIndex :lat="filteredApartments[0].latitude"
                                                     :long="filteredApartments[0].longitude" :apartments="filteredApartments"
-                                                    :apiKey="store.apiKey" ref="childRef" class="rounded" />
+                                                    :apiKey="store.apiKey" class="rounded" ref="MapIndex" />
                                                 <!-- </div> -->
                                             </div>
                                         </template>
@@ -488,14 +477,15 @@ export default {
                                                 </label>
                                                 <div class="inline-block">
                                                     <div class="d-flex">
-                                                        <div class="rounded-start guest" @click="lessGuests()">
+                                                        <div class="rounded-start guest cursor_pointer"
+                                                            @click="lessGuests()">
                                                             -
                                                         </div>
                                                         <div class="d-flex justify-content-center align-items-center"
                                                             style="width: 50px; border: 1px solid lightgray;">
                                                             {{ currentGuest }}
                                                         </div>
-                                                        <div class="rounded-end guest" @click="moreGuests()">
+                                                        <div class="rounded-end guest cursor_pointer" @click="moreGuests()">
                                                             +
                                                         </div>
                                                     </div>
@@ -561,10 +551,10 @@ export default {
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
                                                     <div class="mb-1"
-                                                        v-for="service in services.slice(-services.length, 7)">
+                                                        v-for="service, index in services.slice(services.length, 7)">
                                                         <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            :id="'flexCheckDefault'+index">
+                                                        <label class="form-check-label" :for="'flexCheckDefault'+index">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -580,14 +570,15 @@ export default {
                                                 + servizi
                                             </button>
                                         </div>
+
                                         <!-- più servizi -->
                                         <div class="d-lg-none" v-if="moreServices">
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
-                                                    <div class="mb-1" v-for="service in services.slice(7)">
+                                                    <div class="mb-1" v-for="service, index in services.slice(7)">
                                                         <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            :id="'flexCheckDefault'+index">
+                                                        <label class="form-check-label" :for="'flexCheckDefault'+index">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -597,11 +588,11 @@ export default {
 
                                         <div class="d-none d-lg-block">
                                             <ul class="row row-cols-lg-2">
-                                                <li v-for="service in services" class="col ps-lg-0">
+                                                <li v-for="service, index in services" class="col ps-lg-0">
                                                     <div class="mb-1">
                                                         <input class="form-check-input me-2" type="checkbox"
-                                                            :value="service.id" id="flexCheckDefault" v-model="isChecked">
-                                                        <label class="form-check-label text-break" for="flexCheckDefault">
+                                                            :value="service.id" :id="'flexCheckDefault'+index" v-model="isChecked">
+                                                        <label class="form-check-label text-break" :for="'flexCheckDefault'+index">
                                                             {{ service.name }}
                                                         </label>
                                                     </div>
@@ -683,6 +674,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.cursor_pointer {
+    cursor: pointer;
+}
+
 .my-btn {
     padding: 0.5rem;
     display: inline-block;
@@ -734,9 +729,11 @@ export default {
                 margin: 20px 0;
                 width: 100%;
             }
+
             input[type=range]:focus {
                 outline: none;
             }
+
             input[type=range]::-webkit-slider-runnable-track {
                 width: 100%;
                 height: 4px;
@@ -745,18 +742,20 @@ export default {
                 background: $color_primary;
                 border-radius: 25px;
             }
+
             input[type=range]::-webkit-slider-thumb {
                 height: 20px;
                 width: 20px;
                 border-radius: 50%;
                 background: #fff;
-                box-shadow: 0 0 4px 0 rgba(0,0,0, 1);
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 1);
                 cursor: pointer;
                 -webkit-appearance: none;
                 margin-top: -8px;
             }
+
             input[type=range]:focus::-webkit-slider-runnable-track {
-             background: $color_primary;
+                background: $color_primary;
             }
 
             .range-wrap {

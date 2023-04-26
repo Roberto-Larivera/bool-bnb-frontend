@@ -10,11 +10,10 @@ export default {
         apartments: Array,
         long: String,
         lat: String,
-        childRef: Object
     },
     data() {
         return {
-            store
+            store,
         }
     },
     methods: {
@@ -25,7 +24,7 @@ export default {
                 key: this.apiKey,
                 container: 'map',
                 center: [this.long, this.lat],
-                zoom: 10,
+                zoom: 11,
                 radius: 20000
             });
 
@@ -33,7 +32,6 @@ export default {
                 const marker = new tt.Marker({ element: this.createMarkerElement(apartment.price), })
                     .setLngLat([apartment.longitude, apartment.latitude])
                 marker.addTo(map);
-                console.log(apartment.title);
 
                 // marker.setPopup(new tt.Popup().setHTML(`<p>${apartment.price}</p>`));
                 marker.setPopup(new tt.Popup().setHTML(`<h6>${apartment.title}</h6><p>${apartment.address}</p>`));
@@ -55,37 +53,38 @@ export default {
             markerElement.className = 'custom-marker';
             markerElement.innerText = text;
             return markerElement
-        },
-        
-    },
-    computed: {
-
-        // myStore() {
-        //     return this.store.filteredMap;
-        // },
-
-        
-        // prova() {
-        //     if(this.store.filteredMap) {
-        //     setTimeout(() => this.getMapIndex(), 3000);
-        //     console.log('ok mappa!!!');
-        //     }
-        // }      
-    },
-    created() {
-        if (this.store.filteredMap) {
-            setTimeout(() => this.getMapIndex(), 3000);
-            console.log('ok mappa!!!');
         }
-        // this.$watch(() => store.filteredMap, (newFilteredMap, oldFilteredMap) => {
-        //     if (newFilteredMap) {
-        //         setTimeout(() => this.getMapIndex(), 3000);
-        //         console.log('ok mappa!!!');
-        //     }
-        // });
+       
+
+    
+    }
+    // computed: {
+
+    //     // myStore() {
+    //     //     return this.store.filteredMap;
+    //     // },
+
+        
+    //     // prova() {
+    //     //     if(this.store.filteredMap) {
+    //     //     setTimeout(() => this.getMapIndex(), 3000);
+    //     //     console.log('ok mappa!!!');
+    //     //     }
+    //     // }      
+    // },
+    // created() {
+    //     if (this.store.filteredMap) {
+    //         setTimeout(() => this.getMapIndex(), 3000);
+    //     }
+    //     // this.$watch(() => store.filteredMap, (newFilteredMap, oldFilteredMap) => {
+    //     //     if (newFilteredMap) {
+    //     //         setTimeout(() => this.getMapIndex(), 3000);
+    //     //         console.log('ok mappa!!!');
+    //     //     }
+    //     // });
 
 
-    },
+    // },
 
 }
 </script>
