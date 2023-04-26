@@ -17,8 +17,9 @@ export default {
       apartment: [],
       services: [],
       store,
-      formData: {}
-    }
+      formData: {},
+      isSent: false
+    };
   },
   methods: {
     setApartmentId() {
@@ -44,7 +45,7 @@ export default {
     sendMessage() {
       axios.post('http://127.0.0.1:8000/api/messages/store', this.formData)
         .then(response => {
-          console.log(response);
+          this.isSent = true;
         })
         .catch(error => {
           console.log(error);
@@ -89,7 +90,12 @@ export default {
     <div class="row">
       <div class="col">
 
-        <h1>{{ apartment.title }}</h1>
+          <!-- Invio messaggio con successo -->
+          <div v-if="isSent" class="alert alert-success" role="alert">
+            Messaggio inviato con successo!
+          </div>
+
+          <h1>{{ apartment.title }}</h1>
 
         <div class="mb-3 d-flex justify-content-between align-items-center">
           <div>
