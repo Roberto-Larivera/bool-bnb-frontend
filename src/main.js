@@ -2,12 +2,15 @@ import { createApp } from 'vue';
 import App from './App.vue';
 
 
+
+
 import { router } from './router';
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap';
+import { Tooltip, Toast, Popover } from 'bootstrap';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -60,6 +63,8 @@ import { faSquareH } from "@fortawesome/free-solid-svg-icons";
 import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
 import { faBacon } from "@fortawesome/free-solid-svg-icons";
 import { faVest } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(faChevronLeft)
@@ -100,6 +105,8 @@ library.add(faKitchenSet)
 library.add(faSquareH)
 library.add(faWheelchair)
 library.add(faVest)
+library.add(faCheckCircle)
+library.add(faTimes)
 
 
 
