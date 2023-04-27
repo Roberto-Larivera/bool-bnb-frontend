@@ -109,7 +109,65 @@ export default {
           <div class="img-container">
             <div class="row">
 
-              <div class="col-12 col-lg-6">
+              <!-- 1 immagine -->
+
+              <div class="col-12">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <!-- 2 immagini -->
+
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-6">
+                <img src="" alt="">
+              </div>
+
+
+              <!-- 3 immagini -->
+
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-12">
+                    <img src="" alt="">
+                  </div>
+                  <div class="col-12">
+                    <img src="" alt="">
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- 4 immagini -->
+
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-3">
+                <img src="" alt="">
+              </div>
+
+              <div class="col-3">
+                <div class="row">
+                  <div class="col-6">
+                    <img src="" alt="">
+                  </div>
+                  <div class="col-6">
+                    <img src="" alt="">
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5 immagini -->
+              
+              <div class="col-6">
                 <img :src="apartment.main_img" alt="Img" class="img-fluid">
               </div>
 
