@@ -114,83 +114,104 @@ export default {
             <div class="row">
 
               <!-- 1 immagine -->
-
-              <div class="col-12">
-                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              
+              <div v-if="apartment.full_image_gallery = 0">
+                <div class="col-12" >
+                  <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
+                </div>
               </div>
+
 
               <!-- 2 immagini -->
 
-              <div class="col-6">
-                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              <div v-else-if="apartment.full_image_gallery = 1">
+              
+                <div class="col-6">
+                  <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
+                </div>
+
+                <div class="col-6">
+                  <img src="" alt="">
+                </div>
+              
               </div>
 
-              <div class="col-6">
-                <img src="" alt="">
-              </div>
 
 
               <!-- 3 immagini -->
 
-              <div class="col-6">
-                <img :src="apartment.main_img" alt="Img" class="img-fluid">
-              </div>
+              <div  v-else-if="apartment.full_image_gallery = 2">
+              
+                <div class="col-6">
+                  <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
+                </div>
 
-              <div class="col-6">
-                <div class="row">
-                  <div class="col-12">
-                    <img src="" alt="">
-                  </div>
-                  <div class="col-12">
-                    <img src="" alt="">
+                <div class="col-6">
+                  <div class="row">
+                    <div class="col-12">
+                      <img src="" alt="">
+                    </div>
+                    <div class="col-12">
+                      <img src="" alt="">
+                    </div>
                   </div>
                 </div>
+              
               </div>
+
 
 
               <!-- 4 immagini -->
 
-              <div class="col-6">
-                <img :src="apartment.main_img" alt="Img" class="img-fluid">
-              </div>
+              <div  v-else-if="apartment.full_image_gallery = 3">
+                <div class="col-6">
+                  <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
+                </div>
 
-              <div class="col-3">
-                <img src="" alt="">
-              </div>
+                <div class="col-3">
+                  <img src="" alt="">
+                </div>
 
-              <div class="col-3">
-                <div class="row">
-                  <div class="col-6">
-                    <img src="" alt="">
-                  </div>
-                  <div class="col-6">
-                    <img src="" alt="">
+                <div class="col-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <img src="" alt="">
+                    </div>
+                    <div class="col-6">
+                      <img src="" alt="">
+                    </div>
                   </div>
                 </div>
               </div>
+
 
               <!-- 5 immagini -->
-              
-              <div class="col-6">
-                <img :src="apartment.main_img" alt="Img" class="img-fluid">
-              </div>
 
-              <div class="col-6 d-none d-lg-block">
-                <div class="row g-2 align-items-center">
-                  <div class="col-6">
-                    <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
-                  </div>
-                  <div class="col-6">
-                    <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
-                  </div>
-                  <div class="col-6">
-                    <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
-                  </div>
-                  <div class="col-6">
-                    <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
+              <div  v-else-if="apartment.full_image_gallery = 4">
+              
+                <div class="col-6">
+                  <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
+                </div>
+
+                <div class="col-6 d-none d-lg-block">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-6">
+                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid">
+                    </div>
+                    <div class="col-6">
+                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid">
+                    </div>
+                    <div class="col-6">
+                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid">
+                    </div>
+                    <div class="col-6">
+                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid">
+                    </div>
                   </div>
                 </div>
+              
               </div>
+              
 
             </div>
           </div>
@@ -198,7 +219,7 @@ export default {
         </div>
 
 
-        <h1>{{ apartment.title }}</h1>
+        <!-- <h1>{{ apartment.title }}</h1>
 
         <div class="mb-3 d-flex justify-content-between align-items-center">
           <div>
@@ -213,11 +234,11 @@ export default {
             <font-awesome-icon :icon="['fas', 'eye']" />
             {{ apartment.views_count }} Visualizzazioni
           </div>
-        </div>
+        </div> -->
 
         <!-- Carosello di immagini -->
 
-        <div class="img-container">
+        <!-- <div class="img-container">
           <div class="row">
             <div class="col-12 col-lg-6">
               <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid" />
@@ -226,21 +247,21 @@ export default {
             <div class="col-6 d-none d-lg-block">
               <div class="row g-2 align-items-center">
                 <div class="col-6">
-                  <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid" />
+                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid" />
                 </div>
                 <div class="col-6">
-                  <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid" />
+                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid" />
                 </div>
                 <div class="col-6">
-                  <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid" />
+                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid" />
                 </div>
                 <div class="col-6">
-                  <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid" />
+                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid" />
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="row pt-5">
@@ -452,7 +473,7 @@ export default {
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <style lang="scss" scoped>
