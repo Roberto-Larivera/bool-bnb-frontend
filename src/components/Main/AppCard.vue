@@ -102,7 +102,7 @@ export default {
     color: $color_primary;
     padding: 10px;
     background-color: $color_light;
-    z-index: 20;
+    z-index: 2;
   }
 }
 

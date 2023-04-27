@@ -333,26 +333,6 @@ export default {
                                                 :class="activeAuto ? 'd-block' : 'd-none'" :itemsComplete="autocomplete"
                                                 @takeAddress="takeAddress" />
                                         </div>
-                                        <!-- DATI COMMENTATI -->
-                                        <!-- <div class="mb-3">
-                                                <label for="check-in" class="form-label">
-                                                    Check-in
-                                                </label>
-                                                <input type="date" class="form-control" id="check-in">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="check-out" class="form-label">
-                                                    Check-out
-                                                </label>
-                                                <input type="date" class="form-control" id="check-out">
-                                            </div>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Seleziona nr. ospiti</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select> -->
                                         <button type="submit" class="my-submit-modal rounded" data-bs-dismiss="modal"
                                             @click="cancelAddress()">
                                             Vai
@@ -382,21 +362,6 @@ export default {
                                         style="width: 100%; z-index: 3;" :class="activeAuto ? 'd-block' : 'd-none'"
                                         :itemsComplete="autocomplete" @takeAddress="takeAddress" />
                                 </span>
-                                <!-- <span class="form-floating">
-                                        <input type="date" id="check-in" placeholder="Da quando">
-                                    </span>
-                                    <span class="form-floating">
-                                        <input type="date" id="check-out" placeholder="A quando">
-                                    </span> -->
-                                <!-- <span>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Ospiti</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </span> -->
                             </span>
                             <button type="submit" class="my-submit rounded-pill px-3" @click="cancelAddress()">
                                 Cerca
