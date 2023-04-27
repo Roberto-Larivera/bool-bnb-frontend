@@ -89,16 +89,114 @@ export default {
 <template>
   <div class="container">
     <!-- Titolo e immagini -->
-    <div class="row">
-      <div class="col">
-        <!-- Invio messaggio con successo -->
-        <!-- Invio messaggio con successo -->
-        <div v-if="isSent" class="message success d-flex align-items-center justify-content-center">
-          <font-awesome-icon :icon="['fas', 'circle-check']" />
-          <span class="ms-2 me-4">Messaggio inviato con successo!</span>
-          <button class="close" aria-label="Close">
-            <font-awesome-icon class="close-icon" :icon="['fas', 'fa-times']" @click="isSent = false"/>
-          </button>
+    <template v-if="caricamento">
+      <div class="row">
+        <div class="col">
+
+          <h1>{{ apartment.title }}</h1>
+
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div>
+              <span>
+                <font-awesome-icon :icon="['fas', 'location-dot']" />
+              </span>
+              <span>
+                <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
+              </span>
+            </div>
+            <div>
+              <font-awesome-icon :icon="['fas', 'eye']" /> {{ apartment.views_count }} Visualizzazioni
+            </div>
+          </div>
+
+          <!-- Carosello di immagini -->
+
+          <div class="img-container">
+            <div class="row">
+
+              <!-- 1 immagine -->
+
+              <div class="col-12">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <!-- 2 immagini -->
+
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-6">
+                <img src="" alt="">
+              </div>
+
+
+              <!-- 3 immagini -->
+
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-12">
+                    <img src="" alt="">
+                  </div>
+                  <div class="col-12">
+                    <img src="" alt="">
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- 4 immagini -->
+
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-3">
+                <img src="" alt="">
+              </div>
+
+              <div class="col-3">
+                <div class="row">
+                  <div class="col-6">
+                    <img src="" alt="">
+                  </div>
+                  <div class="col-6">
+                    <img src="" alt="">
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5 immagini -->
+              
+              <div class="col-6">
+                <img :src="apartment.main_img" alt="Img" class="img-fluid">
+              </div>
+
+              <div class="col-6 d-none d-lg-block">
+                <div class="row g-2 align-items-center">
+                  <div class="col-6">
+                    <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
+                  </div>
+                  <div class="col-6">
+                    <img :src="apartment.main_img" alt="Img" class="w-100 img-fluid">
+                  </div>
+                  <div class="col-6">
+                    <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
+                  </div>
+                  <div class="col-6">
+                    <img :src="apartment.main_img" alt="Img" class="w-100 mb-3 img-fluid">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
         </div>
 
 
