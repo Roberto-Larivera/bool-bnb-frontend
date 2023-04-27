@@ -92,6 +92,14 @@ export default {
       <div class="row">
         <div class="col">
 
+          <div v-if="isSent" class="message success d-flex align-items-center justify-content-center">
+            <font-awesome-icon :icon="['fas', 'circle-check']" />
+            <span class="ms-2 me-4">Messaggio inviato con successo!</span>
+            <button class="close" aria-label="Close">
+              <font-awesome-icon class="close-icon" :icon="['fas', 'fa-times']" @click="isSent = false"/>
+            </button>
+          </div>
+
           <h1>{{ apartment.title }}</h1>
 
           <div class="mb-3 d-flex justify-content-between align-items-center">
@@ -523,7 +531,9 @@ export default {
 }
 
 img {
-  object-fit: contain;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .message-box {
