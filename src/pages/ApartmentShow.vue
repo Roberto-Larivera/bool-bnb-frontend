@@ -89,7 +89,6 @@ export default {
 <template>
   <div class="container">
     <!-- Titolo e immagini -->
-    <template v-if="caricamento">
       <div class="row">
         <div class="col">
 
@@ -195,7 +194,6 @@ export default {
 
             </div>
           </div>
-
 
         </div>
 
