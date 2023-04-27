@@ -111,11 +111,10 @@ export default {
           <!-- Carosello di immagini -->
 
           <div class="img-container">
-            <div class="row">
 
               <!-- 1 immagine -->
               
-              <div v-if="apartment.full_image_gallery = 0">
+              <div class="row" v-if="apartment.full_image_gallery = 0">
                 <div class="col-12" >
                   <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
                 </div>
@@ -124,14 +123,14 @@ export default {
 
               <!-- 2 immagini -->
 
-              <div v-else-if="apartment.full_image_gallery = 1">
+              <div class="row" v-else-if="apartment.full_image_gallery = 1">
               
                 <div class="col-6">
                   <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
                 </div>
 
                 <div class="col-6">
-                  <img src="" alt="">
+                  <img :src="apartment.image_gallery[0].full_path_image_gallery" alt="">
                 </div>
               
               </div>
@@ -140,7 +139,7 @@ export default {
 
               <!-- 3 immagini -->
 
-              <div  v-else-if="apartment.full_image_gallery = 2">
+              <div class="row"  v-else-if="apartment.full_image_gallery = 2">
               
                 <div class="col-6">
                   <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
@@ -149,10 +148,10 @@ export default {
                 <div class="col-6">
                   <div class="row">
                     <div class="col-12">
-                      <img src="" alt="">
+                      <img :src="apartment.image_gallery[0].full_path_image_gallery" alt="">
                     </div>
                     <div class="col-12">
-                      <img src="" alt="">
+                      <img :src="apartment.image_gallery[1].full_path_image_gallery" alt="">
                     </div>
                   </div>
                 </div>
@@ -163,22 +162,22 @@ export default {
 
               <!-- 4 immagini -->
 
-              <div  v-else-if="apartment.full_image_gallery = 3">
+              <div class="row" v-else-if="apartment.full_image_gallery = 3">
                 <div class="col-6">
                   <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
                 </div>
 
                 <div class="col-3">
-                  <img src="" alt="">
+                  <img :src="apartment.image_gallery[0].full_path_image_gallery" alt="">
                 </div>
 
                 <div class="col-3">
                   <div class="row">
                     <div class="col-6">
-                      <img src="" alt="">
+                      <img :src="apartment.image_gallery[1].full_path_image_gallery" alt="">
                     </div>
                     <div class="col-6">
-                      <img src="" alt="">
+                      <img :src="apartment.image_gallery[2].full_path_image_gallery" alt="">
                     </div>
                   </div>
                 </div>
@@ -187,7 +186,7 @@ export default {
 
               <!-- 5 immagini -->
 
-              <div  v-else-if="apartment.full_image_gallery = 4">
+              <div  class="row" v-else-if="apartment.full_image_gallery = 4">
               
                 <div class="col-6">
                   <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid">
@@ -196,24 +195,21 @@ export default {
                 <div class="col-6 d-none d-lg-block">
                   <div class="row g-2 align-items-center">
                     <div class="col-6">
-                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid">
+                      <img :src="apartment.image_gallery[0].full_path_image_gallery" alt="Img" class="w-100 img-fluid">
                     </div>
                     <div class="col-6">
-                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid">
+                      <img :src="apartment.image_gallery[1].full_path_image_gallery" alt="Img" class="w-100 img-fluid">
                     </div>
                     <div class="col-6">
-                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid">
+                      <img :src="apartment.image_gallery[2].full_path_image_gallery" alt="Img" class="w-100 mb-3 img-fluid">
                     </div>
                     <div class="col-6">
-                      <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid">
+                      <img :src="apartment.image_gallery[3].full_path_image_gallery" alt="Img" class="w-100 mb-3 img-fluid">
                     </div>
                   </div>
                 </div>
               
               </div>
-              
-
-            </div>
           </div>
 
         </div>
