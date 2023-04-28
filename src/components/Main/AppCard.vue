@@ -14,7 +14,7 @@ export default {
       delay: false,
     };
   },
-  components:{
+  components: {
     AppSwiper
   },
   methods: {},
@@ -27,20 +27,17 @@ export default {
 <template>
   <template v-if="delay">
     <div class="col">
-      <router-link
-        :to="{ name: 'apartments-show', params: { slug: apartment.slug } }"
-        class="text-decoration-none"
-      >
+      <router-link :to="{ name: 'apartments-show', params: { slug: apartment.slug } }" class="text-decoration-none">
         <div class="card position-relative">
-          <font-awesome-icon
-            v-if="apartment.sponsored"
-            class="position-absolute my-icon-sponsor rounded-circle"
-            :icon="['fas', 'rocket']" beat-fade
-          />
-          
-          <img :src="apartment.full_path_main_img" class="card-img" alt="img-card" v-if="apartment.full_image_gallery.length == 0"/>
+          <font-awesome-icon v-if="apartment.sponsored" class="position-absolute my-icon-sponsor rounded-circle"
+            :icon="['fas', 'rocket']" beat-fade />
+          <template v-if="apartment.full_image_gallery.length == 0" >
+            <img :src="apartment.full_path_main_img" class="card-img" alt="img-card"/>
+          </template>
 
-          <AppSwiper :imgDefault="apartment.full_path_main_img" :images="apartment.full_image_gallery" v-else/>
+          <template v-else>
+            <AppSwiper :imgDefault="apartment.full_path_main_img" :images="apartment.full_image_gallery"  />
+          </template>
 
           <div class="card-body text-center text-lg-start">
             <h5 class="card-title">
@@ -96,13 +93,14 @@ export default {
     object-fit: cover;
     border-radius: 5px;
   }
+
   .my-icon-sponsor {
     top: 10px;
     right: 10px;
     color: $color_primary;
     padding: 10px;
     background-color: $color_light;
-    z-index: 20;
+    z-index: 2;
   }
 }
 

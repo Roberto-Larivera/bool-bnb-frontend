@@ -119,7 +119,7 @@ export default {
     .my-map {
         width: 60%;
         margin: 0 auto;
-
+        height: 300px;
     }
 }
 </style>

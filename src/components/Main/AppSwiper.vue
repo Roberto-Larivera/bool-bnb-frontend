@@ -1,7 +1,6 @@
 <script>
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useSwiper } from 'swiper/vue';
 // import required modules
 import { FreeMode, Pagination, Navigation } from 'swiper';
 
@@ -28,10 +27,8 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const swiper = useSwiper();
     return {
-      modules: [FreeMode, Pagination, Navigation],
-      swiper
+      modules: [FreeMode, Pagination, Navigation]
     };
   },
 };
