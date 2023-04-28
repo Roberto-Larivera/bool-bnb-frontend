@@ -6,6 +6,7 @@ export default {
     name: 'Map',
     props: {
         apiKey: String,
+        apartments: Array,
         lat: String,
         long: String
     },
@@ -17,11 +18,16 @@ export default {
                 key: props.apiKey,
                 container: 'map',
                 center: [props.long, props.lat],
-                zoom: 11,
+                zoom: 10,
                 radius: 20000
             });
 
-            const marker = new tt.Marker().setLngLat([props.long, props.lat]).addTo(map);
+            props.apartments.forEach(apartment => {   
+                const marker = new tt.Marker().setLngLat([apartment.longitude, apartment.latitude]).addTo(map);
+                console.log(marker);
+            
+            });
+
             map.addControl(new tt.NavigationControl());
 
         });

@@ -29,6 +29,9 @@ export default {
       } else {
         this.scrolled = false;
       }
+    },
+    hideAddressList() {
+        this.store.addressListVisible = false;
     }
   }
 
@@ -36,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div @click="hideAddressList()">
     <header :class="{ 'shadow': scrolled }">
       <AppHeader />
     </header>
