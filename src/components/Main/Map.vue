@@ -17,7 +17,7 @@ export default {
                 key: props.apiKey,
                 container: 'map',
                 center: [props.long, props.lat],
-                zoom: 10,
+                zoom: 11,
                 radius: 20000
             });
 
