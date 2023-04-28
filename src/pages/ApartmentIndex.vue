@@ -552,7 +552,7 @@ export default {
                                             <div class="row row-cols-1">
                                                 <div class="form-check ms-3">
                                                     <div class="mb-1"
-                                                        v-for="service, index in services.slice(services.length, 7)">
+                                                        v-for="service, index in services.slice(0, 7)">
                                                         <input class="form-check-input cursor_pointer" type="checkbox" value=""
                                                             :id="'flexCheckDefault'+index">
                                                         <label class="form-check-label cursor_pointer" :for="'flexCheckDefault'+index">
@@ -1045,7 +1045,7 @@ export default {
 
     // width del modale modificata 
     .my-width {
-        max-width: 60%;
+        max-width: 70%;
 
     }
 
