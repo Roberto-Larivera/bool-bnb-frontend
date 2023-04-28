@@ -134,54 +134,76 @@ export default {
             }">
               <img :src="apartment.full_path_main_img" class="img-fluid" :class="{
 
-                  'rounded': imageGallery.length == 0,
-                  'rounded-start': imageGallery.length >= 1,
+                  'b-all': imageGallery.length == 0,
+                  'b-sx': imageGallery.length >= 1,
 
                 }">
             </div>
 
+
+
+
             <!-- gallery img -->
             <div class="col-6" v-if="imageGallery.length > 0">
-              <div class="row h-100">
+              <div class="row h-100" :class="{ 'gy-3': imageGallery.length >= 3 }">
+
+
                 <div :class="{
 
                     'col-12': imageGallery.length == 1,
                     'col-6': imageGallery.length == 2,
-                    'col-3': imageGallery.length >= 3,
+                    'col-6 ': imageGallery.length >= 3,
 
                   }" v-if="imageGallery.length >= 1">
                   <img :src="imageGallery[0].full_path_image_gallery" class="img-fluid" :class="{
 
-                      'rounded-end': imageGallery.length == 1,
-                      'col-6': imageGallery.length == 2,
-                      'col-3': imageGallery.length >= 3,
+                      'b-dx': imageGallery.length == 1
 
                     }">
                 </div>
+
+
+
                 <div :class="{
 
-                    'col-6': imageGallery.length == 2,
-                    'col-3': imageGallery.length == 3
+                    'col-6': imageGallery.length >= 2,
+                    // 'col-6': imageGallery.length >= 3,
 
                   }" v-if="imageGallery.length >= 2">
-                  <img :src="imageGallery[1].full_path_image_gallery" class="img-fluid">
+                  <img :src="imageGallery[1].full_path_image_gallery" class="img-fluid" :class="{
+
+                      'b-dx': imageGallery.length == 2,
+                      'b-dxt': imageGallery.length >= 3,
+
+                    }">
                 </div>
+
+
+
                 <div :class="{
 
-                    'col-6': imageGallery.length == 3
+                    'col-12 ': imageGallery.length == 3,
+                    'col-6 ': imageGallery.length == 4,
 
                   }" v-if="imageGallery.length >= 3">
-                  <img :src="imageGallery[2].full_path_image_gallery" class="img-fluid">
+                  <img :src="imageGallery[2].full_path_image_gallery" class="img-fluid" :class="{
+
+                      'b-dxb': imageGallery.length == 3,
+                      
+
+                    }">
                 </div>
 
-                <div :class="{
+                <div class="col-6" v-if="imageGallery.length == 4">
+                  <img :src="imageGallery[3].full_path_image_gallery" class="img-fluid" :class="{
 
-                    'col-6': imageGallery.length == 3
+                      'b-dxb': imageGallery.length == 4,
 
-
-                  }" v-if="imageGallery.length == 4">
-                  <img :src="imageGallery[3].full_path_image_gallery" class="img-fluid">
+                    }">
                 </div>
+
+
+
               </div>
             </div>
 
@@ -483,5 +505,25 @@ img {
 input:focus,
 textarea:focus {
   border-color: $color_primary;
+}
+
+.b-all {
+  border-radius: 1em;
+}
+
+.b-sx {
+  border-radius: 1em 0 0 1em;
+}
+
+.b-dx {
+  border-radius: 0 1em 1em 0;
+}
+
+.b-dxt {
+  border-radius: 0 1em 0 0;
+}
+
+.b-dxb {
+  border-radius: 0 0 1em 0;
 }
 </style>
