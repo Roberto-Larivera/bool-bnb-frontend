@@ -2,6 +2,8 @@
 import Map from "../components/Main/Map.vue";
 import { store } from "../store.js";
 
+import AppSwiperShow from "../components/Main/AppSwiperShow.vue"
+
 // Axios
 import axios from "axios";
 
@@ -9,6 +11,7 @@ export default {
   name: "ApartmentShow",
   components: {
     Map,
+    AppSwiperShow
   },
   data() {
     return {
@@ -125,11 +128,18 @@ export default {
 
         <div class="img-container">
 
+          <!-- Gallery phone -->
+          <div class="row">
+            <div class="col">
+              <AppSwiperShow :imgDefault="apartment.full_path_main_img" :images="imageGallery" class="d-lg-none"/>
+            </div>
+          </div>
 
-          <div id="image_gallery" class="row">
+          <!--  gallery desktop-->
+          <div id="image_gallery" class="row d-none d-lg-flex">
             <!-- img default -->
             <div :class="{
-              'col-12': imageGallery.length == 0,
+              'col-12 ratio ratio-16x9': imageGallery.length == 0,
               'col-6': imageGallery.length >= 1
             }">
               <img :src="apartment.full_path_main_img" class="img-fluid" :class="{
@@ -363,32 +373,37 @@ export default {
           <!-- Invio messaggio all'host -->
           <form @submit.prevent="sendMessage()">
             <div class="modal-body">
-              <div class="d-flex justify-content-between">
-                <div class="mb-2">
+              <div class="my-4">
+                <h5 class="text-center fw-bold color-primary">
+                  Vuoi saperne di più ?
+                </h5>
+              </div>
+              
+                <div class="mb-3">
                   <label for="name">Nome</label>
                   <br />
                   <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name"
                     required />
                 </div>
-                <div class="mb-2">
+                <div class="mb-3">
                   <label for="surname">Cognome</label>
                   <br />
                   <input type="text" id="surname" class="form-control outline-primary" v-model="formData.sender_surname"
                     required />
                 </div>
-              </div>
-              <div class="mb-2">
+              
+              <div class="mb-3">
                 <label for="email">Email</label>
                 <br />
                 <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email"
                   required />
               </div>
-              <div class="mb-2">
+              <div class="mb-3">
                 <label for="subject">Oggetto</label>
                 <br />
                 <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object" required />
               </div>
-              <div class="mb-2">
+              <div class="mb-3">
                 <label for="message">Messaggio</label>
                 <br />
                 <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text"
@@ -426,6 +441,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h5.color-primary{
+  color:  $color_primary;
+}
 .message {
   position: fixed;
   top: 10%;
