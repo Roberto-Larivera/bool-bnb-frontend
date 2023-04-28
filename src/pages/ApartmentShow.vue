@@ -18,7 +18,7 @@ export default {
       apiKey: "CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs",
       apartment: [],
       imageGallery: [],
-      services: [],
+      servicesArray: [],
       store,
       formData: {},
       isSent: false,
@@ -34,14 +34,10 @@ export default {
         .get(`${this.store.pathServerApi}${this.$route.params.slug}`)
         .then((response) => {
           if (response.data.success) {
-            console.log(response);
             this.apartment = response.data.apartment;
             this.imageGallery = response.data.apartment.full_image_gallery;
 
-            if (response.data.apartment.services > 0) {
-              this.services = response.data.apartment.services;
-
-            }
+            this.servicesArray = response.data.apartment.services;
           } else {
             this.$router.push({ name: "not-found" });
             // console.log(this.project);
@@ -84,11 +80,9 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
           });
       })
       .catch((error) => {
-        console.log(error);
       });
   },
 };
@@ -116,11 +110,11 @@ export default {
               <font-awesome-icon :icon="['fas', 'location-dot']" />
             </span>
             <span>
-              <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
+              <a href="#dovetitroverai" class="my-link mx-2">{{ apartment.address }}</a>
             </span>
           </div>
           <div>
-            <font-awesome-icon :icon="['fas', 'eye']" /> {{ apartment.views_count }} Visualizzazioni
+            <font-awesome-icon :icon="['fas', 'eye']" /> {{ apartment.views_count }}
           </div>
         </div>
 
@@ -222,51 +216,6 @@ export default {
         </div>
 
       </div>
-
-
-      <!-- <h1>{{ apartment.title }}</h1>
-
-        <div class="mb-3 d-flex justify-content-between align-items-center">
-          <div>
-            <span>
-              <font-awesome-icon :icon="['fas', 'location-dot']" />
-            </span>
-            <span>
-              <a href="#" class="my-link mx-2">{{ apartment.address }}</a>
-            </span>
-          </div>
-          <div>
-            <font-awesome-icon :icon="['fas', 'eye']" />
-            {{ apartment.views_count }} Visualizzazioni
-          </div>
-        </div> -->
-
-      <!-- Carosello di immagini -->
-
-      <!-- <div class="img-container">
-          <div class="row">
-            <div class="col-12 col-lg-6">
-              <img :src="apartment.full_path_main_img" alt="Img" class="img-fluid" />
-            </div>
-
-            <div class="col-6 d-none d-lg-block">
-              <div class="row g-2 align-items-center">
-                <div class="col-6">
-                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid" />
-                </div>
-                <div class="col-6">
-                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 img-fluid" />
-                </div>
-                <div class="col-6">
-                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid" />
-                </div>
-                <div class="col-6">
-                  <img :src="apartment.full_path_main_img" alt="Img" class="w-100 mb-3 img-fluid" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
     </div>
 
     <div class="row pt-5">
@@ -356,10 +305,15 @@ export default {
         <!-- Servizi inclusi -->
         <div class="col">
           <h5 class="my-3">Cosa troverai</h5>
-          <ul v-if="apartment.services.length > 0">
+          <ul v-if="servicesArray.length > 0">
             <!-- STAMPARE QUI SERVIZI CON RELATIVE ICONE -->
-            <li v-for="service in apartment.services">
-              <font-awesome-icon :icon="service.icon" /> {{ service.name }}
+            <li class="services-complete" v-for="service in servicesArray">
+              <span>
+                <font-awesome-icon :icon="service.icon" />
+              </span>
+              <span>
+                {{ service.name }}
+              </span>
             </li>
           </ul>
         </div>
@@ -424,9 +378,9 @@ export default {
     <div class="row">
       <div class="col mb-3">
         <hr />
-        <h5 class="my-3">Dove ti troverai</h5>
+        <h5 id="dovetitroverai" class="my-3">Dove ti troverai</h5>
         <!-- !! MAPPA !! -->
-        <div>
+        <div v-if="apartment.latitude != null && apartment.longitude!= null">
           <Map :apiKey="store.apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
         </div>
         <div class="mt-2">
@@ -525,23 +479,18 @@ textarea:focus {
   border-color: $color_primary;
 }
 
-.b-all {
-  border-radius: 1em;
-}
 
-.b-sx {
-  border-radius: 1em 0 0 1em;
-}
 
-.b-dx {
-  border-radius: 0 1em 1em 0;
-}
-
-.b-dxt {
-  border-radius: 0 1em 0 0;
-}
-
-.b-dxb {
-  border-radius: 0 0 1em 0;
+.services-complete{
+    padding: .5em;
+  
+  span:first-child{
+    margin-left: .5em;
+    color: $color_primary;
+  }
+  span:last-child{
+    margin-left: .5em;
+    color: $color_gray;
+  }
 }
 </style>
