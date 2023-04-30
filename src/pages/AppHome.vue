@@ -117,7 +117,7 @@ export default {
             Viaggia in tutta tranquillità prenotando su BoolBNB
           </h2>
         </div>
-        <div class="row g-4">
+        <div class="row g-4 my-margin">
 
           <div class="col-12 col-lg-4 mb-3">
             <h1>
@@ -232,6 +232,10 @@ export default {
     object-fit: cover;
   }
 
+}
+
+.my-margin{
+  margin: 0 0;
 }
 
 @media screen and (min-width: 320px) {}
