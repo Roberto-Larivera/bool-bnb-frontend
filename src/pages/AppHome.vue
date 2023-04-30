@@ -73,15 +73,14 @@ export default {
     <div class="container">
       <div class="row">
 
-
+        <!-- Jumbotron con sezione di ricerca appartamenti -->
         <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
           <form submit.prevent >
+
             <div class=" my-research p-4 p-md-5 shadow-lg">
-  
               <h3>
                 Trova alloggi su BoolBNB
               </h3>
-  
               <p class="text-gray">
                 Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
               </p>
@@ -92,22 +91,24 @@ export default {
                   placeholder="Inserisci una destinazione" autocomplete="off">
                   <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
               </div>
+
               <router-link :to="{ name: 'apartments-index' }" class="btn">
                 Cerca
               </router-link>
+
             </div>
           </form>
+
           <div class="image-container d-none d-lg-block ">
-            <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="">
+            <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Homepage image">
           </div>
 
         </div>
-
       </div>
     </div>
   </section>
 
+  <!-- Sezione intermedia -->
   <section class="mb-5 text-center min-vh-100 d-flex align-items-center">
     <div class="container">
       <div class="row">
@@ -117,6 +118,7 @@ export default {
           </h2>
         </div>
         <div class="row g-4">
+
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'shield']" />
@@ -128,6 +130,7 @@ export default {
               La copertura più completa per i tuoi viaggi. Sempre inclusa e gratuita.
             </p>
           </div>
+
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'calendar']" />
@@ -139,6 +142,7 @@ export default {
               Grazie alle opzioni di cancellazione, è più semplice riprenotare se i programmi cambiano
             </p>
           </div>
+
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'headset']" />
@@ -150,13 +154,16 @@ export default {
               Contatta il nostro team di assistenza ovunque ti trovi e a qualsiasi ora
             </p>
           </div>
+          
         </div>
       </div>
     </div>
-
   </section>
+
+  <!-- Sezione con appartamenti sponsorizzati -->
   <section class="pb-5">
     <div class="container">
+
       <div class="row">
         <div class="col-12">
           <h2 class="mb-5">
@@ -164,6 +171,7 @@ export default {
           </h2>
         </div>
       </div>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-4 g-4">
         <AppCard :apartment="apartment" v-for="apartment in apartments" />
       </div>
@@ -176,11 +184,10 @@ export default {
         </div>
       </div>
 
-
-
     </div>
   </section>
 </template>
+
 
 <style lang="scss" scoped>
 
@@ -188,7 +195,6 @@ export default {
   background-color: $color_primary;
   color: $color_light;
 }
-
 
 .my-text-primary {
   color: $color_primary;
@@ -266,4 +272,5 @@ export default {
 }
 
 @media screen and (min-width: 1400px) {}
+
 </style>
