@@ -38,14 +38,12 @@ export default {
         }
       })
         .then(response => {
-          console.log(response.data);
           this.autocomplete = response.data.results
         });
     },
     getApiHome() {
       axios.get(`${this.store.pathServerHome}home`)
         .then(response => {
-          console.log(response);
           this.apartments = response.data.apartments;
         }
       );
@@ -60,21 +58,8 @@ export default {
       }
     },
     sendAddress(){
-      // axios.get('http://127.0.0.1:8000/api/apartments/',{
-      //   params:{
-      //     'address' : this.query,
-      //   }
-      // })
-      //   .then(response => {
-      //     console.log(response);
-      //     this.$router.push({name:'apartments-index'})
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
       this.store.lat = this.autocomplete[0].position.lat;
       this.store.lon = this.autocomplete[0].position.lon;
-      // this.$router.push({name:'apartments-index', query: {address:this.query, lat: this.lat, lon: this.lon}})
     }
   },
   created(){
@@ -107,29 +92,6 @@ export default {
                   placeholder="Inserisci una destinazione" autocomplete="off">
                   <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
               </div>
-
-              <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">
-                <div class="data mt-2 me-sm-2" style="width: 100%;">
-                  <label for="exampleFormControlInput1" class="check-in">Check-in</label>
-                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-                <div class="data mt-2" style="width: 100%;">
-                  <label for="exampleFormControlInput1" class="check-out">Check-out</label>
-                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-              </div>
-  
-              <div class="mb-3">
-                <div>
-                  <label for="exampleFormControlInput1" class="check-in">Ospiti</label>
-                  <select class="form-select" id="exampleFormControlInput1" placeholder="">
-                    <option selected>1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="3">4</option>
-                  </select>
-                </div>
-              </div> -->
               <router-link :to="{ name: 'apartments-index' }" class="btn">
                 Cerca
               </router-link>
@@ -221,19 +183,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
-// .my-research {
-//     .radius {
-//         &:focus {
-//             border-radius: 5px 5px 0 0;
-//             box-shadow: none;
-//             border: 2px solid $color_primary;
-//         }
-//     }
-// }
-.data {
-  width: 49%;
-}
 
 .btn-color {
   background-color: $color_primary;
