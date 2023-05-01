@@ -30,7 +30,7 @@ export default {
   <div>
     <ul v-if="itemsComplete.length > 1">
         <!-- al click figlio  -->
-      <li class="p-3 cursor" v-for="search, index in itemsComplete" @click="giveAddress(search.address.freeformAddress,search.position.lat,search.position.lon)">
+      <li class="p-3 cursor hover" v-for="search, index in itemsComplete" @click="giveAddress(search.address.freeformAddress,search.position.lat,search.position.lon)">
         {{ search.address.freeformAddress }}
       </li>
     </ul>
@@ -42,14 +42,19 @@ export default {
 
 <style lang="scss" scoped>
 .radius {
-    border-radius: 0 0 5px 5px;
-    border: 2px solid $color_primary;
-    border-top: 0;
+  border-radius: 0 0 5px 5px;
+  border: 2px solid $color_primary;
+  border-top: 0;
 
 
-    .cursor {
-      cursor: pointer;
-    }
+  .cursor {
+    cursor: pointer;
+  }
+
+  .hover:hover{
+    background-color: rgb(255, 56, 92, 0.25);
+  }
+
 }
 
 </style>
