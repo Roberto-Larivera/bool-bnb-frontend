@@ -87,7 +87,7 @@ export default {
 
               <div class="mb-3 position-relative" @click.stop> 
                 <label for="exampleFormControlInput1" class="form-label">Dove</label>
-                <input type="text" class="form-control radius" v-model="store.address" name="address" @click="store.addressListVisible = true" @input="controlModal()" id="exampleFormControlInput1"
+                <input type="search" class="form-control radius" v-model="store.address" name="address" @click="store.addressListVisible = true" @input="controlModal()" id="exampleFormControlInput1"
                   placeholder="Inserisci una destinazione" autocomplete="off">
                   <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
               </div>
@@ -99,14 +99,14 @@ export default {
             </div>
           </form>
 
-          <div class="image-container d-none d-lg-block ">
+          <div class="image-container d-none d-lg-block">
             <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Homepage image">
           </div>
 
         </div>
 
         <div class="d-flex justify-content-center mt-5">
-          <a href="#second-section" class="my-link">
+          <a href="#second-section" class="my-link d-none d-lg-block">
             <font-awesome-icon :icon="['fas', 'chevron-down']" />
           </a>
         </div>
@@ -167,7 +167,7 @@ export default {
       </div>
 
       <div class="d-flex justify-content-center mt-5">
-          <a href="#last-section" class="my-link">
+          <a href="#last-section" class="my-link d-none d-lg-block">
             <font-awesome-icon :icon="['fas', 'chevron-down']" />
           </a>
       </div>
@@ -235,6 +235,18 @@ export default {
     width: 100%;
     background-color: $color_primary;
     color: $color_light;
+  }
+
+  .form-control::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  background-color: rgba(255, 56, 92, 0.25);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0000'%3E%3Cpath d='M19.713 18.287L12.425 11l7.288-7.287a1 1 0 00-1.414-1.414L11.01 9.586 3.723 2.299a1 1 0 00-1.414 1.414L9.586 11l-7.277 7.287a1 1 0 001.414 1.414l7.287-7.277 7.277 7.287a.996.996 0 001.414 0 .999.999 0 000-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+  border-radius: 50px;
   }
 
 }
