@@ -68,7 +68,7 @@ export default {
                     <font-awesome-icon :icon="['fas', 'user']" />
                   </span>
                   <span class="d-none d-sm-inline-block">
-                    Accedi
+                    {{ store.user_name }}
                   </span>
                 </a>
               </li>
