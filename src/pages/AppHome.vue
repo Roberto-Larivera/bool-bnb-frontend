@@ -74,7 +74,7 @@ export default {
       <div class="row">
 
         <!-- Jumbotron con sezione di ricerca appartamenti -->
-        <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
+        <div id="first-section" class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
           <form submit.prevent >
 
             <div class=" my-research p-4 p-md-5 shadow-lg">
@@ -104,12 +104,19 @@ export default {
           </div>
 
         </div>
+
+        <div class="d-flex justify-content-center mt-5">
+          <a href="#second-section" class="my-link">
+            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- Sezione intermedia -->
-  <section class="mb-5 text-center min-vh-100 d-flex align-items-center">
+  <section id="second-section" class="mb-5 text-center min-vh-100 d-flex align-items-center">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -156,12 +163,20 @@ export default {
           </div>
           
         </div>
+
       </div>
+
+      <div class="d-flex justify-content-center mt-5">
+          <a href="#last-section" class="my-link">
+            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+          </a>
+      </div>
+
     </div>
   </section>
 
   <!-- Sezione con appartamenti sponsorizzati -->
-  <section class="pb-5">
+  <section id="last-section" class="pb-5">
     <div class="container">
 
       <div class="row">
@@ -236,6 +251,10 @@ export default {
 
 .my-margin{
   margin: 0 0;
+}
+
+.my-link{
+  color: $color_primary;
 }
 
 @media screen and (min-width: 320px) {}
