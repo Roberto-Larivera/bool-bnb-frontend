@@ -59,6 +59,9 @@ export default {
         this.removeSession("email");
       }
     },
+    hideAddressList() {
+        this.store.addressListVisible = false;
+    },
     getUser() {//Funzione se user ha loggato recupero i dati tramite userid
       axios
         .get(`${this.store.pathServerHome}login`, {
@@ -83,8 +86,8 @@ export default {
 </script>
 
 <template>
-  <div>
-    <header :class="{ shadow: scrolled }">
+  <div @click="hideAddressList()">
+    <header :class="{ 'shadow': scrolled }">
       <AppHeader />
     </header>
     <main>

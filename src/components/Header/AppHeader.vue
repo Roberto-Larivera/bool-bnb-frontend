@@ -86,7 +86,10 @@ export default {
 a.logo_site {
   @include logo_page;
 }
-
+nav{
+  background-color: transparent;
+  border: none;
+}
 .link-header {
   a {
     span:first-child {

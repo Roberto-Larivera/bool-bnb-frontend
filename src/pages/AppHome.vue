@@ -17,6 +17,8 @@ export default {
       activeAuto: false,
       store,
       apartments: null,
+      lat: '',
+      lon: ''
     };
   },
   components: { 
@@ -25,56 +27,39 @@ export default {
    },
   methods: {
     getApiProjects() {
-      axios.get(`https://api.tomtom.com/search/2/search/${this.query}.json`, {
+      axios.get(`https://api.tomtom.com/search/2/search/${this.store.address}.json`, {
         params: {
           'key': 'zYPEasZvEN9Do06ieftila5uHNmiGZtG',
           'countrySet' : 'IT',
           'lat' : '45.4642',
           'lon' : '9.1900',
-          'radius' : '10000',
+          'radius' : '20000',
           'limit' : '5',
         }
       })
         .then(response => {
-          console.log(response.data);
           this.autocomplete = response.data.results
         });
     },
     getApiHome() {
       axios.get(`${this.store.pathServerHome}home`)
         .then(response => {
-          console.log(response);
           this.apartments = response.data.apartments;
         }
       );
     },
     controlModal(){
-      if (this.query.length == 0 )
+      if (this.store.address.length == 0 )
       this.activeAuto = false
       else{
-        if(this.query.length > 2)
+        if(this.store.address.length > 2)
           this.getApiProjects()
         this.activeAuto = true
       }
     },
-    takeAddress(address) {
-        this.activeAuto = false;
-        return this.query = address;
-    },
     sendAddress(){
-      // axios.get('http://127.0.0.1:8000/api/apartments/',{
-      //   params:{
-      //     'address' : this.query,
-      //   }
-      // })
-      //   .then(response => {
-      //     console.log(response);
-      //     this.$router.push({name:'apartments-index'})
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-      this.$router.push({name:'apartments-index', query: {address:this.query}})
+      this.store.lat = this.autocomplete[0].position.lat;
+      this.store.lon = this.autocomplete[0].position.lon;
     }
   },
   created(){
@@ -88,66 +73,50 @@ export default {
     <div class="container">
       <div class="row">
 
+        <!-- Jumbotron con sezione di ricerca appartamenti -->
+        <div id="first-section" class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
+          <form submit.prevent >
 
-        <div class="jumbo position-relative col-12 col-lg-8 offset-lg-4 col-xl-8 offset-xl-3 mb-3 mt-3">
-          <form @submit.prevent="sendAddress" >
             <div class=" my-research p-4 p-md-5 shadow-lg">
-  
               <h3>
                 Trova alloggi su BoolBNB
               </h3>
-  
               <p class="text-gray">
                 Scopri alloggi interi e stanze ideali per ogni tipo di viaggio
               </p>
 
-              <div class="mb-3 position-relative">
+              <div class="mb-3 position-relative" @click.stop> 
                 <label for="exampleFormControlInput1" class="form-label">Dove</label>
-                <input type="text" class="form-control radius" v-model="query" name="address" @input="controlModal()" id="exampleFormControlInput1"
+                <input type="search" class="form-control radius" v-model="store.address" name="address" @click="store.addressListVisible = true" @input="controlModal()" id="exampleFormControlInput1"
                   placeholder="Inserisci una destinazione" autocomplete="off">
-                  <ListAutoComplete class="position-absolute" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" @takeAddress="takeAddress"/>
+                  <ListAutoComplete v-if="store.addressListVisible" class="position-absolute card radius" style="width: 100%;" :class="activeAuto? 'd-block':'d-none'" :itemsComplete="autocomplete" />
               </div>
 
-              <!-- <div class="mb-3 d-sm-flex justify-content-sm-between">
-                <div class="data mt-2 me-sm-2" style="width: 100%;">
-                  <label for="exampleFormControlInput1" class="check-in">Check-in</label>
-                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-                <div class="data mt-2" style="width: 100%;">
-                  <label for="exampleFormControlInput1" class="check-out">Check-out</label>
-                  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-              </div>
-  
-              <div class="mb-3">
-                <div>
-                  <label for="exampleFormControlInput1" class="check-in">Ospiti</label>
-                  <select class="form-select" id="exampleFormControlInput1" placeholder="">
-                    <option selected>1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="3">4</option>
-                  </select>
-                </div>
-              </div> -->
-
-              <button type="submit" class="btn">
+              <router-link :to="{ name: 'apartments-index' }" class="btn">
                 Cerca
-              </button>
+              </router-link>
+
             </div>
           </form>
-          <div class="image-container d-none d-lg-block ">
-            <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="">
+
+          <div class="image-container d-none d-lg-block">
+            <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Homepage image">
           </div>
 
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+          <a href="#second-section" class="my-link d-none d-lg-block">
+            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+          </a>
         </div>
 
       </div>
     </div>
   </section>
 
-  <section class="mb-5 text-center min-vh-100 d-flex align-items-center">
+  <!-- Sezione intermedia -->
+  <section id="second-section" class="mb-5 text-center min-vh-100 d-flex align-items-center">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -155,7 +124,8 @@ export default {
             Viaggia in tutta tranquillità prenotando su BoolBNB
           </h2>
         </div>
-        <div class="row g-4">
+        <div class="row g-4 my-margin">
+
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'shield']" />
@@ -167,6 +137,7 @@ export default {
               La copertura più completa per i tuoi viaggi. Sempre inclusa e gratuita.
             </p>
           </div>
+
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'calendar']" />
@@ -178,6 +149,7 @@ export default {
               Grazie alle opzioni di cancellazione, è più semplice riprenotare se i programmi cambiano
             </p>
           </div>
+
           <div class="col-12 col-lg-4 mb-3">
             <h1>
               <font-awesome-icon class="my-text-primary" :icon="['fas', 'headset']" />
@@ -189,13 +161,24 @@ export default {
               Contatta il nostro team di assistenza ovunque ti trovi e a qualsiasi ora
             </p>
           </div>
+          
         </div>
-      </div>
-    </div>
 
+      </div>
+
+      <div class="d-flex justify-content-center mt-5">
+          <a href="#last-section" class="my-link d-none d-lg-block">
+            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+          </a>
+      </div>
+
+    </div>
   </section>
-  <section class="pb-5">
+
+  <!-- Sezione con appartamenti sponsorizzati -->
+  <section id="last-section" class="pb-5">
     <div class="container">
+
       <div class="row">
         <div class="col-12">
           <h2 class="mb-5">
@@ -203,6 +186,7 @@ export default {
           </h2>
         </div>
       </div>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-4 g-4">
         <AppCard :apartment="apartment" v-for="apartment in apartments" />
       </div>
@@ -215,32 +199,17 @@ export default {
         </div>
       </div>
 
-
-
     </div>
   </section>
 </template>
 
-<style lang="scss" scoped>
 
-// .my-research {
-//     .radius {
-//         &:focus {
-//             border-radius: 5px 5px 0 0;
-//             box-shadow: none;
-//             border: 2px solid $color_primary;
-//         }
-//     }
-// }
-.data {
-  width: 49%;
-}
+<style lang="scss" scoped>
 
 .btn-color {
   background-color: $color_primary;
   color: $color_light;
 }
-
 
 .my-text-primary {
   color: $color_primary;
@@ -268,6 +237,18 @@ export default {
     color: $color_light;
   }
 
+  .form-control::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  background-color: rgba(255, 56, 92, 0.25);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0000'%3E%3Cpath d='M19.713 18.287L12.425 11l7.288-7.287a1 1 0 00-1.414-1.414L11.01 9.586 3.723 2.299a1 1 0 00-1.414 1.414L9.586 11l-7.277 7.287a1 1 0 001.414 1.414l7.287-7.277 7.277 7.287a.996.996 0 001.414 0 .999.999 0 000-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+  border-radius: 50px;
+  }
+
 }
 
 .image-container {
@@ -278,6 +259,14 @@ export default {
     object-fit: cover;
   }
 
+}
+
+.my-margin{
+  margin: 0 0;
+}
+
+.my-link{
+  color: $color_primary;
 }
 
 @media screen and (min-width: 320px) {}
@@ -318,4 +307,5 @@ export default {
 }
 
 @media screen and (min-width: 1400px) {}
+
 </style>
