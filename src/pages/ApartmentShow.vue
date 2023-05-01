@@ -20,7 +20,11 @@ export default {
       imageGallery: [],
       servicesArray: [],
       store,
-      formData: {},
+      formData: {
+        'sender_name' : store.user_name != 'Accedi' ? store.user_name:'',
+        'sender_surname' : store.user_surname != '' ? store.user_surname:'',
+        'sender_email' : store.user_email != '' ? store.user_email:'',
+      },
       isSent: false,
       loading: true
     };
@@ -337,7 +341,7 @@ export default {
                   <label for="name">Nome</label>
                   <br />
                   <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name"
-                    required />
+                    required/>
                 </div>
                 <div class="mb-3">
                   <label for="surname">Cognome</label>
