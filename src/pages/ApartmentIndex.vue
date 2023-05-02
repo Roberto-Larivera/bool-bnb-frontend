@@ -408,7 +408,7 @@ export default {
                                     <div class="form-container-small">
                                         <!-- raggio 20 km -->
                                         <template v-if="filteredApartments.length > 0 && this.store.filteredMap == true && this.store.address.length > 0">
-                                            <div class="mb-3 w-75">
+                                            <div class="mb-3 w-75 mx-auto">
                                                 <label for="km" class="form-label" style="display: block;">
                                                     Distanza / km
                                                 </label>
