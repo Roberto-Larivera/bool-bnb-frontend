@@ -107,7 +107,7 @@ export default {
 
         <div class="d-flex justify-content-center mt-5">
           <a href="#second-section" class="my-link d-none d-lg-block">
-            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+            <font-awesome-icon :icon="['fas', 'chevron-down']" bounce />
           </a>
         </div>
 
@@ -168,7 +168,7 @@ export default {
 
       <div class="d-flex justify-content-center mt-5">
           <a href="#last-section" class="my-link d-none d-lg-block">
-            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+            <font-awesome-icon :icon="['fas', 'chevron-down']" bounce />
           </a>
       </div>
 
