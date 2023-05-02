@@ -480,7 +480,7 @@ export default {
                                                         &euro;
                                                     </span>
                                                     <input type="number" class="my-form-control rounded-end"
-                                                        aria-label="Amount (to the nearest dollar)" v-model="priceValue">
+                                                        aria-label="Amount (to the nearest dollar)" step="0.01" min="0.01" max="9999.99" v-model="priceValue">
                                                 </div>
                                             </div>
                                         </div>
