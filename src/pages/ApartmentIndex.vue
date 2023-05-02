@@ -187,7 +187,7 @@ export default {
 
         },
         startMap() {
-            setTimeout(() => this.$refs.MapIndex.getMapIndex(), 1000);
+            setTimeout(() => this.$refs.MapIndex.getMapIndex(), 5000);
         },
         cancelAddress() {
             if (this.store.address.length > 0) {
