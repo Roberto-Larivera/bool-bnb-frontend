@@ -21,9 +21,9 @@ export default {
       servicesArray: [],
       store,
       formData: {
-        'sender_name' : store.user_name != 'Accedi' ? store.user_name:'',
-        'sender_surname' : store.user_surname != '' ? store.user_surname:'',
-        'sender_email' : store.user_email != '' ? store.user_email:'',
+        'sender_name': store.user_name != 'Accedi' ? store.user_name : '',
+        'sender_surname': store.user_surname != '' ? store.user_surname : '',
+        'sender_email': store.user_email != '' ? store.user_email : '',
       },
       isSent: false,
       loading: true
@@ -67,27 +67,30 @@ export default {
     this.getApiShow();
   },
   mounted() {
-    axios
-      .get("https://api.ipify.org?format=json")
-      .then((response) => {
-        const ipAddress = response.data.ip;
-        axios
-          .post("http://127.0.0.1:8000/api/view/store", {
-            apartment_id: this.apartment.id,
-            ip_address: ipAddress,
-          })
-          .then((response) => {
-            if (response.data.success) {
-              console.log("La view è stata registrata veramente");
-            } else {
-              console.log("Errore: " + response.data.message);
-            }
-          })
-          .catch((error) => {
-          });
-      })
-      .catch((error) => {
-      });
+    setTimeout(() => {
+      axios
+        .get("https://api.ipify.org?format=json")
+        .then((response) => {
+          const ipAddress = response.data.ip;
+          axios
+            .post("http://127.0.0.1:8000/api/view/store", {
+              apartment_id: this.apartment.id,
+              ip_address: ipAddress,
+            })
+            .then((response) => {
+              if (response.data.success) {
+                console.log("La view è stata registrata veramente");
+              } else {
+                console.log("Errore: " + response.data.message);
+              }
+            })
+            .catch((error) => {
+            });
+        })
+        .catch((error) => {
+        });
+    }, 2000);
+
   },
 };
 </script>
@@ -129,7 +132,7 @@ export default {
           <!-- Gallery phone -->
           <div class="row">
             <div class="col">
-              <AppSwiperShow :imgDefault="apartment.full_path_main_img" :images="imageGallery" class="d-lg-none"/>
+              <AppSwiperShow :imgDefault="apartment.full_path_main_img" :images="imageGallery" class="d-lg-none" />
             </div>
           </div>
 
@@ -142,10 +145,10 @@ export default {
             }">
               <img :src="apartment.full_path_main_img" class="img-fluid" :class="{
 
-                  'b-all': imageGallery.length == 0,
-                  'b-sx': imageGallery.length >= 1,
+                'b-all': imageGallery.length == 0,
+                'b-sx': imageGallery.length >= 1,
 
-                }">
+              }">
             </div>
 
 
@@ -158,56 +161,56 @@ export default {
 
                 <div :class="{
 
-                    'col-12': imageGallery.length == 1,
-                    'col-6': imageGallery.length == 2,
-                    'col-6 ': imageGallery.length >= 3,
+                  'col-12': imageGallery.length == 1,
+                  'col-6': imageGallery.length == 2,
+                  'col-6 ': imageGallery.length >= 3,
 
-                  }" v-if="imageGallery.length >= 1">
+                }" v-if="imageGallery.length >= 1">
                   <img :src="imageGallery[0].full_path_image_gallery" class="img-fluid" :class="{
 
-                      'b-dx': imageGallery.length == 1
+                    'b-dx': imageGallery.length == 1
 
-                    }">
+                  }">
                 </div>
 
 
 
                 <div :class="{
 
-                    'col-6': imageGallery.length >= 2,
-                    // 'col-6': imageGallery.length >= 3,
+                  'col-6': imageGallery.length >= 2,
+                  // 'col-6': imageGallery.length >= 3,
 
-                  }" v-if="imageGallery.length >= 2">
+                }" v-if="imageGallery.length >= 2">
                   <img :src="imageGallery[1].full_path_image_gallery" class="img-fluid" :class="{
 
-                      'b-dx': imageGallery.length == 2,
-                      'b-dxt': imageGallery.length >= 3,
+                    'b-dx': imageGallery.length == 2,
+                    'b-dxt': imageGallery.length >= 3,
 
-                    }">
+                  }">
                 </div>
 
 
 
                 <div :class="{
 
-                    'col-12 ': imageGallery.length == 3,
-                    'col-6 ': imageGallery.length == 4,
+                  'col-12 ': imageGallery.length == 3,
+                  'col-6 ': imageGallery.length == 4,
 
-                  }" v-if="imageGallery.length >= 3">
+                }" v-if="imageGallery.length >= 3">
                   <img :src="imageGallery[2].full_path_image_gallery" class="img-fluid" :class="{
 
-                      'b-dxb': imageGallery.length == 3,
-                      
+                    'b-dxb': imageGallery.length == 3,
 
-                    }">
+
+                  }">
                 </div>
 
                 <div class="col-6" v-if="imageGallery.length == 4">
                   <img :src="imageGallery[3].full_path_image_gallery" class="img-fluid" :class="{
 
-                      'b-dxb': imageGallery.length == 4,
+                    'b-dxb': imageGallery.length == 4,
 
-                    }">
+                  }">
                 </div>
 
 
@@ -336,36 +339,37 @@ export default {
                   Vuoi saperne di più ?
                 </h5>
               </div>
-              
-                <div class="mb-3">
-                  <label for="name">Nome</label>
-                  <br />
-                  <input type="text" id="name" class="form-control outline-primary" minlength="3" maxlength="50" v-model="formData.sender_name"
-                    required/>
-                </div>
-                <div class="mb-3">
-                  <label for="surname">Cognome</label>
-                  <br />
-                  <input type="text" id="surname" class="form-control outline-primary" minlength="3" maxlength="50" v-model="formData.sender_surname"
-                    required />
-                </div>
-              
+
+              <div class="mb-3">
+                <label for="name">Nome</label>
+                <br />
+                <input type="text" id="name" class="form-control outline-primary" minlength="3" maxlength="50"
+                  v-model="formData.sender_name" required />
+              </div>
+              <div class="mb-3">
+                <label for="surname">Cognome</label>
+                <br />
+                <input type="text" id="surname" class="form-control outline-primary" minlength="3" maxlength="50"
+                  v-model="formData.sender_surname" required />
+              </div>
+
               <div class="mb-3">
                 <label for="email">Email</label>
                 <br />
-                <input type="email" id="email" class="form-control outline-primary" minlength="5" maxlength="255" v-model="formData.sender_email"
-                  required />
+                <input type="email" id="email" class="form-control outline-primary" minlength="5" maxlength="255"
+                  v-model="formData.sender_email" required />
               </div>
               <div class="mb-3">
                 <label for="subject">Oggetto</label>
                 <br />
-                <input type="text" id="subject" class="form-control outline-primary" minlength="3" maxlength="70" v-model="formData.object" required />
+                <input type="text" id="subject" class="form-control outline-primary" minlength="3" maxlength="70"
+                  v-model="formData.object" required />
               </div>
               <div class="mb-3">
                 <label for="message">Messaggio</label>
                 <br />
-                <textarea id="message" class="form-control outline-primary" minlength="4" maxlength="4096" v-model="formData.sender_text"
-                  required></textarea>
+                <textarea id="message" class="form-control outline-primary" minlength="4" maxlength="4096"
+                  v-model="formData.sender_text" required></textarea>
               </div>
             </div>
             <div class="modal-footer">
@@ -384,7 +388,7 @@ export default {
         <hr />
         <h5 id="dovetitroverai" class="my-3">Dove ti troverai</h5>
         <!-- !! MAPPA !! -->
-        <div v-if="apartment.latitude != null && apartment.longitude!= null">
+        <div v-if="apartment.latitude != null && apartment.longitude != null">
           <Map :apiKey="store.apiKey" :lat="apartment.latitude" :long="apartment.longitude"></Map>
         </div>
         <div class="mt-2">
@@ -399,9 +403,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-h5.color-primary{
-  color:  $color_primary;
+h5.color-primary {
+  color: $color_primary;
 }
+
 .message {
   position: fixed;
   top: 10%;
@@ -485,16 +490,16 @@ textarea:focus {
 
 
 
-.services-complete{
-    padding: .5em;
-  
-  span:first-child{
+.services-complete {
+  padding: .5em;
+
+  span:first-child {
     margin-left: .5em;
     color: $color_primary;
   }
-  span:last-child{
+
+  span:last-child {
     margin-left: .5em;
     color: $color_gray;
   }
-}
-</style>
+}</style>
