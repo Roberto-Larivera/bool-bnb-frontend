@@ -20,7 +20,11 @@ export default {
       imageGallery: [],
       servicesArray: [],
       store,
-      formData: {},
+      formData: {
+        'sender_name' : store.user_name != 'Accedi' ? store.user_name:'',
+        'sender_surname' : store.user_surname != '' ? store.user_surname:'',
+        'sender_email' : store.user_email != '' ? store.user_email:'',
+      },
       isSent: false,
       loading: true
     };
@@ -336,31 +340,31 @@ export default {
                 <div class="mb-3">
                   <label for="name">Nome</label>
                   <br />
-                  <input type="text" id="name" class="form-control outline-primary" v-model="formData.sender_name"
-                    required />
+                  <input type="text" id="name" class="form-control outline-primary" minlength="3" maxlength="50" v-model="formData.sender_name"
+                    required/>
                 </div>
                 <div class="mb-3">
                   <label for="surname">Cognome</label>
                   <br />
-                  <input type="text" id="surname" class="form-control outline-primary" v-model="formData.sender_surname"
+                  <input type="text" id="surname" class="form-control outline-primary" minlength="3" maxlength="50" v-model="formData.sender_surname"
                     required />
                 </div>
               
               <div class="mb-3">
                 <label for="email">Email</label>
                 <br />
-                <input type="email" id="email" class="form-control outline-primary" v-model="formData.sender_email"
+                <input type="email" id="email" class="form-control outline-primary" minlength="5" maxlength="255" v-model="formData.sender_email"
                   required />
               </div>
               <div class="mb-3">
                 <label for="subject">Oggetto</label>
                 <br />
-                <input type="text" id="subject" class="form-control outline-primary" v-model="formData.object" required />
+                <input type="text" id="subject" class="form-control outline-primary" minlength="3" maxlength="70" v-model="formData.object" required />
               </div>
               <div class="mb-3">
                 <label for="message">Messaggio</label>
                 <br />
-                <textarea id="message" class="form-control outline-primary" v-model="formData.sender_text"
+                <textarea id="message" class="form-control outline-primary" minlength="4" maxlength="4096" v-model="formData.sender_text"
                   required></textarea>
               </div>
             </div>

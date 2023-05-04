@@ -65,6 +65,7 @@ import { faBacon } from "@fortawesome/free-solid-svg-icons";
 import { faVest } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(faChevronLeft)
@@ -107,6 +108,7 @@ library.add(faWheelchair)
 library.add(faVest)
 library.add(faCheckCircle)
 library.add(faTimes)
+library.add(faChevronDown)
 
 
 
@@ -120,4 +122,3 @@ library.add(faLocationDot, faHeartCirclePlus, faKey, faWifi, faParking, faUtensi
 
 
 createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
-

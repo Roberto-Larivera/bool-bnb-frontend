@@ -88,7 +88,6 @@ export default {
 
                     if (response.data.success == true) {
                         this.apartments = response.data.apartments.data;
-                        console.log(this.apartments);
                         this.messageChecked = false;
                         //  pagination
                         this.numPages = response.data.apartments.last_page;
@@ -139,7 +138,6 @@ export default {
             return this.store.address = address;
         },
         goPrev() {
-            console.log('ok');
             if (this.currentPage > 1) {
 
                 this.currentPage--;
@@ -189,7 +187,7 @@ export default {
 
         },
         startMap() {
-            setTimeout(() => this.$refs.MapIndex.getMapIndex(), 1000);
+            setTimeout(() => this.$refs.MapIndex.getMapIndex(), 5000);
         },
         cancelAddress() {
             if (this.store.address.length > 0) {
@@ -410,7 +408,7 @@ export default {
                                     <div class="form-container-small">
                                         <!-- raggio 20 km -->
                                         <template v-if="filteredApartments.length > 0 && this.store.filteredMap == true && this.store.address.length > 0">
-                                            <div class="mb-3 w-75">
+                                            <div class="mb-3 w-75 mx-auto">
                                                 <label for="km" class="form-label" style="display: block;">
                                                     Distanza / km
                                                 </label>
@@ -482,7 +480,7 @@ export default {
                                                         &euro;
                                                     </span>
                                                     <input type="number" class="my-form-control rounded-end"
-                                                        aria-label="Amount (to the nearest dollar)" v-model="priceValue">
+                                                        aria-label="Amount (to the nearest dollar)" step="0.01" min="0.01" max="9999.99" v-model="priceValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -653,7 +651,17 @@ export default {
 
 <style lang="scss" scoped>
 
-
+input#place::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  background-color: rgba(255, 56, 92, 0.25);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0000'%3E%3Cpath d='M19.713 18.287L12.425 11l7.288-7.287a1 1 0 00-1.414-1.414L11.01 9.586 3.723 2.299a1 1 0 00-1.414 1.414L9.586 11l-7.277 7.287a1 1 0 001.414 1.414l7.287-7.277 7.277 7.287a.996.996 0 001.414 0 .999.999 0 000-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+  border-radius: 50px;
+  }
 .range-wrap {
     position: relative;
 

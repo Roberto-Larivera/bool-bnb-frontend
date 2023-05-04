@@ -13,5 +13,8 @@ export const store = reactive({
     address: '',
     range: 20,
     apiKey: 'CBlWoj5lPfzTxbpwHbHcPvuhg8ukNzCs',
-    filteredMap: false
+    filteredMap: false,
+    user_name: 'Accedi',
+    user_surname: '',
+    user_email: '',
 });

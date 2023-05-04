@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // Components
 import NotFound from './pages/NotFound.vue';
 import AppHome from './pages/AppHome.vue';
+import LoginData from './pages/LoginData.vue';
 import ApartmentIndex from './pages/ApartmentIndex.vue';
 import ApartmentShow from './pages/ApartmentShow.vue';
 
@@ -13,6 +14,11 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: AppHome
+        },
+        {
+            path: '/login-data',
+            name: 'login-data',
+            component: LoginData
         },
         {
             path: '/apartments',
