@@ -76,4 +76,3 @@ My team and I developed a responsive single page app with the aim to manage and 
  
  
 </td></tr></table> 
-
